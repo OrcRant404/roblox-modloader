@@ -8,17 +8,70 @@ using Xunit;
 namespace RML.Core.Tests;
 
 [Mod("rml.tests.concurrency-fake-mod", "1.0")]
-public sealed class ConcurrencyFakeMod : IMod
+public sealed class ConcurrencyFakeMod : IMod, IDataModelAware
 {
-    public int OnLoad() => 0;
+    private static string? LifecycleLog => Environment.GetEnvironmentVariable("RML_TEST_LIFECYCLE_LOG");
+
+    public int OnLoad()
+    {
+        AppendLifecycle("load");
+        return 0;
+    }
 
     public void OnUnload()
     {
+        AppendLifecycle("unload");
+    }
+
+    public void OnDataModelLoaded(DataModel game, DataModelType dataModelType)
+    {
+        AppendLifecycle("data-model-loaded");
+    }
+
+    public void OnDataModelUnloaded(DataModel game, DataModelType dataModelType)
+    {
+        AppendLifecycle("data-model-unloaded");
+    }
+
+    private static void AppendLifecycle(string entry)
+    {
+        var path = LifecycleLog;
+        if (path != null)
+            System.IO.File.AppendAllLines(path, [entry]);
     }
 }
 
 public class ModLoaderConcurrencyTests
 {
+    [Fact]
+    public void Replacing_DataModel_Unloads_Old_Model_Before_Loading_New_Model()
+    {
+        var sourcePath = typeof(ConcurrencyFakeMod).Assembly.Location;
+        var tempDir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "rml_modloader_replacement_" + Guid.NewGuid());
+        var modPath = System.IO.Path.Combine(tempDir, "replacement_mod.dll");
+        var lifecycleLog = System.IO.Path.Combine(tempDir, "lifecycle.log");
+        System.IO.Directory.CreateDirectory(tempDir);
+        System.IO.File.Copy(sourcePath, modPath);
+        Environment.SetEnvironmentVariable("RML_TEST_LIFECYCLE_LOG", lifecycleLog);
+
+        try
+        {
+            ModLoader.LoadMod(modPath);
+            ModLoader.OnDataModelChanged(0, 1, DataModelType.Edit);
+            ModLoader.OnDataModelChanged(1, 2, DataModelType.Edit);
+
+            Assert.Equal(
+                ["load", "data-model-loaded", "data-model-unloaded", "data-model-loaded"],
+                System.IO.File.ReadAllLines(lifecycleLog));
+        }
+        finally
+        {
+            ModLoader.UnloadMod(modPath);
+            Environment.SetEnvironmentVariable("RML_TEST_LIFECYCLE_LOG", null);
+            DeleteDirectoryWithRetries(tempDir);
+        }
+    }
+
     [Fact]
     public async Task LoadUnload_Interleaved_With_OnDataModelChanged_Does_Not_Throw()
     {

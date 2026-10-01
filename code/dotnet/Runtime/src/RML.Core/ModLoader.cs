@@ -161,10 +161,25 @@ internal static class ModLoader
             if (interested is { Length: > 0 } && !interested.Contains(dataModelType))
                 continue;
 
+            var aware = modInfo.Instance as IDataModelAware;
+            var wasInitialized = _registry.GetInitialized(modInfo);
+            var isReplacement = wasInitialized && oldModel != null && newModel != null &&
+                oldDataModelPtr != newDataModelPtr;
+
+            if (isReplacement && aware != null)
+            {
+                try
+                {
+                    aware.OnDataModelUnloaded(oldModel!, dataModelType);
+                }
+                catch (Exception e)
+                {
+                    RuntimeLog.Error($"Error in IDataModelAware.OnDataModelUnloaded: {e}");
+                }
+            }
+
             if (newModel != null)
             {
-                var wasInitialized = _registry.GetInitialized(modInfo);
-
                 if (!wasInitialized)
                 {
                     try
@@ -179,7 +194,7 @@ internal static class ModLoader
                     _registry.SetInitialized(modInfo, true);
                 }
 
-                if (modInfo.Instance is IDataModelAware aware)
+                if (aware != null)
                 {
                     try
                     {
@@ -193,7 +208,7 @@ internal static class ModLoader
             }
             else
             {
-                if (oldModel != null && modInfo.Instance is IDataModelAware aware)
+                if (oldModel != null && aware != null)
                 {
                     try
                     {
@@ -204,8 +219,6 @@ internal static class ModLoader
                         RuntimeLog.Error($"Error in IDataModelAware.OnDataModelUnloaded: {e}");
                     }
                 }
-
-                var wasInitialized = _registry.GetInitialized(modInfo);
 
                 if (wasInitialized)
                 {

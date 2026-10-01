@@ -6,6 +6,9 @@
 #include "RobloxModLoader/qt/qstring.hpp"
 #include "RobloxModLoader/qt/qt_module.hpp"
 #include "RobloxModLoader/qt/qwidget.hpp"
+#include "qt_connect.hpp"
+
+#include <utility>
 
 namespace rml::qt
 {
@@ -17,6 +20,16 @@ namespace rml::qt
 
 		static auto* const self = static_cast<void* const*>(detail::core_export("QCoreApplication::self"));
 		return self ? static_cast<QApplication*>(*self) : nullptr;
+	}
+
+	bool QApplication::on_about_to_quit(std::function<void()> handler) const
+	{
+		static void* const signal = detail::core_export("QCoreApplication::aboutToQuit(QCoreApplication::QPrivateSignal)");
+		static const void* const meta = detail::core_export("QCoreApplication::staticMetaObject");
+		return detail::connect_function(this, signal, meta, [handler = std::move(handler)](void**) {
+			if (handler)
+				handler();
+		});
 	}
 
 	void QApplication::set_style_sheet(const std::string_view css)

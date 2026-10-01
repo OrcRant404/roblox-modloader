@@ -81,6 +81,7 @@ namespace rml::dotnet
 			return;
 
 		m_bridge.shutdown();
+		m_initialized = false;
 		g_dotnet_mod_loader = nullptr;
 	}
 

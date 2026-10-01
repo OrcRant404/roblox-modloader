@@ -71,7 +71,6 @@ namespace rml::dotnet
 
 	void invoke_reflection_function(RBX::Reflection::DescribedBase* instance, const RBX::Reflection::FunctionDescriptor& descriptor, const InteropVariant* args, const uint32_t arg_count, InteropVariant& out)
 	{
-
 		DotNetArguments arguments{args, arg_count, &descriptor.get_signature()};
 
 		const auto function = RBX::Function(descriptor, instance);

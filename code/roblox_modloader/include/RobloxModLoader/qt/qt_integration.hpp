@@ -38,6 +38,7 @@ namespace rml::qt
 		[[nodiscard]] static QtIntegration* instance();
 
 	private:
+		void ensure_shutdown_hook();
 		void drain_tasks();
 
 		ActionDispatcher m_dispatcher;
@@ -46,6 +47,7 @@ namespace rml::qt
 		std::mutex m_tasks_mutex;
 		std::vector<std::function<void()>> m_tasks;
 		QtOwned<QTimer> m_dispatch_timer;
+		bool m_shutdown_hook_installed = false;
 
 		static QtIntegration* s_instance;
 	};

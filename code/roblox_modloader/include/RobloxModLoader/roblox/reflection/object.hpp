@@ -233,7 +233,13 @@ namespace RBX::Reflection
 				return nullptr;
 			}
 
-			constexpr std::uint64_t member_table_offset = 0x250;
+			const auto member_table_offset = g_pointers->m_roblox_pointers.member_table_offset;
+			if (!member_table_offset)
+			{
+				LOG_WARN("[ClassDescriptor::find_descriptor] Member table offset is unavailable");
+				return nullptr;
+			}
+
 			const auto desc = g_pointers->m_roblox_pointers.descriptor_lookup(reinterpret_cast<uint64_t>(this) + member_table_offset, &atom);
 			if (desc && *desc)
 			{
@@ -320,7 +326,14 @@ namespace RBX::Reflection
 
 		inline const ClassDescriptor& get_descriptor() const
 		{
+		#if defined(RML_MACOS)
+			// ARM64 Studio 0.737-0.738 stores the ClassDescriptor pointer directly at +0x18.
+			const auto* descriptor_slot = reinterpret_cast<const ClassDescriptor* const*>(
+			    reinterpret_cast<const char*>(this) + 0x18);
+			return **descriptor_slot;
+		#else
 			return *descriptor;
+		#endif
 		};
 
 		template<class T>
