@@ -87,7 +87,7 @@ The quickest way to start is to copy one of the [examples](#examples) and adapt 
 [Writing .NET mods](docs/writing-dotnet-mods.md) and
 [Writing native mods](docs/writing-native-mods.md).
 
-Native mods can also publish functions through the [built-in `modloader` global](docs/native-luau-api.md). The global is a Core addition; [Workspace](examples/workspace/README.md) is a compiled mod that uses it for Studio panel and view control.
+Native mods can also publish functions through the [built-in `modloader` global](docs/native-luau-api.md). The global is a Core addition. [Workspace](https://github.com/OrcRant404/roblox-developer-toolkit/tree/codex/workspace-mod/workspace) is maintained in the separate mods repository and uses the public API for Studio panel and view control.
 
 ## Examples
 

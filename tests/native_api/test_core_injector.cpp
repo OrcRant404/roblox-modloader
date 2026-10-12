@@ -114,8 +114,8 @@ void push_closure(lua_State* state, EngineCFunction function, const char*, int, 
 // Include production implementations to exercise startup gating and frozen
 // snapshots directly. Paths remain valid when this repository is relocated.
 // engine_api.cpp also requires Core's generated engine_bindings.generated.hpp.
-#include "../../../code/roblox_modloader/src/native_api/global_injector.cpp"
-#include "../../../code/roblox_modloader/src/native_api/engine_api.cpp"
+#include "../../code/roblox_modloader/src/native_api/global_injector.cpp"
+#include "../../code/roblox_modloader/src/native_api/engine_api.cpp"
 
 extern "C" int DobbyHook(void*, void*, void**)
 {

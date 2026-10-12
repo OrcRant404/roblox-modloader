@@ -18,4 +18,13 @@ Core installs verified engine hooks before native providers load, and permits in
 
 The first engine binding supports the verified macOS ARM64 Studio build `0.741.19.7411056`. Core checks the executable code hash, executable segment bounds, and each function's bytes before installing hooks. On other builds/platforms this subsystem declines injection. Other RML subsystems retain their existing compatibility checks. This contract is independent of the outdated SDK VM structures and does not claim other builds are supported.
 
-The [Workspace example](../examples/workspace/README.md) implements panel controls, view stacking, and lifecycle events through this API. Its six native regression groups check Core injection/binding guards, registry concurrency/readiness, view stack, Luau adapter, host lifecycle, and docking geometry. [Live Core validation](../examples/workspace/docs/evidence/core-integration/runtime-summary.json) records Command Bar and ordinary local-plugin checks with zero external native mods.
+The compiled [Workspace mod](https://github.com/OrcRant404/roblox-developer-toolkit/tree/codex/workspace-mod/workspace) lives in the separate mods repository. It implements panel controls, view stacking, and lifecycle events through this API. The loader repository owns the global, export registry, engine bindings, public SDK headers, and their Core tests. Workspace uses that public SDK and the rebuilt loader; it does not embed Core source.
+
+Run the two Core regression groups after configuring the RML build:
+
+```sh
+python3 -B tests/native_api/run_tests.py
+# For another configured build, add --core-build /path/to/build.
+```
+
+These ASan/UBSan checks cover Core injection/binding guards and registry concurrency/readiness without launching Studio. Workspace's four native groups remain with its own source. [Live Core validation](evidence/native-api/runtime-summary.json) records the real Command Bar and ordinary local-plugin checks with zero external native mods. To generate that optional consumer fixture, run `python3 -B tests/native_api/export_test_plugin.py`; it writes an ignored package beneath `build/native-api-test/plugins` and is not a native mod.
