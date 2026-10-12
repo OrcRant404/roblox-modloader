@@ -92,13 +92,9 @@ internal static class ModLoader
 
     internal static void UnloadMod(string path)
     {
-        if (!_registry.TryRemove(path, out var modInfo) || modInfo is null)
-        {
-            RuntimeLog.Warn($"No mod loaded from path {path}.");
+        var weakContext = UnloadModCore(path);
+        if (weakContext is null)
             return;
-        }
-
-        var weakContext = UnloadModCore(path, modInfo);
 
         for (var i = 0; weakContext.IsAlive && i < 10; i++)
         {
@@ -115,8 +111,16 @@ internal static class ModLoader
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static WeakReference UnloadModCore(string path, ModInfo modInfo)
+    private static WeakReference? UnloadModCore(string path)
     {
+        // Keep every strong mod/context reference in this frame, including the
+        // registry out-var, so it is gone before the caller begins collecting.
+        if (!_registry.TryRemove(path, out var modInfo) || modInfo is null)
+        {
+            RuntimeLog.Warn($"No mod loaded from path {path}.");
+            return null;
+        }
+
         var wasInitialized = _registry.GetInitialized(modInfo);
 
         try
