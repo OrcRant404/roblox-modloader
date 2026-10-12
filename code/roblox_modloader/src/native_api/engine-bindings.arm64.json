@@ -1,0 +1,486 @@
+{
+  "preferred_image_base": "0x100000000",
+  "address_convention": "unslid Mach-O VA; add the image slide only at runtime",
+  "warning": "offline identity/ABI evidence only; reject other code-section hashes; full-file sha256 is signing-dependent provenance",
+  "bindings": [
+    {
+      "name": "luaL_sandboxthread",
+      "address": "0x10309e524",
+      "rva": "0x309e524",
+      "size": 140,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f3 03 00 aa 01 00 80 52 02 00 80 52 f4 ae ff 97 e0 03 13 aa",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*)",
+      "evidence": "Exact eight-operation upstream sandboxthread sequence, including __index string and GLOBALSINDEX -10002. Calls create-table twice, pushvalue, setfield, setreadonly, setmetatable, replace, then tail-calls setsafeenv.",
+      "evidence_file": "function-10309e524.asm"
+    },
+    {
+      "name": "lua_createtable",
+      "address": "0x10308a10c",
+      "rva": "0x308a10c",
+      "size": 204,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f4 03 02 aa f5 03 01 aa f3 03 00 aa 08 34 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int, int)",
+      "evidence": "Called twice from sandboxthread with array/hash sizes 0. Its body checks GC/thread barrier, calls table allocator with both size arguments, pushes table tag 7, increments stack.",
+      "evidence_file": "function-10308a10c.asm"
+    },
+    {
+      "name": "lua_pushvalue",
+      "address": "0x1030880b0",
+      "rva": "0x30880b0",
+      "size": 224,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f4 03 01 aa f3 03 00 aa 08 04 40 39 a8 00 10 36 62 42 00 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int)",
+      "evidence": "sandboxthread passes GLOBALSINDEX -10002. Body resolves index, copies one 16-byte TValue to top, increments stack.",
+      "evidence_file": "function-1030880b0.asm"
+    },
+    {
+      "name": "lua_setfield",
+      "address": "0x10308a650",
+      "rva": "0x308a650",
+      "size": 200,
+      "first_32_bytes": "ff 03 01 d1 f6 57 01 a9 f4 4f 02 a9 fd 7b 03 a9 fd c3 00 91 f4 03 02 aa f3 03 00 aa 3f 04 00 71",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int, const char*)",
+      "evidence": "sandboxthread calls with index -2 and __index. Body resolves index, interns NUL-terminated key, calls table-set using top-1 as value, decrements stack.",
+      "evidence_file": "function-10308a650.asm"
+    },
+    {
+      "name": "lua_setreadonly",
+      "address": "0x10308a1d8",
+      "rva": "0x308a1d8",
+      "size": 164,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f3 03 02 aa f4 03 00 aa 3f 04 00 71 4b 01 00 54 88 32 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int, int)",
+      "evidence": "sandboxthread calls index -1 enabled=1. Body resolves table index and writes boolean readonly field or delegates to current engine readonly helper.",
+      "evidence_file": "function-10308a1d8.asm"
+    },
+    {
+      "name": "lua_setsafeenv",
+      "address": "0x10308a2f4",
+      "rva": "0x308a2f4",
+      "size": 116,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f3 03 02 aa 3f 04 00 71 4b 01 00 54 08 30 40 f9 08 51 21 8b",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int, int)",
+      "evidence": "sandboxthread final tail-call passes GLOBALSINDEX -10002 and enabled=1. Body resolves table index and writes normalized safeenv flag.",
+      "evidence_file": "function-10308a2f4.asm"
+    },
+    {
+      "name": "lua_pushcclosurek",
+      "address": "0x103089868",
+      "rva": "0x3089868",
+      "size": 360,
+      "first_32_bytes": "f8 5f bc a9 f6 57 01 a9 f4 4f 02 a9 fd 7b 03 a9 fd c3 00 91 f6 03 04 aa f4 03 03 aa f5 03 02 aa",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int(*)(lua_State*), const char*, int, int(*)(lua_State*, int))",
+      "evidence": "Saves all five ABI arguments. Allocates C closure with nup/current environment; stores continuation and callback; interns optional debugname; consumes/copies upvalues; pushes function tag 8.",
+      "evidence_file": "function-103089868.asm"
+    },
+    {
+      "name": "lua_pushlstring",
+      "address": "0x103089674",
+      "rva": "0x3089674",
+      "size": 204,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f4 03 02 aa f5 03 01 aa f3 03 00 aa 08 34 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, const char*, size_t)",
+      "evidence": "Body passes explicit pointer/length to same string intern function used by loader, pushes string tag 6, increments stack. Adjacent lua_pushstring wrapper computes strlen before this call.",
+      "evidence_file": "function-103089674.asm"
+    },
+    {
+      "name": "lua_tolstring",
+      "address": "0x1030889f8",
+      "rva": "0x30889f8",
+      "size": 340,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f3 03 02 aa f4 03 01 aa f5 03 00 aa 3f 04 00 71",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "const char*(lua_State*, int, size_t*)",
+      "evidence": "Resolves index, tests string tag 6, otherwise invokes conversion and GC/re-resolves index. On failure writes zero length and returns null; success writes size_t length and returns string data.",
+      "evidence_file": "function-1030889f8.asm"
+    },
+    {
+      "name": "lua_gettop",
+      "address": "0x103087cd0",
+      "rva": "0x3087cd0",
+      "size": 20,
+      "first_32_bytes": "08 38 40 f9 09 30 40 f9 08 01 09 cb 00 fd 44 d3 c0 03 5f d6 f4 4f be a9 fd 7b 01 a9 fd 43 00 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*)",
+      "evidence": "Entire 20-byte function loads top and base, subtracts, shifts right by 4, returns. Offsets observed inside engine only; no external struct access required.",
+      "evidence_file": "function-103087cd0.asm"
+    },
+    {
+      "name": "lua_settop",
+      "address": "0x103087ce4",
+      "rva": "0x3087ce4",
+      "size": 320,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f4 03 01 aa f3 03 00 aa 0a 38 40 f9 c1 07 f8 37 68 ae 45 a9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int)",
+      "evidence": "Positive branch grows stack and fills new slots with nil; negative branch computes top + (idx+1)*16. Used for pop by nearby library registration.",
+      "evidence_file": "function-103087ce4.asm"
+    },
+    {
+      "name": "lua_getfield",
+      "address": "0x103089c20",
+      "rva": "0x3089c20",
+      "size": 296,
+      "first_32_bytes": "ff 03 01 d1 f6 57 01 a9 f4 4f 02 a9 fd 7b 03 a9 fd c3 00 91 f4 03 02 aa f5 03 01 aa f3 03 00 aa",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int, const char*)",
+      "evidence": "Saves string key/index/state, interns key into a local string TValue, calls table-get to top, increments stack, returns result type. The next entry is rawgetfield with raw table lookup.",
+      "evidence_file": "function-103089c20.asm"
+    },
+    {
+      "name": "lua_pushnil",
+      "address": "0x103089374",
+      "rva": "0x3089374",
+      "size": 108,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f3 03 00 aa 08 38 40 f9 09 41 00 91 0a 2c 40 f9 4a 09 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*)",
+      "evidence": "Checks available stack, writes nil tag 0, advances top by 16. Source-order adjacency before pushnumber supports identity.",
+      "evidence_file": "function-103089374.asm"
+    },
+    {
+      "name": "lua_type",
+      "address": "0x103088190",
+      "rva": "0x3088190",
+      "size": 116,
+      "first_32_bytes": "fd 7b bf a9 fd 03 00 91 e8 03 00 aa 3f 04 00 71 0b 01 00 54 09 31 40 f9 29 51 21 8b 20 41 00 d1",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Resolves index and returns tag; invalid index returns -1. Adjacent lua_typename references current type-name table, giving independent tag evidence.",
+      "evidence_file": "function-103088190.asm"
+    },
+    {
+      "name": "luau_load",
+      "address": "0x1030acf04",
+      "rva": "0x30acf04",
+      "size": 260,
+      "first_32_bytes": "ff 83 02 d1 fa 67 05 a9 f8 5f 06 a9 f6 57 07 a9 f4 4f 08 a9 fd 7b 09 a9 fd 43 02 91 f4 03 04 aa",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, const char*, const char*, size_t, int)",
+      "evidence": "Five entry arguments form LoadContext; pauses GC; passes loadsafe 0x1030ad008 as protected callback; translates OOM into loader error and returns context result. loadsafe uniquely references bytecode mismatch diagnostic.",
+      "evidence_file": "function-1030acf04.asm"
+    },
+    {
+      "name": "lua_getreadonly",
+      "address": "0x10308a27c",
+      "rva": "0x308a27c",
+      "size": 120,
+      "first_32_bytes": "fd 7b bf a9 fd 03 00 91 3f 04 00 71 4b 01 00 54 08 30 40 f9 08 51 21 8b 08 41 00 d1 09 38 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Exact table-index resolution shared with adjacent setreadonly and setsafeenv. Resolves the table pointer, then returns readonly byte7, or tail-calls current engine readonly-page helper0x1030a97d0 when its feature flag is active. Immediately follows verified lua_setreadonly and precedes verified lua_setsafeenv.",
+      "confidence": "strong_offline_semantic_match",
+      "evidence_file": "function-10308a27c.asm"
+    },
+    {
+      "name": "lua_checkstack",
+      "address": "0x103087858",
+      "rva": "0x3087858",
+      "size": 192,
+      "first_32_bytes": "08 e8 83 52 3f 00 08 6b 6d 00 00 54 00 00 80 52 c0 03 5f d6 ff c3 00 d1 f4 4f 01 a9 fd 7b 02 a9",
+      "identification": "manually supplied; see identification evidence",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Checks requested size and total top-base slots against8000; size<=0 succeeds. If capacity is insufficient, invokes a protected stack-grow callback0x1030879a4 through verified rawrunprotected0x103098258, returns0 on failure, then expands current call-frame limit to top+size and returns1. This is the engine function that existing push APIs call for extra capacity.",
+      "confidence": "strong_offline_semantic_match",
+      "evidence_file": "function-103087858.asm"
+    },
+    {
+      "name": "lua_pushboolean",
+      "address": "0x1030899d0",
+      "rva": "0x30899d0",
+      "size": 132,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f4 03 01 aa f3 03 00 aa 08 38 40 f9 09 41 00 91 0a 2c 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int)",
+      "evidence": "Preserves boolean argument in x1, normalizes nonzero to 1, writes boolean tag 1, advances top by one TValue; capacity failure uses lua_checkstack.",
+      "evidence_file": "function-1030899d0.asm"
+    },
+    {
+      "name": "lua_pushnumber",
+      "address": "0x1030893e0",
+      "rva": "0x30893e0",
+      "size": 132,
+      "first_32_bytes": "e9 23 bd 6d f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 08 40 60 1e f3 03 00 aa 08 38 40 f9 09 41 00 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, double)",
+      "evidence": "Preserves double argument from d0, writes it with number tag 3, advances top by one TValue; capacity failure uses lua_checkstack.",
+      "evidence_file": "function-1030893e0.asm"
+    },
+    {
+      "name": "lua_tonumberx",
+      "address": "0x1030886fc",
+      "rva": "0x30886fc",
+      "size": 164,
+      "first_32_bytes": "ff c3 00 d1 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f3 03 02 aa 3f 04 00 71 4b 01 00 54 08 30 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "double(lua_State*, int, int*)",
+      "evidence": "Resolves index; accepts number tag 3 directly or helper 0x1030ae8c4; returns double in d0 and writes optional isnum int. The helper accepts tag 3 or numeric strings tag 6; rejects integer tag 4.",
+      "evidence_file": "function-1030886fc.asm"
+    },
+    {
+      "name": "lua_toboolean",
+      "address": "0x1030888e8",
+      "rva": "0x30888e8",
+      "size": 128,
+      "first_32_bytes": "fd 7b bf a9 fd 03 00 91 3f 04 00 71 4b 01 00 54 08 30 40 f9 08 51 21 8b 08 41 00 d1 09 38 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Resolves index; nil tag 0 is false, boolean tag 1 reads payload != 0, every other tag is true.",
+      "evidence_file": "function-1030888e8.asm"
+    },
+    {
+      "name": "lua_rawgeti",
+      "address": "0x103089f0c",
+      "rva": "0x3089f0c",
+      "size": 252,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f4 03 02 aa f5 03 01 aa f3 03 00 aa 08 04 40 39",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int, int)",
+      "evidence": "Resolves table index and calls numeric table lookup 0x1030a7b50 with signed int key; helper uses w1 and scvtf d0,w1. Pushes one TValue without metamethod lookup and returns its type tag.",
+      "evidence_file": "function-103089f0c.asm"
+    },
+    {
+      "name": "lua_ref",
+      "address": "0x10308c448",
+      "rva": "0x308c448",
+      "size": 280,
+      "first_32_bytes": "f8 5f bc a9 f6 57 01 a9 f4 4f 02 a9 fd 7b 03 a9 fd c3 00 91 f3 03 00 aa 14 34 40 f9 3f 04 00 71",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Resolves input index; nil returns ref 0. Uses engine reference table at global+0x41b0 and free-list/next-ref counters; copies TValue and performs GC barrier. No write to L top: input is NOT popped. Retrieve with paired lua_getref, not an assumed SDK macro.",
+      "evidence_file": "function-10308c448.asm"
+    },
+    {
+      "name": "lua_unref",
+      "address": "0x10308c560",
+      "rva": "0x308c560",
+      "size": 84,
+      "first_32_bytes": "3f 04 00 71 4b 02 00 54 f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f3 03 01 aa 14 34 40 f9 81 da 60 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Positive ref writes prior free-list number into the same engine reference table at global+0x41b0 and updates free-list counter, permitting ref reuse. Every path explicitly returns w0=-1. Return is ignored; old SDK void prototype must not be treated as proof of this engine ABI.",
+      "evidence_file": "function-10308c560.asm"
+    },
+    {
+      "name": "lua_getref",
+      "address": "0x10308c5b4",
+      "rva": "0x308c5b4",
+      "size": 164,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f4 03 01 aa f3 03 00 aa 08 04 40 39 a8 00 10 36 62 42 00 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Adjacent to ref/unref. Reads their same engine reference table at global+0x41b0, calls numeric lookup with ref, pushes one TValue and returns type tag. This is a semantic label for the stripped engine function; do not assume rawgeti(REGISTRYINDEX,ref) is equivalent.",
+      "evidence_file": "function-10308c5b4.asm"
+    },
+    {
+      "name": "lua_pcall",
+      "address": "0x10308ad58",
+      "rva": "0x308ad58",
+      "size": 308,
+      "first_32_bytes": "ff 03 01 d1 f6 57 01 a9 f4 4f 02 a9 fd 7b 03 a9 fd c3 00 91 f6 03 03 aa f4 03 02 aa f5 03 01 aa",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int, int, int)",
+      "evidence": "Saves nargs/nresults/errfunc; function stack offset is top-(nargs+1). Passes f_call 0x10308ae8c, CallS, saved stack offset and error-handler offset to protected-call helper 0x103099308; handles MULTRET -1; returns status in w0.",
+      "evidence_file": "function-10308ad58.asm"
+    },
+    {
+      "name": "lua_mainthread",
+      "address": "0x103087c94",
+      "rva": "0x3087c94",
+      "size": 12,
+      "first_32_bytes": "08 34 40 f9 00 75 41 f9 c0 03 5f d6 28 04 00 51 e9 e1 84 12 1f 01 09 6b e3 00 00 54 08 38 40 f9",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "lua_State*(lua_State*)",
+      "evidence": "Exact three-instruction function loads the VM global pointer then the same VM mainthread pointer and returns it. Adjacent API order matches mainthread then absindex/gettop; opaque state identity only, never dereference it in mod code.",
+      "evidence_file": "function-103087c94.asm"
+    },
+    {
+      "name": "lua_rawequal",
+      "address": "0x10308842c",
+      "rva": "0x308842c",
+      "size": 232,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f3 03 02 aa f4 03 00 aa 96 05 03 f0 d6 82 28 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int, int)",
+      "evidence": "Resolves two indices, returns false for invalid nilobject, then tail-calls raw comparator 0x1030a2090. Comparator checks matching tags and raw payloads/pointers; no equality metamethod or Lua call.",
+      "evidence_file": "function-10308842c.asm"
+    },
+    {
+      "name": "lua_gettable",
+      "address": "0x103089b78",
+      "rva": "0x3089b78",
+      "size": 168,
+      "first_32_bytes": "f4 4f be a9 fd 7b 01 a9 fd 43 00 91 f4 03 01 aa f3 03 00 aa 08 04 40 39 a8 00 10 36 62 42 00 91",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "int(lua_State*, int)",
+      "evidence": "Resolves table/object index, passes current top-1 as both key and output to luaV_gettable 0x1030ae9e4, and returns resulting tag. Replaces key on stack; metamethods can run, so userdata lookup belongs inside a protected C closure.",
+      "evidence_file": "function-103089b78.asm"
+    },
+    {
+      "name": "lua_rawseti",
+      "address": "0x10308a900",
+      "rva": "0x308a900",
+      "size": 228,
+      "first_32_bytes": "f6 57 bd a9 f4 4f 01 a9 fd 7b 02 a9 fd 83 00 91 f4 03 02 aa f3 03 00 aa 3f 04 00 71 4b 01 00 54",
+      "identification": "manually supplied; see identification evidence",
+      "confidence": "strong_offline_semantic_match",
+      "inferred_c_abi": "void(lua_State*, int, int)",
+      "evidence": "Resolves index, saves integer key from x2, checks table readonly byte, calls already verified numeric table setter 0x1030a8f5c with that key, copies top-1 value into table slot, performs GC barrier, decrements top by one TValue. Adjacent rawset variant consumes key+value; upstream API order and exact setter semantics match lua_rawseti.",
+      "evidence_file": "function-10308a900.asm"
+    }
+  ],
+  "current_engine_type_tags": {
+    "nil": 0,
+    "boolean": 1,
+    "lightuserdata": 2,
+    "number": 3,
+    "integer": 4,
+    "vector": 5,
+    "string": 6,
+    "table": 7,
+    "function": 8,
+    "userdata": 9,
+    "thread": 10,
+    "buffer": 11,
+    "class": 12
+  },
+  "type_tags_evidence": {
+    "lua_typename": "0x103088204",
+    "type_name_pointer_table": "0x10c4d2510",
+    "note": "Table values decode directly from current Mach-O file; lightuserdata and userdata share the displayed name userdata."
+  },
+  "sandboxthread_direct_callers": [
+    {
+      "call_address": "0x1061f8b58",
+      "function": "0x1061f896c"
+    },
+    {
+      "call_address": "0x1061f91c0",
+      "function": "0x1061f8fc8"
+    }
+  ],
+  "runtime_gaps": [
+    "Engine identities and signatures are offline findings, not runtime success.",
+    "Whether these two sandboxthread callers cover normal plugins and Command Bar requires the live milestone test.",
+    "Detour/library lifetime and native callback exceptions must be handled by the implementation.",
+    "Some engine functions can raise errors or allocate memory; use only on a valid engine thread in its normal lifecycle.",
+    "lua_gettop is 20 bytes: the requested first32 signature also includes 12 bytes of the next function."
+  ],
+  "code_sha256": "e140c26a00c532ab21add689048adcab364c6dea27561a854d01dc0d512064bd",
+  "code_file_offset": 8192,
+  "code_size": 133469060,
+  "code_section": {
+    "offset": 8192,
+    "size": 133469060
+  },
+  "prior_full_sha256": [
+    "78f7b26fa7e29f95d1b43e59a85bc5f4785d65c5583b16498f416ea92102c23e",
+    "3563bd8a37b711c888eb231d08f6e66ad5cb6f59805f8d58ffe528edabf50268",
+    "43da9e5cfde17b02a43bdbaa1f0b336424dc1f299053086cba34d2b331d57b29"
+  ],
+  "luau_load_environment_semantics": {
+    "entry": "0x1030acf04",
+    "env_argument": "w4, fifth ABI argument; preserved at LoadContext+0x48",
+    "loadsafe": "0x1030ad008",
+    "env_zero": "Reads current global table L->gt through engine code. Bind injector target to GLOBALSINDEX -10002.",
+    "env_nonzero": "At0x1030ad164\u20130x1030ad17c invokes luaA_toobject(L,env)0x103087778 and reads table value. env is an existing stack or pseudo-index, not a state pointer.",
+    "negative_index_handling": "Before any stack pushes, normalize ordinary negative indices -10000<env<0 to beforeTop+env+1. Keep pseudo-indices <=-10000 unchanged.",
+    "stack_contract": "Restore original top before invoking original loader; leave original env argument unchanged. Verify target type table7; skip read-only targets unless a separately approved unfreeze/restore path is implemented.",
+    "checkstack": "Call lua_checkstack(L,8) before reserving extra local stack slots; zero return means defer/skip injection."
+  },
+  "lead_reported_live_observation": {
+    "pid": 47567,
+    "sandboxthread_injection_count": 0,
+    "actual_command_bar_typeof_modloader": "nil",
+    "note": "Reported by lead; this worker did not access GUI or runtime. No sandboxthread coverage claim."
+  },
+  "workspace_api_constants": {
+    "LUA_REGISTRYINDEX": -10000,
+    "LUA_ENVIRONINDEX": -10001,
+    "LUA_GLOBALSINDEX": -10002,
+    "lua_upvalueindex_1": -10003,
+    "lua_upvalueindex_formula": "LUA_GLOBALSINDEX - i, with i >= 1 and an actual C closure holding at least i upvalues",
+    "LUA_REFNIL": 0,
+    "LUA_NOREF": -1,
+    "LUA_TFUNCTION": 8,
+    "LUA_TTABLE": 7,
+    "LUA_TUSERDATA": 9,
+    "LUA_TNUMBER": 3,
+    "LUA_TINTEGER": 4,
+    "LUA_TBOOLEAN": 1,
+    "LUA_TSTRING": 6,
+    "LUA_TNIL": 0,
+    "LUA_MULTRET": -1,
+    "LUA_OK": 0,
+    "evidence_file": "function-10308cdf0.asm",
+    "evidence": "Pseudo-index helper compares -10002/-10001/-10000 explicitly. Its closure-upvalue path computes first upvalue from -10003 and bounds it against nup. Existing engine type-name evidence confirms tags; ref/unref disassembly confirms ref sentinel behavior."
+  },
+  "workspace_reference_semantics": {
+    "reference_table": "Engine lua_ref/lua_unref/lua_getref consistently use the same private reference-table pointer; no mod reads or writes its structures.",
+    "retrieval": "Use verified lua_getref(L,ref). LUA_REGISTRYINDEX resolves a different field location; equality with the private reference table is unproved. Never substitute the old SDK lua_getref macro.",
+    "stack": "lua_ref(L,index) leaves the value on stack; lua_getref pushes one value and returns its tag; lua_unref changes no stack entries and returns -1.",
+    "reuse": "lua_unref permits ref IDs to be reused. Tombstone/remove listener records before unref; callback snapshots must verify records are still connected and generation matches.",
+    "identity": "Record verified lua_mainthread(currentL) for every owner/ref. Retrieve or unref only from a currently executing engine state whose mainthread matches. Do not save a lua_State pointer as an independently runnable callback state.",
+    "lifecycle": "Mainthread pointer identity is valid only while that VM lives and is not a permanent generation identifier. Remove owner refs during Plugin.Unloading while a live matching state exists; disconnect/free per-VM pump when no owners remain. Clear all stale records on VM lifecycle boundaries to avoid address reuse.",
+    "scheduler": "Deliver through an ordinary engine signal such as RunService.Heartbeat. Native Qt/UI code may queue plain data only; it must not invoke Lua on a GUI/background thread.",
+    "protected_delivery": "Check stack capacity before temporary pushes; preserve top; retrieve listener using lua_getref; verify function tag 8; push arguments; lua_pcall with an explicit result count and errfunc=0; copy string error before restoring original top. Lookup/set operations with possible metamethods must be inside a protected native closure too.",
+    "yielding": "Do not promise yielding listeners. This plain lua_pcall path and C closure without a verified continuation/scheduling contract must treat callback yield attempts as errors.",
+    "permission_context": "Same-VM identity does not prove Roblox execution permission identity. A Heartbeat-driven native callback runs in the engine-provided signal context; plugin method access from callbacks, especially across owners, requires a live test and must not claim transparent owner-context preservation."
+  },
+  "workspace_number_semantics": {
+    "push": "lua_pushnumber receives double in d0 and creates tag 3.",
+    "read": "lua_tonumberx reads tag 3 and numeric strings; it rejects separate integer tag 4. Require tag 3 for initial numeric workspace settings; reject integer tag 4 until a separate integer API is verified.",
+    "evidence_files": [
+      "function-1030886fc.asm",
+      "function-1030ae8c4.asm",
+      "function-1030893e0.asm"
+    ]
+  },
+  "workspace_remaining_verification": [
+    "New bindings have strong offline semantic evidence but have not been called in the live test Studio by this worker.",
+    "Verify plugin method permissions and userdata Enabled access from the selected native signal callback before claiming cross-plugin callback compatibility.",
+    "No lua_next binding added: bounded numeric panel arrays can use lua_rawgeti and named properties can use lua_getfield; dictionary iteration needs separate verification if later required."
+  ],
+  "workspace_reference_semantics_runtime_update": {
+    "pid": 55873,
+    "observation": "lua_ref crashed through null internal reference table; do not use ref/unref/getref in ordinary Studio VMs",
+    "replacement": "Provider-owned Lua table in LUA_REGISTRYINDEX, no VM structure writes",
+    "live_workspace_acceptance": "not completed"
+  },
+  "supported_platform": "macOS ARM64"
+}

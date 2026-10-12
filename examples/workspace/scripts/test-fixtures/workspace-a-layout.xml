@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DockPanelLayouts xmlns:Qtitan="https://www.devmachines.com/qt/qtitan" type="layoutPanel" version="1.3">
+    <Panels Count="91">
+        <Panel ID="Layout0" Type="1" DockCX="-1" DockCY="-1" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout3"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout1" Type="4" DockCX="-1" DockCY="-1" Horizontal="False">
+            <Panels Count="2">
+                <Panel ID="Layout21"/>
+                <Panel ID="Layout34"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout2" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout3" Type="1" DockCX="-1" DockCY="-1" Horizontal="False">
+            <Panels Count="2">
+                <Panel ID="Layout6"/>
+                <Panel ID="FixedSplitLayoutSouth0"/>
+            </Panels>
+        </Panel>
+        <Panel ID="FixedSplitLayoutSouth0" Type="1" DockCX="189" DockCY="189" Horizontal="True">
+            <Panels Count="2">
+                <Panel ID="Layout2"/>
+                <Panel ID="Layout25"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout5" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout6" Type="1" DockCX="0" DockCY="532" Horizontal="True">
+            <Panels Count="5">
+                <Panel ID="FixedSplitLayoutWest0"/>
+                <Panel ID="FixedSplitLayoutWest1"/>
+                <Panel ID="Layout15"/>
+                <Panel ID="FixedSplitLayoutEast1"/>
+                <Panel ID="FixedSplitLayoutEast0"/>
+            </Panels>
+        </Panel>
+        <Panel ID="FixedSplitLayoutWest0" Type="1" DockCX="189" DockCY="189" Horizontal="False">
+            <Panels Count="4">
+                <Panel ID="Layout5"/>
+                <Panel ID="Layout26"/>
+                <Panel ID="Layout27"/>
+                <Panel ID="Layout28"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout8" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="FixedSplitLayoutWest1" Type="1" DockCX="189" DockCY="189" Horizontal="False">
+            <Panels Count="1">
+                <Panel ID="Layout8"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout10" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="FixedSplitLayoutEast0" Type="1" DockCX="189" DockCY="189" Horizontal="False">
+            <Panels Count="3">
+                <Panel ID="Layout10"/>
+                <Panel ID="Layout23"/>
+                <Panel ID="Layout24"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout12" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="FixedSplitLayoutEast1" Type="1" DockCX="189" DockCY="189" Horizontal="False">
+            <Panels Count="1">
+                <Panel ID="Layout12"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout14" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout15" Type="1" DockCX="1087" DockCY="0" Horizontal="False">
+            <Panels Count="4">
+                <Panel ID="FixedSplitLayoutNorth0"/>
+                <Panel ID="FixedSplitLayoutNorth1"/>
+                <Panel ID="Layout1"/>
+                <Panel ID="FixedSplitLayoutSouth1"/>
+            </Panels>
+        </Panel>
+        <Panel ID="FixedSplitLayoutNorth0" Type="1" DockCX="189" DockCY="189" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout14"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout17" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="FixedSplitLayoutNorth1" Type="1" DockCX="189" DockCY="189" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout17"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout19" Type="2" DockCX="189" DockCY="189">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="FixedSplitLayoutSouth1" Type="1" DockCX="189" DockCY="189" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout19"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout21" Type="5" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout22" Type="5" DockCX="-1" DockCY="-1">
+            <Panels Count="1">
+                <Panel ID="ideDocDocumentPanel"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout23" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout24" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout25" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout26" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout27" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout28" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout29" Type="1" DockCX="-1" DockCY="-1" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout30"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout30" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout31" Type="1" DockCX="-1" DockCY="-1" Horizontal="True">
+            <Panels Count="1">
+                <Panel ID="Layout32"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout32" Type="2" DockCX="-1" DockCY="-1">
+            <Panels Count="0"/>
+        </Panel>
+        <Panel ID="Layout33" Type="2" DockCX="512" DockCY="725">
+            <Panels Count="1">
+                <Panel ID="edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel"/>
+            </Panels>
+        </Panel>
+        <Panel ID="Layout34" Type="1" DockCX="-1" DockCY="-1" Horizontal="True">
+            <Panels Count="2">
+                <Panel ID="Layout33"/>
+                <Panel ID="Layout22"/>
+            </Panels>
+        </Panel>
+        <Panel ID="PlaceholderPanelSouth0" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout2"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout2"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelWest0" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout5"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout5"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelWest1" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout8"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout8"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelEast0" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout10"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout10"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelEast1" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout12"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout12"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelNorth0" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout14"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout14"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelNorth1" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout17"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout17"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="PlaceholderPanelSouth1" Type="Qtitan::DockWidgetPanel" DockCX="189" DockCY="189">
+            <Layouts>
+                <DockingLayout ID="Layout19"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout19"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="propertiesWidgetPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout24"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout24"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="basicObjectsPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="scriptReviewPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="taskSchedulerPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="diagnosticsWidgetPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="scriptAnalysisPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="outputWidgetPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout25"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout25"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="teamCreateChatPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="internalDebugPanel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="loginPageDocumentPanel" Type="Qtitan::DockDocumentPanel" DockCX="1280" DockCY="891">
+            <Layouts>
+                <DockingLayout ID="Layout21"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout21"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_PlaceVersionHistory.rbxm_PlaceVersionHistory" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_PartyEmulator.rbxm_PartyEmulator" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_CreatorConfig.rbxm_CreatorConfig" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_SceneAnalysis.rbxm_SceneAnalysis" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_AssetQualityValidation.rbxm_AssetQualityValidation" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_StartPage.rbxm_StartPage" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout21"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout21"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_AssetManager.rbxm_AssetManager" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_FindReplaceAll.rbxm_FindReplaceAll" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_ControlsEmulator.rbxm_ControlsEmulator" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_PluginManagement.rbxm_PluginManagement" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_AnimationGraphEditor.rbxm_AnimationGraphEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_InputActionManager.rbxm_InputActionManager" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_ActivityFeed.rbxm_ActivityFeed" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_CollisionGroupsEditor.rbxm_CollisionGroupsEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_Debugger.rbxm_Watch" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_Debugger.rbxm_Breakpoints" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_Debugger.rbxm_Callstack" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="ideDocDocumentPanel" Type="Qtitan::DockDocumentPanel" DockCX="1280" DockCY="699" Active="True">
+            <Layouts>
+                <DockingLayout ID="Layout22"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout22"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout23"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout23"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_AvatarSettings.rbxm_AvatarSettings" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_LocalizationTools.rbxm_LocalizationTools" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_cloud_14293316215_UILabs" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_cloud_14328968969_sounds" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_MaterialGenerator.rbxm_MaterialGenerator" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_AvatarCompatibilityPreviewer.rbxm_AvatarCompatibilityPreviewer" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_AlignmentTool.rbxm_AlignmentTool" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_StyleEditor.rbxm_StyleEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_Toolbox.rbxm_Toolbox" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout27"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout27"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_TagEditor.rbxm_TagEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_TerrainEditor.rbxm_TerrainEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout26"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout26"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_AudioDiscovery.rbxm_AudioDiscovery" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_LayeredClothingEditor.rbxm_LayeredClothingEditor" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="rplg_sabuiltin_Assistant.rbxm_Assistant" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_MaterialManager.rbxm_MaterialManager" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_builtin_SocialPresence.rbxm_SocialPresence" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID=""/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_cloud_109890065116916_EffectDesignerSuite" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID="Layout28"/>
+                <FloatingLayout ID=""/>
+                <LastLayout ID="Layout28"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel" Type="Qtitan::DockWidgetPanel" DockCX="512" DockCY="725" Active="True">
+            <Layouts>
+                <DockingLayout ID="Layout33"/>
+                <FloatingLayout ID="Layout30"/>
+                <LastLayout ID="Layout33"/>
+            </Layouts>
+        </Panel>
+        <Panel ID="edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel" Type="Qtitan::DockWidgetPanel" DockCX="-1" DockCY="-1">
+            <Layouts>
+                <DockingLayout ID=""/>
+                <FloatingLayout ID="Layout32"/>
+                <LastLayout ID="Layout32"/>
+            </Layouts>
+        </Panel>
+    </Panels>
+    <Windows Count="2">
+        <Panel Type="Qtitan::DockWindow" DockCX="100" DockCY="100" WindowRectTop="262" WindowRectBottom="801" WindowRectLeft="583" WindowRectRight="1142">
+            <TopLayout ID="Layout29"/>
+        </Panel>
+        <Panel Type="Qtitan::DockWindow" DockCX="100" DockCY="100" WindowRectTop="262" WindowRectBottom="801" WindowRectLeft="583" WindowRectRight="1142">
+            <TopLayout ID="Layout31"/>
+        </Panel>
+    </Windows>
+    <TopLayout ID="Layout0"/>
+    <Client ID="Layout1"/>
+</DockPanelLayouts>

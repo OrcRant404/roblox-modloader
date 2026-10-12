@@ -1,0 +1,15 @@
+-- Optional ordinary local-plugin fixture. No API bootstrap or native provider.
+local function checkCore()
+    assert(plugin and plugin.ClassName == "Plugin", "Expected an ordinary Studio plugin")
+    assert(type(modloader) == "table", "Built-in modloader global is missing")
+    assert(modloader.Version == "0.1.0", "Unexpected Core API version")
+    assert(modloader.RegisterMods == nil and modloader.mods == nil, "Unexpected plugin registration surface")
+    assert(modloader["api-probe"] == nil, "Removed probe namespace is present")
+    assert(modloader["workspace"] == nil, "Core-only fixture expects zero provider mods")
+    assert(not pcall(function() modloader.Unexpected = true end), "Core global must be read-only")
+    print("RML_CORE_PLUGIN_PASS", modloader.Version, plugin.ClassName)
+end
+local toolbar = plugin:CreateToolbar("RML Core Test")
+local check = toolbar:CreateButton("Verify Core", "Verify the built-in global with zero native mods", "")
+check.Click:Connect(checkCore)
+checkCore()

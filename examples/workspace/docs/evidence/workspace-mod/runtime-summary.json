@@ -1,0 +1,1107 @@
+{
+  "format": "rml-workspace-acceptance-v1",
+  "studioPid": 66258,
+  "instanceId": "instance:yzs-5dn",
+  "studioVersion": "0.741.19.7411056",
+  "qtVersion": "5.15.9",
+  "engineCodeSha256": "e140c26a00c532ab21add689048adcab364c6dea27561a854d01dc0d512064bd",
+  "sourceLoaderSha256": "d881a24651b69a6f12fdb13cda5fafbca53cac1bf548f41e2fe46a059cebf065",
+  "profile": [
+    "modloader-api",
+    "workspace"
+  ],
+  "bootstrap": null,
+  "newVfxPlugin": false,
+  "scope": "separate guarded Studio only",
+  "checks": {
+    "ordinaryPluginsLoaded": true,
+    "pluginPanelsOpenClose": true,
+    "commandBarOutputOpenClose": true,
+    "viewportCloseRejected": true,
+    "enterAGeometryVerified": true,
+    "enterBGeometryVerified": true,
+    "exitBResumesA": true,
+    "enterAUnwindsB": true,
+    "activeEnterNoopNoDuplicateEvent": true,
+    "actualPluginToolbarCycle": true,
+    "threeCyclesExactOutgoingFirstEvents": true,
+    "normalVisiblePanelGeometryRestored": true,
+    "settledCameraUnchangedCycle2AndToolbar": true,
+    "installedWorkspaceMatchesBuiltBinary": true,
+    "visiblePanelXmlMatchesInitialBaseline": true,
+    "postCycleAFloatingSizeRestored": true
+  },
+  "baseline": {
+    "panels": [
+      {
+        "visible": true,
+        "id": "edit_builtin_TerrainEditor.rbxm_TerrainEditor",
+        "closed": false,
+        "y": 95,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 175,
+        "minimumWidth": 100,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "edit_builtin_Toolbox.rbxm_Toolbox",
+        "closed": false,
+        "y": 272,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 176,
+        "minimumWidth": 280,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "edit_cloud_109890065116916_EffectDesignerSuite",
+        "closed": false,
+        "y": 450,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 178,
+        "minimumWidth": 100,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": false,
+        "id": "edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel",
+        "closed": true,
+        "y": -75,
+        "x": -224,
+        "minimumHeight": 123,
+        "height": 726,
+        "minimumWidth": 100,
+        "width": 510,
+        "document": false
+      },
+      {
+        "visible": false,
+        "id": "edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel",
+        "closed": true,
+        "y": -75,
+        "x": -224,
+        "minimumHeight": 123,
+        "height": 726,
+        "minimumWidth": 100,
+        "width": 448,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "ideDocDocumentPanel",
+        "closed": false,
+        "y": 121,
+        "x": 283,
+        "minimumHeight": 100,
+        "height": 506,
+        "minimumWidth": 300,
+        "width": 803,
+        "document": true
+      },
+      {
+        "visible": true,
+        "id": "outputWidgetPanel",
+        "closed": false,
+        "y": 630,
+        "x": 0,
+        "minimumHeight": 106,
+        "height": 191,
+        "minimumWidth": 100,
+        "width": 1280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "propertiesWidgetPanel",
+        "closed": false,
+        "y": 385,
+        "x": 1089,
+        "minimumHeight": 103,
+        "height": 243,
+        "minimumWidth": 53,
+        "width": 191,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin",
+        "closed": false,
+        "y": 95,
+        "x": 1089,
+        "minimumHeight": 123,
+        "height": 288,
+        "minimumWidth": 100,
+        "width": 191,
+        "document": false
+      }
+    ],
+    "camera": {
+      "type": "Fixed",
+      "cframe": [
+        20,
+        16,
+        22,
+        0.7399401068687439,
+        -0.3187655508518219,
+        0.5923488736152649,
+        0,
+        0.8805899024009705,
+        0.4738790988922119,
+        -0.6726727485656738,
+        -0.3506421446800232,
+        0.6515837907791138
+      ],
+      "fov": 70,
+      "focus": [
+        18.8153018951416,
+        15.052242279052734,
+        20.69683265686035,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "firstCycle": {
+    "enterA": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-12"
+      },
+      "stack": [
+        {
+          "state": "active",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "request": {
+        "report": "layout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=export\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21133007356416-0.xml\"\nlayout_snapshot_bytes=23816\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=89\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=exported\nworkspace_prepare=verified\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_builtin_TerrainEditor.rbxm_TerrainEditor\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_builtin_TerrainEditor.rbxm_TerrainEditor\" document=false closed=true visible=false x=-224 y=-75 width=280 height=175 minimum_width=100 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_builtin_Toolbox.rbxm_Toolbox\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_builtin_Toolbox.rbxm_Toolbox\" document=false closed=true visible=false x=-224 y=-75 width=280 height=265 minimum_width=280 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_cloud_109890065116916_EffectDesignerSuite\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_cloud_109890065116916_EffectDesignerSuite\" document=false closed=true visible=false x=-224 y=-75 width=189 height=533 minimum_width=100 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"outputWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"outputWidgetPanel\" document=false closed=true visible=false x=-224 y=-75 width=1280 height=191 minimum_width=100 minimum_height=106\nworkspace_panel_operation=close\nworkspace_panel_id=\"propertiesWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"propertiesWidgetPanel\" document=false closed=true visible=false x=-224 y=-75 width=190 height=331 minimum_width=53 minimum_height=103\nworkspace_panel_operation=close\nworkspace_panel_id=\"rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin\"\nworkspace_panel_verified=true\nworkspace_panel id=\"rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin\" document=false closed=true visible=false x=-224 y=-75 width=190 height=726 minimum_width=100 minimum_height=123\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=1279 bottom=724\nworkspace_layout_activation=completed\nworkspace_insert id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" target=\"ideDocDocumentPanel\" area=1 width=512 height=725 first_width=512 first_height=725\nworkspace_panel_operation=open\nworkspace_panel_id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=false visible=true x=0 y=95 width=804 height=726 minimum_width=100 minimum_height=123\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=1279 bottom=724\nworkspace_layout_activation=completed\nlayout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=export\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21133174240666-1.xml\"\nlayout_snapshot_bytes=23686\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=91\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=exported\nworkspace_native_parent_mapping=verified\nworkspace_size_hint id=\"Layout0\" width=1280 height=725\nworkspace_size_hint id=\"Layout1\" width=1280 height=725\nworkspace_size_hint id=\"Layout15\" width=1280 height=725\nworkspace_size_hint id=\"Layout22\" width=768 height=725\nworkspace_size_hint id=\"Layout3\" width=1280 height=725\nworkspace_size_hint id=\"Layout33\" width=512 height=725\nworkspace_size_hint id=\"Layout34\" width=1280 height=725\nworkspace_size_hint id=\"Layout6\" width=1280 height=725\nworkspace_size_hint id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" width=512 height=725\nworkspace_size_hint id=\"ideDocDocumentPanel\" width=768 height=699\nlayout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=restore\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21133174240666-1-sized.xml\"\nlayout_snapshot_bytes=20331\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=91\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=restored\nworkspace_restore=applied_pending_geometry_check\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=-1 bottom=-1\nworkspace_layout_activation=completed\nworkspace_main_window_layout=recalculated\nworkspace_managed_bounds x=0 y=95 width=1280 height=725\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=false visible=true x=0 y=95 width=510 height=726 minimum_width=100 minimum_height=123\nworkspace_panel id=\"ideDocDocumentPanel\" document=true closed=false visible=true x=513 y=121 width=767 height=699 minimum_width=300 minimum_height=100\nworkspace_split_allocation id=\"Layout34\" span=1280 requested_first=512 measured_first=510 measured_second=767 gap=3 tolerance=4\nworkspace_bounds_verified=true\nworkspace_allocation_verified=true\nworkspace_arrangement=applied_pending_render_check\nworkspace_geometry_verified=true\n",
+        "id": "request-12",
+        "error": "",
+        "status": "applied"
+      }
+    },
+    "enterB": {
+      "A": {
+        "state": "suspended",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-14"
+      },
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14"
+      ],
+      "B": {
+        "state": "active",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-14"
+      },
+      "request": {
+        "id": "request-14",
+        "geometry": [
+          "workspace_managed_bounds x=0 y=95 width=1280 height=725",
+          "workspace_split_allocation id=\"Layout34\" span=1280 requested_first=832 measured_first=829 measured_second=448 gap=3 tolerance=4",
+          "workspace_geometry_verified=true"
+        ],
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [
+        {
+          "state": "suspended",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        },
+        {
+          "state": "active",
+          "Name": "workspace-test.B",
+          "Id": "view-9",
+          "Exited": {
+            "Id": "view-9",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-9",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "inventoryRequest": "request-17"
+    },
+    "resumeA": {
+      "A": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-18"
+      },
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18"
+      ],
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-18"
+      },
+      "request": {
+        "id": "request-18",
+        "restored": true,
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [
+        {
+          "state": "active",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "inventoryRequest": "request-21"
+    },
+    "normal": {
+      "A": {
+        "state": "inactive",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-22"
+      },
+      "camera": {
+        "type": "Fixed",
+        "cframe": [
+          20,
+          16,
+          22,
+          0.7399401068687439,
+          -0.3187655508518219,
+          0.5923488736152649,
+          0,
+          0.8805899024009705,
+          0.4738790988922119,
+          -0.6726727485656738,
+          -0.3506421446800232,
+          0.6515837907791138
+        ],
+        "fov": 70,
+        "focus": [
+          18.8153018951416,
+          15.052242279052734,
+          20.69683265686035,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18",
+        "WORKSPACE_EVENT A Exited exit request-22"
+      ],
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-18"
+      },
+      "request": {
+        "id": "request-22",
+        "restored": true,
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [],
+      "inventoryRequest": "request-24"
+    }
+  },
+  "secondCycle": {
+    "enterA": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-26"
+      },
+      "request": {
+        "report": "layout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=export\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21233287201583-6.xml\"\nlayout_snapshot_bytes=23816\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=89\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=exported\nworkspace_prepare=verified\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_builtin_TerrainEditor.rbxm_TerrainEditor\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_builtin_TerrainEditor.rbxm_TerrainEditor\" document=false closed=true visible=false x=-224 y=-75 width=280 height=175 minimum_width=100 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_builtin_Toolbox.rbxm_Toolbox\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_builtin_Toolbox.rbxm_Toolbox\" document=false closed=true visible=false x=-224 y=-75 width=280 height=265 minimum_width=280 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"edit_cloud_109890065116916_EffectDesignerSuite\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_cloud_109890065116916_EffectDesignerSuite\" document=false closed=true visible=false x=-224 y=-75 width=189 height=533 minimum_width=100 minimum_height=123\nworkspace_panel_operation=close\nworkspace_panel_id=\"outputWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"outputWidgetPanel\" document=false closed=true visible=false x=-224 y=-75 width=1280 height=191 minimum_width=100 minimum_height=106\nworkspace_panel_operation=close\nworkspace_panel_id=\"propertiesWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"propertiesWidgetPanel\" document=false closed=true visible=false x=-224 y=-75 width=190 height=331 minimum_width=53 minimum_height=103\nworkspace_panel_operation=close\nworkspace_panel_id=\"rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin\"\nworkspace_panel_verified=true\nworkspace_panel id=\"rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin\" document=false closed=true visible=false x=-224 y=-75 width=190 height=726 minimum_width=100 minimum_height=123\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=1279 bottom=724\nworkspace_layout_activation=completed\nworkspace_insert id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" target=\"ideDocDocumentPanel\" area=1 width=512 height=725 first_width=512 first_height=725\nworkspace_panel_operation=open\nworkspace_panel_id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=false visible=true x=0 y=95 width=804 height=726 minimum_width=100 minimum_height=123\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=1279 bottom=724\nworkspace_layout_activation=completed\nlayout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=export\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21233449997000-7.xml\"\nlayout_snapshot_bytes=23686\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=91\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=exported\nworkspace_native_parent_mapping=verified\nworkspace_size_hint id=\"Layout0\" width=1280 height=725\nworkspace_size_hint id=\"Layout1\" width=1280 height=725\nworkspace_size_hint id=\"Layout15\" width=1280 height=725\nworkspace_size_hint id=\"Layout22\" width=768 height=725\nworkspace_size_hint id=\"Layout3\" width=1280 height=725\nworkspace_size_hint id=\"Layout33\" width=512 height=725\nworkspace_size_hint id=\"Layout34\" width=1280 height=725\nworkspace_size_hint id=\"Layout6\" width=1280 height=725\nworkspace_size_hint id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" width=512 height=725\nworkspace_size_hint id=\"ideDocDocumentPanel\" width=768 height=699\nlayout_snapshot_format=vfx-qtitan-snapshot-v2\nlayout_snapshot_operation=restore\ndocking_manager_root=1\ndocking_managed_is_widget=true\ndocking_managed_same_root=true\ndocking_matching_managers=1\ndocking_guard=passed\ndocking_qt_version=5.15.9\nlayout_snapshot_file=\"/Users/orcrant404/Documents/ChatGPT/VFX Editor/build/test-studio/StudioVFXTest.app/Contents/MacOS/RobloxModLoader/mods/workspace/reports/layout-66258-21233449997000-7-sized.xml\"\nlayout_snapshot_bytes=20331\nlayout_snapshot_xml_valid=true\nlayout_snapshot_panel_count=91\nlayout_snapshot_window_count=2\nlayout_snapshot_native_called=true\nlayout_snapshot_native_result=true\nlayout_snapshot=restored\nworkspace_restore=applied_pending_geometry_check\nworkspace_layout_lookup manager_root=1 main_class=\"RBX::Studio::MainWindow\" managed_class=\"QWidget\" exact_classes=1 layout_types=1 same_root=1 manager_linked=1 host_matches=1 candidates_omitted=0\nworkspace_layout_candidate class=\"Qtitan::DockMainWindowLayout\" root=1 same_root=1 parent_class=\"QWidget\" parent_widget=1 parent_same_root=1 parent_main=0 parent_managed=1 parent_managed_ancestor=1 within_main=1 manager_linked=1 matches_host=1\nworkspace_layout_cached_rectangle left=0 top=0 right=-1 bottom=-1\nworkspace_layout_activation=completed\nworkspace_main_window_layout=recalculated\nworkspace_managed_bounds x=0 y=95 width=1280 height=725\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=false visible=true x=0 y=95 width=510 height=726 minimum_width=100 minimum_height=123\nworkspace_panel id=\"ideDocDocumentPanel\" document=true closed=false visible=true x=513 y=121 width=767 height=699 minimum_width=300 minimum_height=100\nworkspace_split_allocation id=\"Layout34\" span=1280 requested_first=512 measured_first=510 measured_second=767 gap=3 tolerance=4\nworkspace_bounds_verified=true\nworkspace_allocation_verified=true\nworkspace_arrangement=applied_pending_render_check\nworkspace_geometry_verified=true\n",
+        "id": "request-26",
+        "error": "",
+        "status": "applied"
+      }
+    },
+    "noop": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "noop",
+        "error": "",
+        "requestId": "request-28"
+      },
+      "stack": [
+        {
+          "state": "active",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18",
+        "WORKSPACE_EVENT A Exited exit request-22",
+        "WORKSPACE_EVENT A Entered enter request-26"
+      ],
+      "request": {
+        "report": "",
+        "id": "request-28",
+        "error": "",
+        "status": "noop"
+      }
+    },
+    "enterB": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-29"
+      },
+      "stack": [
+        {
+          "state": "suspended",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        },
+        {
+          "state": "active",
+          "Name": "workspace-test.B",
+          "Id": "view-9",
+          "Exited": {
+            "Id": "view-9",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-9",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "request": {
+        "id": "request-29",
+        "geometryVerified": true,
+        "error": "",
+        "status": "applied"
+      }
+    },
+    "returnA": {
+      "A": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-32"
+      },
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18",
+        "WORKSPACE_EVENT A Exited exit request-22",
+        "WORKSPACE_EVENT A Entered enter request-26",
+        "WORKSPACE_EVENT A Exited covered request-29",
+        "WORKSPACE_EVENT B Entered enter request-29",
+        "WORKSPACE_EVENT B Exited exit request-32",
+        "WORKSPACE_EVENT A Entered resume request-32"
+      ],
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-32"
+      },
+      "request": {
+        "id": "request-32",
+        "restored": true,
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [
+        {
+          "state": "active",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ]
+    },
+    "normal": {
+      "A": {
+        "state": "inactive",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-35"
+      },
+      "camera": {
+        "type": "Fixed",
+        "cframe": [
+          20,
+          16,
+          22,
+          0.7399401068687439,
+          -0.3187655508518219,
+          0.5923488736152649,
+          0,
+          0.8805899024009705,
+          0.4738790988922119,
+          -0.6726727485656738,
+          -0.3506421446800232,
+          0.6515837907791138
+        ],
+        "fov": 70,
+        "focus": [
+          18.8153018951416,
+          15.052242279052734,
+          20.69683265686035,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "events": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18",
+        "WORKSPACE_EVENT A Exited exit request-22",
+        "WORKSPACE_EVENT A Entered enter request-26",
+        "WORKSPACE_EVENT A Exited covered request-29",
+        "WORKSPACE_EVENT B Entered enter request-29",
+        "WORKSPACE_EVENT B Exited exit request-32",
+        "WORKSPACE_EVENT A Entered resume request-32",
+        "WORKSPACE_EVENT A Exited exit request-35"
+      ],
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-32"
+      },
+      "request": {
+        "id": "request-35",
+        "restored": true,
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [],
+      "inventoryRequest": "request-37"
+    }
+  },
+  "toolbarCycle": {
+    "enterA": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-39"
+      },
+      "markers": [
+        "WORKSPACE_REQUEST Enter A request-39"
+      ],
+      "request": {
+        "id": "request-39",
+        "geometryVerified": true,
+        "error": "",
+        "status": "applied"
+      }
+    },
+    "enterB": {
+      "state": {
+        "state": "active",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-41"
+      },
+      "stack": [
+        {
+          "state": "suspended",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        },
+        {
+          "state": "active",
+          "Name": "workspace-test.B",
+          "Id": "view-9",
+          "Exited": {
+            "Id": "view-9",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-9",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "request": {
+        "id": "request-41",
+        "geometryVerified": true,
+        "error": "",
+        "status": "applied"
+      }
+    },
+    "returnA": {
+      "A": {
+        "state": "active",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-44"
+      },
+      "stack": [
+        {
+          "state": "active",
+          "Name": "workspace-test.A",
+          "Id": "view-4",
+          "Exited": {
+            "Id": "view-4",
+            "Kind": "Exited",
+            "Connect": null
+          },
+          "Entered": {
+            "Id": "view-4",
+            "Kind": "Entered",
+            "Connect": null
+          }
+        }
+      ],
+      "request": {
+        "id": "request-44",
+        "error": "",
+        "status": "applied"
+      },
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-44"
+      }
+    },
+    "normal": {
+      "A": {
+        "state": "inactive",
+        "name": "workspace-test.A",
+        "recoveryRequired": false,
+        "id": "view-4",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-47"
+      },
+      "B": {
+        "state": "inactive",
+        "name": "workspace-test.B",
+        "recoveryRequired": false,
+        "id": "view-9",
+        "status": "applied",
+        "error": "",
+        "requestId": "request-44"
+      },
+      "request": {
+        "id": "request-47",
+        "restored": true,
+        "error": "",
+        "status": "applied"
+      },
+      "stack": [],
+      "markers": [
+        "WORKSPACE_EVENT A Entered enter request-12",
+        "WORKSPACE_EVENT A Exited covered request-14",
+        "WORKSPACE_EVENT B Entered enter request-14",
+        "WORKSPACE_EVENT B Exited exit request-18",
+        "WORKSPACE_EVENT A Entered resume request-18",
+        "WORKSPACE_EVENT A Exited exit request-22",
+        "WORKSPACE_EVENT A Entered enter request-26",
+        "WORKSPACE_EVENT A Exited covered request-29",
+        "WORKSPACE_EVENT B Entered enter request-29",
+        "WORKSPACE_EVENT B Exited exit request-32",
+        "WORKSPACE_EVENT A Entered resume request-32",
+        "WORKSPACE_EVENT A Exited exit request-35",
+        "WORKSPACE_REQUEST Enter A request-39",
+        "WORKSPACE_EVENT A Entered enter request-39",
+        "WORKSPACE_REQUEST Enter B request-41",
+        "WORKSPACE_EVENT A Exited covered request-41",
+        "WORKSPACE_EVENT B Entered enter request-41",
+        "WORKSPACE_REQUEST Enter A request-44",
+        "WORKSPACE_EVENT B Exited exit request-44",
+        "WORKSPACE_EVENT A Entered resume request-44",
+        "WORKSPACE_REQUEST Exit A request-47",
+        "WORKSPACE_EVENT A Exited exit request-47"
+      ]
+    }
+  },
+  "panelControls": [
+    {
+      "report": "workspace_panel_operation=open\nworkspace_panel_id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=false visible=true x=359 y=187 width=560 height=541 minimum_width=100 minimum_height=123\n",
+      "id": "request-2",
+      "error": "",
+      "status": "applied"
+    },
+    {
+      "report": "workspace_panel_operation=close\nworkspace_panel_id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel\" document=false closed=true visible=false x=-224 y=-75 width=560 height=541 minimum_width=100 minimum_height=123\n",
+      "id": "request-3",
+      "error": "",
+      "status": "applied"
+    },
+    {
+      "report": "workspace_panel_operation=open\nworkspace_panel_id=\"edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel\" document=false closed=false visible=true x=359 y=187 width=560 height=541 minimum_width=100 minimum_height=123\n",
+      "id": "request-7",
+      "error": "",
+      "status": "applied"
+    },
+    {
+      "report": "workspace_panel_operation=close\nworkspace_panel_id=\"edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel\" document=false closed=true visible=false x=-224 y=-75 width=560 height=541 minimum_width=100 minimum_height=123\n",
+      "id": "request-8",
+      "error": "",
+      "status": "applied"
+    }
+  ],
+  "commandBarControls": {
+    "closeOutput": {
+      "report": "workspace_panel_operation=close\nworkspace_panel_id=\"outputWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"outputWidgetPanel\" document=false closed=true visible=false x=-224 y=-75 width=1280 height=191 minimum_width=100 minimum_height=106\n",
+      "id": "request-49",
+      "error": "",
+      "status": "applied"
+    },
+    "openOutput": {
+      "request": {
+        "report": "workspace_panel_operation=open\nworkspace_panel_id=\"outputWidgetPanel\"\nworkspace_panel_verified=true\nworkspace_panel id=\"outputWidgetPanel\" document=false closed=false visible=true x=0 y=630 width=1280 height=191 minimum_width=100 minimum_height=106\n",
+        "id": "request-50",
+        "error": "",
+        "status": "applied"
+      },
+      "viewportGuard": "request-51",
+      "inventoryRequest": "request-52"
+    },
+    "viewportGuard": {
+      "report": "",
+      "id": "request-51",
+      "error": "Workspace cannot close a Studio document panel: ideDocDocumentPanel",
+      "status": "failed"
+    }
+  },
+  "events": [
+    "WORKSPACE_EVENT A Entered enter request-12",
+    "WORKSPACE_EVENT A Exited covered request-14",
+    "WORKSPACE_EVENT B Entered enter request-14",
+    "WORKSPACE_EVENT B Exited exit request-18",
+    "WORKSPACE_EVENT A Entered resume request-18",
+    "WORKSPACE_EVENT A Exited exit request-22",
+    "WORKSPACE_EVENT A Entered enter request-26",
+    "WORKSPACE_EVENT A Exited covered request-29",
+    "WORKSPACE_EVENT B Entered enter request-29",
+    "WORKSPACE_EVENT B Exited exit request-32",
+    "WORKSPACE_EVENT A Entered resume request-32",
+    "WORKSPACE_EVENT A Exited exit request-35",
+    "WORKSPACE_EVENT A Entered enter request-39",
+    "WORKSPACE_EVENT A Exited covered request-41",
+    "WORKSPACE_EVENT B Entered enter request-41",
+    "WORKSPACE_EVENT B Exited exit request-44",
+    "WORKSPACE_EVENT A Entered resume request-44",
+    "WORKSPACE_EVENT A Exited exit request-47"
+  ],
+  "final": {
+    "A": {
+      "state": "inactive",
+      "name": "workspace-test.A",
+      "recoveryRequired": false,
+      "id": "view-4",
+      "status": "applied",
+      "error": "",
+      "requestId": "request-47"
+    },
+    "camera": {
+      "type": "Fixed",
+      "cframe": [
+        20,
+        16,
+        22,
+        0.7399401068687439,
+        -0.3187655508518219,
+        0.5923488736152649,
+        0,
+        0.8805899024009705,
+        0.4738790988922119,
+        -0.6726727485656738,
+        -0.3506421446800232,
+        0.6515837907791138
+      ],
+      "fov": 70,
+      "focus": [
+        18.8153018951416,
+        15.052242279052734,
+        20.69683265686035,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "B": {
+      "state": "inactive",
+      "name": "workspace-test.B",
+      "recoveryRequired": false,
+      "id": "view-9",
+      "status": "applied",
+      "error": "",
+      "requestId": "request-44"
+    },
+    "viewportGuard": {
+      "report": "",
+      "id": "request-51",
+      "error": "Workspace cannot close a Studio document panel: ideDocDocumentPanel",
+      "status": "failed"
+    },
+    "stack": [],
+    "panels": [
+      {
+        "visible": true,
+        "id": "edit_builtin_TerrainEditor.rbxm_TerrainEditor",
+        "closed": false,
+        "y": 95,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 175,
+        "minimumWidth": 100,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "edit_builtin_Toolbox.rbxm_Toolbox",
+        "closed": false,
+        "y": 272,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 176,
+        "minimumWidth": 280,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "edit_cloud_109890065116916_EffectDesignerSuite",
+        "closed": false,
+        "y": 450,
+        "x": 0,
+        "minimumHeight": 123,
+        "height": 178,
+        "minimumWidth": 100,
+        "width": 280,
+        "document": false
+      },
+      {
+        "visible": false,
+        "id": "edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel",
+        "closed": true,
+        "y": -75,
+        "x": -224,
+        "minimumHeight": 123,
+        "height": 726,
+        "minimumWidth": 100,
+        "width": 510,
+        "document": false
+      },
+      {
+        "visible": false,
+        "id": "edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel",
+        "closed": true,
+        "y": -75,
+        "x": -224,
+        "minimumHeight": 123,
+        "height": 726,
+        "minimumWidth": 100,
+        "width": 448,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "ideDocDocumentPanel",
+        "closed": false,
+        "y": 121,
+        "x": 283,
+        "minimumHeight": 100,
+        "height": 506,
+        "minimumWidth": 300,
+        "width": 803,
+        "document": true
+      },
+      {
+        "visible": true,
+        "id": "outputWidgetPanel",
+        "closed": false,
+        "y": 630,
+        "x": 0,
+        "minimumHeight": 106,
+        "height": 191,
+        "minimumWidth": 100,
+        "width": 1280,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "propertiesWidgetPanel",
+        "closed": false,
+        "y": 385,
+        "x": 1089,
+        "minimumHeight": 103,
+        "height": 243,
+        "minimumWidth": 53,
+        "width": 191,
+        "document": false
+      },
+      {
+        "visible": true,
+        "id": "rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin",
+        "closed": false,
+        "y": 95,
+        "x": 1089,
+        "minimumHeight": 123,
+        "height": 288,
+        "minimumWidth": 100,
+        "width": 191,
+        "document": false
+      }
+    ],
+    "markers": [
+      "WORKSPACE_PLUGIN_PANEL_CONTROLS A request-2 request-3",
+      "WORKSPACE_PLUGIN_READY A view-4 panel-1",
+      "WORKSPACE_PLUGIN_PANEL_CONTROLS B request-7 request-8",
+      "WORKSPACE_PLUGIN_READY B view-9 panel-6",
+      "WORKSPACE_FINAL_ENTER_A request-12",
+      "WORKSPACE_EVENT A Entered enter request-12",
+      "WORKSPACE_FINAL_ENTER_B request-14",
+      "WORKSPACE_EVENT A Exited covered request-14",
+      "WORKSPACE_EVENT B Entered enter request-14",
+      "WORKSPACE_FINAL_EXIT_B request-18",
+      "WORKSPACE_EVENT B Exited exit request-18",
+      "WORKSPACE_EVENT A Entered resume request-18",
+      "WORKSPACE_FINAL_EXIT_A request-22",
+      "WORKSPACE_EVENT A Exited exit request-22",
+      "WORKSPACE_FINAL_CYCLE2_ENTER_A request-26",
+      "WORKSPACE_EVENT A Entered enter request-26",
+      "WORKSPACE_FINAL_NOOP_A request-28",
+      "WORKSPACE_FINAL_CYCLE2_ENTER_B request-29",
+      "WORKSPACE_EVENT A Exited covered request-29",
+      "WORKSPACE_EVENT B Entered enter request-29",
+      "WORKSPACE_FINAL_RETURN_A request-32",
+      "WORKSPACE_EVENT B Exited exit request-32",
+      "WORKSPACE_EVENT A Entered resume request-32",
+      "WORKSPACE_FINAL_CYCLE2_EXIT_A request-35",
+      "WORKSPACE_EVENT A Exited exit request-35",
+      "WORKSPACE_REQUEST Enter A request-39",
+      "WORKSPACE_EVENT A Entered enter request-39",
+      "WORKSPACE_REQUEST Enter B request-41",
+      "WORKSPACE_EVENT A Exited covered request-41",
+      "WORKSPACE_EVENT B Entered enter request-41",
+      "WORKSPACE_REQUEST Enter A request-44",
+      "WORKSPACE_EVENT B Exited exit request-44",
+      "WORKSPACE_EVENT A Entered resume request-44",
+      "WORKSPACE_REQUEST Exit A request-47",
+      "WORKSPACE_EVENT A Exited exit request-47",
+      "WORKSPACE_FINAL_CLOSE_OUTPUT request-49",
+      "WORKSPACE_FINAL_OPEN_OUTPUT request-50"
+    ]
+  },
+  "limits": [
+    "Pinned ARM64 Studio only; no default RML deployment",
+    "No native camera ownership or VFX plugin",
+    "Per-place persistence and seven-day setting remain future work",
+    "Hard-crash recovery and other Studio versions unproven",
+    "Full initial Focus comparison excluded: Studio normalizes Focus after the deliberate test-camera reset",
+    "Hidden closed plugin panel cached rectangles differ from pre-entry; visible normal panels restore exactly"
+  ],
+  "completedUtc": "2026-10-12 02:19:49 UTC",
+  "workspaceBinarySha256": "1c80d6a7d34d09b42b3de7c8cd07a94b7d26164479e1ef08746d9b47ff7d3741",
+  "postCyclePanelCheck": {
+    "requestId": "request-54",
+    "status": "applied",
+    "panel": "A",
+    "floatingExtent": [
+      560,
+      541
+    ],
+    "closureRequestId": "request-55",
+    "closureStatus": "applied",
+    "openOrigin": "real Command Bar",
+    "cleanupOrigin": "scoped MCP Luau call after the floating panel hid the Command Bar"
+  }
+}

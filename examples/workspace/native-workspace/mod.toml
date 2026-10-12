@@ -1,0 +1,4 @@
+name = "Workspace"
+version = "0.1.0"
+author = "orcrant404"
+description = "Native panel and view-stack API using the built-in RML modloader global (guarded Studio build)"

@@ -1,0 +1,30 @@
+{
+  "source_loader_unchanged": true,
+  "source_loader_sha256": "d881a24651b69a6f12fdb13cda5fafbca53cac1bf548f41e2fe46a059cebf065",
+  "built_loader_sha256": "ba36bc59283d239f407b3afd89b70a09e4564b5191fafd240310c7b897ba8fec",
+  "built_artifact_sha256": "3eb5fbb27b4d1ec983eefc0c8afac5809b6f00f64af4072a7f588faa105da85c",
+  "test_engine_code_sha256": "e140c26a00c532ab21add689048adcab364c6dea27561a854d01dc0d512064bd",
+  "profile": "native-api",
+  "mods": [],
+  "tested_utc": "2026-10-12T17:41:55Z",
+  "studio_version": "0.741.19.7411056",
+  "architecture": "macOS ARM64",
+  "test_pid": 54517,
+  "observed_command_bar": "RML_CORE_COMMAND_BAR_PASS 0.1.0",
+  "observed_ordinary_plugin": "RML_CORE_PLUGIN_PASS 0.1.0 Plugin",
+  "ordinary_plugin_loading": "Studio Settings Plugins Dir changed only in fenced process; close and reopen disposable place to load exported local plugin",
+  "kernel_write_checks": {
+    "shared_roblox_settings": "denied",
+    "shared_preferences": "denied",
+    "owned_existing_plugin_fixture": "allowed"
+  },
+  "native_test_groups": [
+    "core",
+    "registry",
+    "stack",
+    "lua",
+    "host",
+    "docking"
+  ],
+  "native_test_groups_passed": 6
+}

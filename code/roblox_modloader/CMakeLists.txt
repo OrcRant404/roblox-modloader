@@ -1,6 +1,8 @@
 set(ROBLOX_MODLOADER_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(ROBLOX_MODLOADER_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
+include("${CMAKE_CURRENT_SOURCE_DIR}/native_engine_bindings.cmake")
+
 set(MODLOADER_SOURCES
         "${ROBLOX_MODLOADER_SOURCE_DIR}/main.cpp"
         "${ROBLOX_MODLOADER_SOURCE_DIR}/pointers.cpp"
@@ -77,6 +79,7 @@ if (UNIX AND NOT APPLE)
 endif ()
 
 target_include_directories(roblox_modloader PRIVATE
+        "${RML_NATIVE_ENGINE_INCLUDE_DIR}"
         "${ROBLOX_MODLOADER_SOURCE_DIR}"
         "${ROBLOX_MODLOADER_INCLUDE_DIR}"
         "${ROBLOX_MODLOADER_SOURCE_DIR}/platform/${RML_PLATFORM_ID}"

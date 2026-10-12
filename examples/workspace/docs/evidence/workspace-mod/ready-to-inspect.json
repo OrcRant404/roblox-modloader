@@ -1,0 +1,163 @@
+{
+  "A": {
+    "state": "inactive",
+    "name": "workspace-test.A",
+    "recoveryRequired": false,
+    "id": "view-4",
+    "status": "applied",
+    "error": "",
+    "requestId": "request-47"
+  },
+  "camera": {
+    "type": "Fixed",
+    "cframe": [
+      20,
+      16,
+      22,
+      0.7399401068687439,
+      -0.3187655508518219,
+      0.5923488736152649,
+      0,
+      0.8805899024009705,
+      0.4738790988922119,
+      -0.6726727485656738,
+      -0.3506421446800232,
+      0.6515837907791138
+    ],
+    "fov": 70,
+    "focus": [
+      18.8153018951416,
+      15.052242279052734,
+      20.69683265686035,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  "B": {
+    "state": "inactive",
+    "name": "workspace-test.B",
+    "recoveryRequired": false,
+    "id": "view-9",
+    "status": "applied",
+    "error": "",
+    "requestId": "request-44"
+  },
+  "stack": [],
+  "panels": [
+    {
+      "visible": true,
+      "id": "edit_builtin_TerrainEditor.rbxm_TerrainEditor",
+      "closed": false,
+      "y": 95,
+      "x": 0,
+      "minimumHeight": 123,
+      "height": 175,
+      "minimumWidth": 100,
+      "width": 280,
+      "document": false
+    },
+    {
+      "visible": true,
+      "id": "edit_builtin_Toolbox.rbxm_Toolbox",
+      "closed": false,
+      "y": 272,
+      "x": 0,
+      "minimumHeight": 123,
+      "height": 176,
+      "minimumWidth": 280,
+      "width": 280,
+      "document": false
+    },
+    {
+      "visible": true,
+      "id": "edit_cloud_109890065116916_EffectDesignerSuite",
+      "closed": false,
+      "y": 450,
+      "x": 0,
+      "minimumHeight": 123,
+      "height": 178,
+      "minimumWidth": 100,
+      "width": 280,
+      "document": false
+    },
+    {
+      "visible": false,
+      "id": "edit_user_WorkspaceConsumerA.rbxmx_workspace-test.A.Panel",
+      "closed": true,
+      "y": -75,
+      "x": -224,
+      "minimumHeight": 123,
+      "height": 541,
+      "minimumWidth": 100,
+      "width": 560,
+      "document": false
+    },
+    {
+      "visible": false,
+      "id": "edit_user_WorkspaceConsumerB.rbxmx_workspace-test.B.Panel",
+      "closed": true,
+      "y": -75,
+      "x": -224,
+      "minimumHeight": 123,
+      "height": 726,
+      "minimumWidth": 100,
+      "width": 448,
+      "document": false
+    },
+    {
+      "visible": true,
+      "id": "ideDocDocumentPanel",
+      "closed": false,
+      "y": 121,
+      "x": 283,
+      "minimumHeight": 100,
+      "height": 506,
+      "minimumWidth": 300,
+      "width": 803,
+      "document": true
+    },
+    {
+      "visible": true,
+      "id": "outputWidgetPanel",
+      "closed": false,
+      "y": 630,
+      "x": 0,
+      "minimumHeight": 106,
+      "height": 191,
+      "minimumWidth": 100,
+      "width": 1280,
+      "document": false
+    },
+    {
+      "visible": true,
+      "id": "propertiesWidgetPanel",
+      "closed": false,
+      "y": 385,
+      "x": 1089,
+      "minimumHeight": 103,
+      "height": 243,
+      "minimumWidth": 53,
+      "width": 191,
+      "document": false
+    },
+    {
+      "visible": true,
+      "id": "rplg_sabuiltin_ExplorerPlugin.rbxm_ExplorerPlugin",
+      "closed": false,
+      "y": 95,
+      "x": 1089,
+      "minimumHeight": 123,
+      "height": 288,
+      "minimumWidth": 100,
+      "width": 191,
+      "document": false
+    }
+  ]
+}

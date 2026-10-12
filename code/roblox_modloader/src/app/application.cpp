@@ -13,6 +13,7 @@
 #include "subsystems/task_scheduler_subsystem.hpp"
 #include "subsystems/job_manager_subsystem.hpp"
 #include "subsystems/hooking_subsystem.hpp"
+#include "subsystems/native_api_subsystem.hpp"
 #include "subsystems/script_subsystem_adapter.hpp"
 #include "subsystems/mod_manager_subsystem.hpp"
 
@@ -49,6 +50,7 @@ namespace rml
 		m_subsystems.push_back(std::make_unique<QtIntegrationSubsystem>());
 		m_subsystems.push_back(std::make_unique<RttiManagerSubsystem>());
 		m_subsystems.push_back(std::make_unique<PointersSubsystem>());
+		m_subsystems.push_back(std::make_unique<NativeApiSubsystem>());
 		m_subsystems.push_back(std::move(task_scheduler_subsystem));
 		m_subsystems.push_back(std::make_unique<JobManagerSubsystem>(task_scheduler_subsystem_ref));
 		m_subsystems.push_back(std::make_unique<HookingSubsystem>());
@@ -70,6 +72,9 @@ namespace rml
 			RML_INFO("Subsystem initialized: {}", subsystem->name());
 		}
 
+		// All initial native namespaces are registered/published before the first
+		// frozen modloader snapshot, including the Core-only Version root.
+		native_api::complete_native_api_startup();
 		g_hooking->enable();
 		RML_INFO("Hooking enabled.");
 

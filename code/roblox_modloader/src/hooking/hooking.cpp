@@ -4,6 +4,7 @@
 #include "RobloxModLoader/internal/hooking/engine_hooks.hpp"
 #include "RobloxModLoader/roblox/task_scheduler.hpp"
 #include "pointers.hpp"
+#include "native_api/global_injector.hpp"
 
 #include <utility>
 
@@ -45,7 +46,9 @@ namespace rml
 		// detour_hook_helper::add<hooks::render_perform>("RENDER_PERFORM", g_pointers->m_roblox_pointers.m_render_perform);
 		// detour_hook_helper::add<hooks::render_view>("RENDER_VIEW", g_pointers->m_roblox_pointers.m_render_view);
 #if RML_ENABLE_LUAU
-		DetourHookHelper::add<Hooks::luau_load>("LUAU_LOAD", reinterpret_cast<void*>(g_pointers->m_roblox_pointers.luau_load));
+		// The built-in verified injector already owns this engine entry point.
+		if (!native_api::global_injector_active())
+			DetourHookHelper::add<Hooks::luau_load>("LUAU_LOAD", reinterpret_cast<void*>(g_pointers->m_roblox_pointers.luau_load));
 #endif
 		DetourHookHelper::add<Hooks::build_menu_bar_from_dom>("MENU_BUILD_FROM_DOM", reinterpret_cast<void*>(g_pointers->m_roblox_pointers.build_menu_bar_from_dom));
 

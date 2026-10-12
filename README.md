@@ -87,6 +87,8 @@ The quickest way to start is to copy one of the [examples](#examples) and adapt 
 [Writing .NET mods](docs/writing-dotnet-mods.md) and
 [Writing native mods](docs/writing-native-mods.md).
 
+Native mods can also publish functions through the [built-in `modloader` global](docs/native-luau-api.md). The global is a Core addition; [Workspace](examples/workspace/README.md) is a compiled mod that uses it for Studio panel and view control.
+
 ## Examples
 
 | Example                                             | Surface    | What it shows                                                     |
