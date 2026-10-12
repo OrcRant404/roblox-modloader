@@ -180,6 +180,8 @@ internal static class ModLoader
 
             if (newModel != null)
             {
+                _registry.AddDataModel(modInfo, dataModelType);
+
                 if (!wasInitialized)
                 {
                     try
@@ -208,6 +210,8 @@ internal static class ModLoader
             }
             else
             {
+                var noActiveDataModels = _registry.RemoveDataModel(modInfo, dataModelType);
+
                 if (oldModel != null && aware != null)
                 {
                     try
@@ -220,7 +224,9 @@ internal static class ModLoader
                     }
                 }
 
-                if (wasInitialized)
+                // A filtered mod lives as long as any matching DataModel does.
+                // Global mods (no filter) live until explicit unload/shutdown.
+                if (wasInitialized && interested is { Length: > 0 } && noActiveDataModels)
                 {
                     try
                     {

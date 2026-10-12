@@ -13,6 +13,11 @@
 #include "filesystem/directory.hpp"
 
 #include <atomic>
+
+#if defined(RML_MACOS)
+	#include <pwd.h>
+	#include <unistd.h>
+#endif
 #include <filesystem>
 #include <mutex>
 #include <string>
@@ -157,18 +162,14 @@ namespace
 
 	void ensure_log_directory()
 	{
-		const auto root = rml::filesystem::directory::get_module_directory();
-
-		std::filesystem::create_directories(root / "RobloxModLoader" / "logs");
+		std::filesystem::create_directories(rml::Logger::get_log_directory());
 	}
 
 	void init_sinks()
 	{
 		if (!global_logger_holder::console_sink)
 		{
-			const auto root = rml::filesystem::directory::get_module_directory();
-
-			const auto log_file = root / "RobloxModLoader" / "logs" / "roblox_modloader.log";
+			const auto log_file = rml::Logger::get_log_directory() / "roblox_modloader.log";
 
 			global_logger_holder::console = rml::logger::create_platform_console();
 			global_logger_holder::console_sink = global_logger_holder::console->make_console_sink();
@@ -207,6 +208,33 @@ std::shared_ptr<spdlog::logger> global_logger()
 
 namespace rml
 {
+	std::filesystem::path Logger::get_log_directory()
+	{
+		static const auto directory = [] {
+#if defined(RML_MACOS)
+			// Log files must not modify Studio's signed app bundle. Resolve the
+			// account home without depending on the launcher's working directory.
+			passwd account{};
+			passwd* result{};
+			char buffer[16384]{};
+			if (getpwuid_r(getuid(), &account, buffer, sizeof(buffer), &result) == 0
+			    && result && account.pw_dir && account.pw_dir[0] == '/')
+			{
+				const auto path = std::filesystem::path(account.pw_dir) / "Library" / "Logs" / "RobloxModLoader";
+				std::error_code error;
+				std::filesystem::create_directories(path, error);
+				if (!error)
+					return path;
+			}
+			// The fallback is absolute and user-specific, never relative to the app.
+			return std::filesystem::path("/private/tmp") / ("RobloxModLoader-" + std::to_string(getuid()));
+#else
+			return filesystem::directory::get_module_directory() / "RobloxModLoader" / "logs";
+#endif
+		}();
+		return directory;
+	}
+
 	void Logger::open_console()
 	{
 		init_sinks();

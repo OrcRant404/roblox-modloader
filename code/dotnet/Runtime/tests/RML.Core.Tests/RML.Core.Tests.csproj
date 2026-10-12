@@ -17,5 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/RML.Core/RML.Core.csproj" />
+    <ProjectReference Include="../../src/RML.NativeHost/RML.NativeHost.csproj" />
+    <ProjectReference Include="../RML.Core.Tests.Fixtures/RML.Core.Tests.Fixtures.csproj" />
   </ItemGroup>
 </Project>

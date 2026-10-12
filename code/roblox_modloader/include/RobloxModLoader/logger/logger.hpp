@@ -2,6 +2,7 @@
 
 #include "RobloxModLoader/rml_export.hpp"
 
+#include <filesystem>
 #include <memory>
 #include <spdlog/spdlog.h>
 #include <string>
@@ -41,6 +42,8 @@ namespace rml
 	class Logger
 	{
 	public:
+		RML_EXPORT static std::filesystem::path get_log_directory();
+
 		static void open_console();
 
 		static void init();

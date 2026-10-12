@@ -75,15 +75,12 @@ internal static class NativeHost
     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
     public static void Shutdown()
     {
+        // Native code may request shutdown more than once. Detach first so a
+        // reentrant call cannot invoke mod cleanup again.
+        var shutdown = Interlocked.Exchange(ref _shutdownBinding, null);
         try
         {
-            if (_shutdownBinding is null)
-            {
-                Logger.Error("Shutdown called without successful initialization");
-                return;
-            }
-
-            _shutdownBinding();
+            shutdown?.Invoke();
         }
         catch (Exception ex)
         {
@@ -91,7 +88,14 @@ internal static class NativeHost
         }
         finally
         {
-            _coreAssemblyLoadContext?.Unload();
+            _loadModBinding = null;
+            _unloadModBinding = null;
+            _notifyDataModelChangedBinding = null;
+            _coreAssembly = null;
+            _coreAssemblyLoadContext = null;
+            // Core owns native callback entry points and intentionally lives
+            // for the process lifetime. Unload() on its noncollectible context
+            // throws; escaping this unmanaged entry point aborts Studio.
         }
     }
 
@@ -166,7 +170,7 @@ internal static class NativeHost
         }
     }
 
-    private sealed class CoreLoadContext(string mainAssemblyPath) : AssemblyLoadContext("RML.Core")
+    private sealed class CoreLoadContext(string mainAssemblyPath) : AssemblyLoadContext("RML.Core", isCollectible: false)
     {
         private readonly AssemblyDependencyResolver _resolver = new(mainAssemblyPath);
 

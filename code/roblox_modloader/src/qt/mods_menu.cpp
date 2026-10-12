@@ -374,7 +374,7 @@ namespace rml::qt
 			utils::shell::open_folder(filesystem::directory::get_mod_loader_directory() / "mods");
 		});
 		emit_builtin("Open Logs Folder", [] {
-			utils::shell::open_folder(filesystem::directory::get_mod_loader_directory() / "logs");
+			utils::shell::open_folder(Logger::get_log_directory());
 		});
 		emit_builtin("Open Config", [] {
 			utils::shell::open(filesystem::directory::get_mod_loader_directory() / "config.toml");

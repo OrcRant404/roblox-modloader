@@ -14,6 +14,7 @@ internal sealed class ModInfo(AssemblyLoadContext context, IMod instance, DataMo
     public DataModelType[]? LoadInDataModels { get; } = loadIn;
     public Assembly ModAssembly { get; } = modAssembly;
     public bool Initialized { get; set; }
+    public HashSet<DataModelType> ActiveDataModels { get; } = [];
 }
 
 internal sealed class ModRegistry
@@ -82,6 +83,23 @@ internal sealed class ModRegistry
         lock (_lock)
         {
             info.Initialized = value;
+        }
+    }
+
+    public void AddDataModel(ModInfo info, DataModelType type)
+    {
+        lock (_lock)
+        {
+            info.ActiveDataModels.Add(type);
+        }
+    }
+
+    public bool RemoveDataModel(ModInfo info, DataModelType type)
+    {
+        lock (_lock)
+        {
+            info.ActiveDataModels.Remove(type);
+            return info.ActiveDataModels.Count == 0;
         }
     }
 }

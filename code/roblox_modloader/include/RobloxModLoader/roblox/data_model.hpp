@@ -45,6 +45,20 @@ namespace RBX
 	public:
 		std::shared_ptr<DataModelSerialize> data_model_serialize;
 
+#if defined(RML_MACOS)
+	private:
+		std::byte pad_before_verb_container[0x50];
+
+	public:
+		VerbContainer* verb_container;
+
+	private:
+		std::byte pad_before_type[0x40];
+
+	public:
+		// Studio 0.741.19.7411056: verified across Standalone, Edit and Server models.
+		DataModelType type;
+#else
 	private:
 		std::byte pad_before_type[0x14];
 
@@ -56,6 +70,7 @@ namespace RBX
 
 	public:
 		VerbContainer* verb_container;
+#endif
 
 		static DataModel* from_job(const DataModelJob* job);
 
@@ -63,7 +78,11 @@ namespace RBX
 		RML_LAYOUT_GUARD_BEGIN()
 		RML_ASSERT_LAYOUT_OFFSET(DataModel, workspace, 0x160);
 		RML_ASSERT_LAYOUT_OFFSET(DataModel, data_model_serialize, 0x2B8);
+#if defined(RML_MACOS)
+		static_assert(offsetof(DataModel, type) == 0x348, "DataModel::type macOS layout offset mismatch");
+#else
 		RML_ASSERT_LAYOUT_OFFSET(DataModel, type, 0x2DC);
+#endif
 		RML_ASSERT_LAYOUT_OFFSET(DataModel, verb_container, 0x318);
 		RML_LAYOUT_GUARD_END()
 	};

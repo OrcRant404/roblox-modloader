@@ -10,6 +10,7 @@
 build*/
 out/
 __pycache__/
+.agent-work/
 
 # precompiled headers
 *.ipch

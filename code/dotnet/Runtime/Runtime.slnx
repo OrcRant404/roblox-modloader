@@ -9,6 +9,7 @@
   <Folder Name="/tests/">
     <Project Path="tests/RML.Interop.Tests/RML.Interop.Tests.csproj" />
     <Project Path="tests/RML.Core.Tests/RML.Core.Tests.csproj" />
+    <Project Path="tests/RML.Core.Tests.Fixtures/RML.Core.Tests.Fixtures.csproj" />
     <Project Path="tests/RML.Logging.Tests/RML.Logging.Tests.csproj" />
   </Folder>
   <Folder Name="/tools/" />

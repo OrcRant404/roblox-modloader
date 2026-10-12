@@ -41,6 +41,7 @@ public sealed class ConcurrencyFakeMod : IMod, IDataModelAware
     }
 }
 
+[Collection("Mod loader")]
 public class ModLoaderConcurrencyTests
 {
     [Fact]

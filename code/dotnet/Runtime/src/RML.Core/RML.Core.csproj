@@ -14,5 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="RML.Core.Tests"/>
+    <AssemblyMetadata Include="RML.DataModelLifecycle" Value="multi-model-v1" />
   </ItemGroup>
 </Project>
