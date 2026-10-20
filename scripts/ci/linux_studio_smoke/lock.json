@@ -1,0 +1,29 @@
+{
+  "studio": {
+    "guid": "version-4f087c32742644ab",
+    "version": "0.743.0.7431133",
+    "manifest_sha256": "581181443ad4bcdb7ff644d57c62947f2d93181182ee9be9facffaa6350f8125",
+    "installer_sha256": "8b27af84f33c8601dc7cde7433c2577e04063b6a409dd1433676e02984f50af6"
+  },
+  "kombucha": {
+    "version": "stable+20261018103513",
+    "url": "https://github.com/vinegarhq/kombucha/releases/download/stable%2B20261018103513/kombucha-stable%2B20261018103513.tar.xz",
+    "sha256": "1a5aa35e74907cba8f366edffab2c45444c255cb3dba3cd25dad0a824d7f6e4d"
+  },
+  "vcredist": {
+    "url": "https://download.visualstudio.microsoft.com/download/pr/990c720a-46ce-4dc7-87b9-c2eb615d34b9/CC0FF0EB1DC3F5188AE6300FAEF32BF5BEEBA4BDD6E8E445A9184072096B713B/VC_redist.x64.exe",
+    "sha256": "cc0ff0eb1dc3f5188ae6300faef32bf5beeba4bdd6e8e445a9184072096b713b",
+    "size": 25635768
+  },
+  "webview": {
+    "version": "144.0.3719.92",
+    "sha256": "74d0bbcd2396ac37e89e47e8ce37a598fbb3206abd8bc6fb1f7de24b3fe924cd",
+    "size": 185153080,
+    "microsoft_ca_sha256": "4ae85da33c1390f7733dbd8ceb8b7be8b102efba999aca69d4516a1c769221ec"
+  },
+  "sources": {
+    "vinegar_commit": "b76ae5af1e5e8bde2052ea8bce17961c622dd4fb",
+    "rbxbin_commit": "14ca138004f5",
+    "wine_helper_commit": "436144de12bd"
+  }
+}

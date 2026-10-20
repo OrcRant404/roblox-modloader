@@ -69,6 +69,8 @@ The launcher handles placement and keeps the loader up to date.
 
 ### Manual installation
 
+#### Windows
+
 1. Download a compatible [fork release](https://github.com/OrcRant404/roblox-modloader/releases).
 2. Open your Studio directory — the folder that contains `RobloxStudioBeta.exe`, usually
    `%LOCALAPPDATA%\Roblox\Versions\<version>\`.
@@ -81,16 +83,50 @@ The release archive is already laid out so a plain extract lands everything in t
 <Studio directory>/
 ├── RobloxStudioBeta.exe
 ├── dwmapi.dll                    proxy, loaded by Studio
+├── roblox_modloader.dll          native core
 └── RobloxModLoader/
-    ├── roblox_modloader.dll      native core
     ├── config.toml               created with defaults if missing
-    ├── runtime/                  the .NET host and bundled runtime
+    ├── runtime/                  native host and RML managed assemblies
     └── mods/                     your mods, one folder each
         └── your-mod/
             ├── native/           native C++ mod DLLs
             ├── dotnet/           .NET mod assemblies
             └── scripts/          Luau scripts (temporarily disabled)
 ```
+
+The full Windows x64 .NET 10 runtime is a separate prerequisite for managed mods;
+it is not bundled in these release archives.
+
+#### Linux / Vinegar
+
+Use the separate `linux-vinegar.tar.gz` bundle and its
+[explicit-directory installer](docs/linux-vinegar.md). It uses the Windows x64
+loader and requires the `dwmapi=n,b` Wine override. A Windows .NET 10 runtime
+in Vinegar's Studio prefix is required for managed mods. Keep this experimental
+bundle's package/installer tests separate from live Studio startup results.
+
+#### macOS ARM64
+
+Use a compatible Studio copy; this fork's live workflows were checked with
+**Studio 0.741.19.7411056**. Close Studio before installation and keep a backup
+of the app. Extract the macOS release into a separate directory, then copy its
+`RobloxModLoader/runtime` into the app's `Contents/MacOS/RobloxModLoader/runtime`
+without removing existing mods/config. Install a macOS ARM64 .NET 10 runtime
+or make one available in `RobloxModLoader/runtime/dotnet`.
+
+From the extracted release directory, install the loader with the included
+helper (replace the example app path):
+
+```sh
+bash scripts/dev/macos-inject.sh \
+  --studio "/absolute/path/to/RobloxStudio.app" \
+  --dylib "$PWD/roblox_modloader.dylib"
+```
+
+The helper keeps the original executable as `.rml-backup`, adds the loader's
+Mach-O load command, and ad-hoc signs the app for loading native mods. It accepts
+`--restore --studio "/absolute/path/to/RobloxStudio.app"` to restore that executable.
+The release does not include Roblox Studio or the full .NET runtime.
 
 ## Writing a mod
 

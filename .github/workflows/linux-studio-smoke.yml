@@ -1,0 +1,104 @@
+name: Linux Wine Studio native startup smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      windows_run_id:
+        description: Successful ci.yml run containing package-windows (native startup only)
+        required: true
+        default: '38294632605'
+        type: string
+      windows_source_sha:
+        description: Exact source SHA of that Windows package
+        required: true
+        default: '5d3090ad93ca8b212ca859fea5b1dca3e2e0fe1b'
+        type: string
+      studio_guid:
+        description: Exact public Windows Studio deployment GUID
+        required: true
+        default: 'version-4f087c32742644ab'
+        type: string
+      studio_manifest_sha256:
+        description: SHA256 of that deployment's official rbxPkgManifest.txt
+        required: true
+        default: '581181443ad4bcdb7ff644d57c62947f2d93181182ee9be9facffaa6350f8125'
+        type: string
+      studio_installer_sha256:
+        description: SHA256 of that deployment's official RobloxStudioInstaller.exe
+        required: true
+        default: '8b27af84f33c8601dc7cde7433c2577e04063b6a409dd1433676e02984f50af6'
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  startup:
+    name: Actual Studio GUI baseline then RML (no credentials)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test the actual provisioner parsers and fail-closed verdict gates
+        run: python3 -m unittest discover -s scripts/ci/linux_studio_smoke -p 'test_*.py' -v
+      - name: Install headless display and Wine runtime dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends \
+            xvfb openbox x11-utils imagemagick tesseract-ocr mesa-utils fonts-liberation \
+            libgl1-mesa-dri libegl1 libvulkan1 libasound2t64 libpulse0 \
+            libxcomposite1 libxcursor1 libxi6 libxrandr2 libxrender1 libxinerama1 \
+            libfreetype6 libfontconfig1 libgnutls30t64 libunwind8 libusb-1.0-0 \
+            libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+      - name: Fetch exact successful Windows CI package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ inputs.windows_run_id }}
+          SOURCE_SHA: ${{ inputs.windows_source_sha }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 scripts/linux-vinegar/fetch_artifact.py \
+            --repository "$SOURCE_REPOSITORY" --run-id "$SOURCE_RUN_ID" \
+            --source-sha "$SOURCE_SHA" --output "$RUNNER_TEMP/rml-smoke-windows"
+      - name: Run real Studio baseline and RML native startup smoke
+        env:
+          STUDIO_GUID: ${{ inputs.studio_guid }}
+          STUDIO_MANIFEST_SHA: ${{ inputs.studio_manifest_sha256 }}
+          STUDIO_INSTALLER_SHA: ${{ inputs.studio_installer_sha256 }}
+        run: |
+          python3 -u scripts/ci/linux_studio_smoke/smoke.py \
+            --work "$RUNNER_TEMP/rml-studio-smoke-work" \
+            --output "$RUNNER_TEMP/rml-studio-smoke-results" \
+            --windows-package "$RUNNER_TEMP/rml-smoke-windows/package-windows.zip" \
+            --provenance "$RUNNER_TEMP/rml-smoke-windows/provenance.json" \
+            --guid "$STUDIO_GUID" --manifest-sha256 "$STUDIO_MANIFEST_SHA" \
+            --installer-sha256 "$STUDIO_INSTALLER_SHA"
+      - name: Ensure every job outcome has a machine verdict
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP']) / 'rml-studio-smoke-results'
+          root.mkdir(exist_ok=True)
+          verdict = root / 'verdict.json'
+          if not verdict.exists():
+              verdict.write_text(json.dumps({'status': 'not_completed', 'scope': 'native-loader-startup-only-no-credentials',
+                  'message': 'Provisioning, artifact fetch, prerequisites, or job timeout prevented the smoke from completing.',
+                  'job_status': os.environ['JOB_STATUS']}, indent=2) + '\n')
+          print(verdict.read_text())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-studio-native-smoke-evidence
+          # Curated text/JSON/screenshots only. Never upload Studio/Wine/prefix/assets.
+          path: ${{ runner.temp }}/rml-studio-smoke-results/
+          if-no-files-found: error
+          retention-days: 14

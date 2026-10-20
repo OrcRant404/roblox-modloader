@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+"""One bounded, credential-free Studio GUI/native-loader startup smoke on Linux.
+
+This is not a mod/CLR/engine-edit/Vinegar desktop certification. A pass requires
+an unmodified GUI baseline, a fresh native RML initialization log, the real Studio
+process/window, a nonblank window capture, and thirty further seconds alive.
+"""
+import argparse
+import importlib.util
+import json
+import os
+from pathlib import Path
+import platform
+import re
+import shutil
+import subprocess
+import sys
+import time
+import zipfile
+
+import provision
+
+HERE = Path(__file__).resolve().parent
+ANSI = re.compile(r"\x1b\[[0-9;]*m")
+REQUIRED = ("Hooking enabled.", "Qt action hook installed.")
+NATIVE_ERRORS = re.compile(r"\[error\]|\[critical\]|fatal error during bootstrap|"
+    r"failed to (?:initialize subsystem|create the bootstrap thread|get vtable|enable .*hook|create .*hook)|"
+    r"unhandled (?:exception|page fault)|stack overflow|segmentation fault", re.I)
+WINDOW = re.compile(r'^\s*(0x[0-9a-f]+)\s+"([^"]*)".*?(\d+)x(\d+)', re.I)
+
+
+def loader_status(text):
+    clean = ANSI.sub("", text)
+    return {"markers": {value: value in clean for value in REQUIRED},
+            "errors": [line[-2000:] for line in clean.splitlines() if NATIVE_ERRORS.search(line)][:40]}
+
+
+def studio_windows(tree):
+    result = []
+    for line in tree.splitlines():
+        match = WINDOW.match(line)
+        if not match:
+            continue
+        handle, title, width, height = match.groups()
+        if (int(width) >= 320 and int(height) >= 180 and
+                re.search(r"Roblox Studio|Log in to Roblox|Login to Roblox", title, re.I) and
+                not re.search(r"splash|error|crash", title, re.I)):
+            result.append({"handle": handle, "title": title, "width": int(width), "height": int(height)})
+    return result
+
+
+def window_text_status(text):
+    """A GPU/error dialog with Studio's title is not a baseline GUI pass."""
+    clean = " ".join(text.casefold().split())
+    fatal = re.search(r"(?:graphics|renderer).{0,100}(?:failed|unsupported|not compatible)|"
+        r"(?:failed|unable) to (?:initialize|initialise|start)|not compatible with roblox|"
+        r"unsupported graphics|fatal error|studio has crashed", clean)
+    content = re.search(r"log\s*in|sign\s*in|username|welcome to|recent|templates|new experience|open from file", clean)
+    return {"recognizable_studio_or_login_content": bool(content), "fatal_dialog_text": bool(fatal)}
+
+
+def command(argv, env, log, *, timeout=60, codes=(0,)):
+    with log.open("ab") as output:
+        result = subprocess.run([str(x) for x in argv], env=env, stdout=output,
+                                stderr=subprocess.STDOUT, timeout=timeout)
+    if result.returncode not in codes:
+        raise RuntimeError("Command failed (%s), see %s: %s" % (result.returncode, log.name, argv[0]))
+
+
+def text_command(argv, env):
+    return subprocess.run(argv, env=env, capture_output=True, text=True, timeout=10).stdout
+
+
+def studio_processes(prefix):
+    """Require an actual Studio process, not explorer/wine with an exe argument."""
+    result = []
+    for item in Path("/proc").iterdir():
+        if not item.name.isdecimal():
+            continue
+        try:
+            args = (item / "cmdline").read_bytes().split(b"\0")
+            exe = args[0].decode(errors="replace").replace("\\", "/").split("/")[-1]
+            if exe.casefold() != "robloxstudiobeta.exe":
+                continue
+            environ = (item / "environ").read_bytes().split(b"\0")
+            if ("WINEPREFIX=" + str(prefix)).encode() not in environ:
+                continue
+            # /proc/stat has a parenthesized command that can contain spaces.
+            if (item / "stat").read_text().rpartition(") ")[2].startswith("Z"):
+                continue
+            result.append(int(item.name))
+        except (OSError, ValueError):
+            pass
+    return sorted(result)
+
+
+def rml_logs(studio):
+    return sorted(p for p in studio.rglob("*.log")
+                  if "RobloxModLoader" in p.parts and "logs" in p.parts and p.is_file())
+
+
+def read_logs(paths):
+    return "\n".join(p.read_bytes()[-4 * 1024**2:].decode(errors="replace") for p in paths)
+
+
+def install_rml(package, provenance, studio):
+    record = json.loads(provenance.read_text())
+    if provision.digest(package.read_bytes()) != record["windows_package_sha256"]:
+        raise ValueError("Windows package does not match verified artifact provenance")
+    # The upstream Windows CI package has empty mods. Never smoke arbitrary mods.
+    with zipfile.ZipFile(package) as source:
+        for item in source.infolist():
+            name = str(provision.relative(item.filename))
+            if item.is_dir():
+                continue
+            if name.startswith("RobloxModLoader/mods/"):
+                raise ValueError("Native startup smoke requires an empty mods package")
+            if not (name in ("dwmapi.dll", "roblox_modloader.dll", "roblox_modloader.pdb",
+                              "RobloxModLoader/config.toml", "RobloxModLoader/libraries/bridge.luau",
+                              "RobloxModLoader/libraries/logger.luau") or name.startswith("RobloxModLoader/runtime/")):
+                raise ValueError("Unexpected Windows artifact file: " + name)
+        provision.extract_zip(package.read_bytes(), studio)
+    spec = importlib.util.spec_from_file_location("rml_payload", HERE.parents[2] / "scripts/linux-vinegar/payload.py")
+    payload = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(payload)
+    for name in ("dwmapi.dll", "roblox_modloader.dll"):
+        if payload.pe_info(studio / name) != (0x8664, 0x20B, True, False):
+            raise ValueError("Loader startup requires a native AMD64 PE DLL: " + name)
+    mods = studio / "RobloxModLoader/mods"
+    mods.mkdir(parents=True, exist_ok=True)
+    if list(mods.iterdir()) or rml_logs(studio):
+        raise ValueError("RML smoke must start with empty mods and no stale native logs")
+    return record
+
+
+def collect_logs(prefix, studio, result):
+    destination = result / "logs"
+    destination.mkdir(exist_ok=True)
+    roots = (("studio", studio), ("prefix", prefix))
+    count = 0
+    for label, root in roots:
+        if not root.exists():
+            continue
+        for path in sorted(root.rglob("*.log")):
+            if not path.is_file() or count >= 80:
+                continue
+            # Do not upload application binaries, dumps, registry, cookies or assets.
+            if not ("RobloxModLoader" in path.parts or "Roblox" in path.parts):
+                continue
+            name = "%s-%03d-%s" % (label, count, path.name)
+            (destination / name).write_bytes(path.read_bytes()[-2 * 1024**2:])
+            count += 1
+
+
+def stage(name, args, metadata, env):
+    stage_result = args.output / name
+    stage_result.mkdir()
+    prefix = args.work / (name + "-prefix")
+    studio = args.work / (name + "-studio")
+    shutil.copytree(args.work / "studio", studio)
+    native = name == "rml"
+    record = {"status": "running", "native_rml": native, "hold_seconds": 30}
+    if native:
+        record["rml_provenance"] = install_rml(args.windows_package, args.provenance, studio)
+    environment = dict(env, WINEPREFIX=str(prefix), WINEARCH="win64",
+        WINEDLLOVERRIDES=("dwmapi=n,b;" if native else "") + "winemenubuilder.exe=;mscoree=;mshtml=",
+        WINEDEBUG="-all,warn+seh", LIBGL_ALWAYS_SOFTWARE="1", WINE_D3D_CONFIG="renderer=gl",
+        WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS="--in-process-gpu --use-angle=gl")
+    wine = Path(metadata["wine"])
+    wineserver = wine.parent / "wineserver"
+    setup_log = stage_result / "setup.log"
+    process = None
+    output = None
+    try:
+        command([wine, "wineboot", "-u"], environment, setup_log, timeout=90)
+        command([wine, "reg", "add", r"HKCU\Software\Wine", "/v", "Version", "/d", "win10", "/f"],
+                environment, setup_log)
+        # Same app-specific WebView compatibility override used by sewnie/wine.
+        command([wine, "reg", "add", r"HKCU\Software\Wine\AppDefaults\msedgewebview2.exe",
+                 "/v", "Version", "/d", "win7", "/f"], environment, setup_log)
+        command([wine, args.work / "vc_redist.x64.exe", "/install", "/quiet", "/norestart"],
+                environment, setup_log, timeout=120, codes=(0, 194))
+        command([wine, args.work / "webview2.exe", "--msedgewebview", "--do-not-launch-msedge", "--system-level"],
+                environment, setup_log, timeout=150)
+        version = metadata["webview"]["version"]
+        if not (prefix / "drive_c/Program Files (x86)/Microsoft/EdgeWebView/Application" / version).is_dir():
+            raise RuntimeError("Pinned WebView runtime installation is missing")
+        command([wineserver, "-k"], environment, setup_log)
+        command([wineserver, "-w"], environment, setup_log, timeout=30)
+        exe = studio / "RobloxStudioBeta.exe"
+        record["studio_exe_sha256"] = provision.digest(exe.read_bytes())
+        if record["studio_exe_sha256"] != metadata["studio_exe_sha256"]:
+            raise ValueError("Baseline and RML must use the same unmodified Studio executable")
+        output = (stage_result / "wine-console.log").open("wb")
+        process = subprocess.Popen([str(wine), "explorer", "/desktop=RMLSmoke,1280x720", str(exe)],
+            cwd=studio, env=environment, stdout=output, stderr=subprocess.STDOUT, start_new_session=True)
+        started = time.monotonic()
+        ready_at = None
+        held_pid = None
+        chosen = None
+        while time.monotonic() - started < args.startup_timeout + 35:
+            tree = text_command(["xwininfo", "-root", "-tree"], environment)
+            (stage_result / "windows.txt").write_text(tree)
+            windows = studio_windows(tree)
+            visible = []
+            for window in windows:
+                details = text_command(["xwininfo", "-id", window["handle"]], environment)
+                if "Map State: IsViewable" in details:
+                    visible.append(window)
+            pids = studio_processes(prefix)
+            logs = rml_logs(studio)
+            native_text = read_logs(logs)
+            console = (stage_result / "wine-console.log").read_bytes()[-4 * 1024**2:].decode(errors="replace")
+            status = loader_status(native_text)
+            failures = status["errors"] + loader_status(console)["errors"]
+            if failures:
+                record["fatal_errors"] = failures
+                raise RuntimeError("Studio/native loader reported a bootstrap, hook or fatal error")
+            if list(studio.rglob("*.dmp")) or list(prefix.rglob("*.dmp")):
+                raise RuntimeError("A crash dump appeared during Studio startup")
+            markers = (bool(logs) and all(status["markers"].values())) if native else not logs
+            if visible and pids and markers:
+                if ready_at is None:
+                    ready_at, held_pid, chosen = time.monotonic(), pids[-1], visible[0]
+                    print(name, "GUI/native readiness reached; observing30seconds", flush=True)
+                if held_pid not in pids or not any(w["handle"] == chosen["handle"] for w in visible):
+                    raise RuntimeError("The verified Studio process/window disappeared after readiness")
+                if time.monotonic() - ready_at >= 30:
+                    command(["import", "-window", chosen["handle"], stage_result / "studio.png"],
+                            environment, stage_result / "capture.log", timeout=15)
+                    deviation = text_command(["identify", "-format", "%[fx:standard_deviation]",
+                                               str(stage_result / "studio.png")], environment).strip()
+                    if not deviation or float(deviation) <= 0.005:
+                        raise RuntimeError("Studio window capture is blank or unavailable")
+                    ocr = text_command(["tesseract", str(stage_result / "studio.png"), "stdout"], environment)
+                    (stage_result / "window-text.txt").write_text(ocr)
+                    content = window_text_status(ocr)
+                    record["window_content"] = content
+                    if content["fatal_dialog_text"] or not content["recognizable_studio_or_login_content"]:
+                        raise RuntimeError("Window content is an error dialog or cannot be verified as Studio/login UI")
+                    record.update(status="passed", window=chosen, studio_pid=held_pid,
+                        observed_after_ready_seconds=round(time.monotonic() - ready_at, 2),
+                        native_log_count=len(logs), native=status, screenshot_stddev=float(deviation))
+                    return record
+            elif ready_at is not None:
+                raise RuntimeError("Studio readiness was lost during the observation period")
+            if ready_at is None and time.monotonic() - started > args.startup_timeout:
+                record.update(last_studio_pids=pids, last_windows=visible, native=status)
+                raise RuntimeError("Studio GUI/native startup gate timed out")
+            time.sleep(1)
+        raise RuntimeError("Studio smoke exceeded its observation bound")
+    except Exception as error:
+        record.update(status="failed", message=str(error))
+        try:
+            command(["import", "-window", "root", stage_result / "failure-desktop.png"],
+                    environment, stage_result / "capture.log", timeout=10)
+        except Exception:
+            pass
+        raise
+    finally:
+        if output:
+            output.close()
+        # Only this fresh prefix; never kill an existing user's Wine session.
+        try:
+            command([wineserver, "-k"], environment, setup_log, timeout=15)
+        except Exception:
+            pass
+        if process:
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=5)
+        collect_logs(prefix, studio, stage_result)
+        (stage_result / "verdict.json").write_text(json.dumps(record, indent=2) + "\n")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--work", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--windows-package", type=Path, required=True)
+    parser.add_argument("--provenance", type=Path, required=True)
+    parser.add_argument("--startup-timeout", type=int, default=120)
+    for name in ("guid", "manifest-sha256", "installer-sha256"):
+        parser.add_argument("--" + name)
+    args = parser.parse_args()
+    args.work = args.work.resolve()
+    args.output = args.output.resolve()
+    args.output.mkdir(parents=True, exist_ok=False)
+    verdict = {"status": "failed", "scope": "native-loader-startup-only-no-credentials",
+               "host": platform.platform(), "architecture": platform.machine(), "stages": {}}
+    servers = []
+    output_handles = []
+    try:
+        if sys.platform != "linux" or platform.machine() not in ("x86_64", "amd64"):
+            raise RuntimeError("The real smoke requires Linux x86-64")
+        if not 30 <= args.startup_timeout <= 180:
+            raise ValueError("Startup timeout must be30–180seconds per stage")
+        print("Provisioning exact official Studio/Wine/runtime dependencies", flush=True)
+        metadata = provision.provision(args)
+        (args.output / "provisioning.json").write_text(json.dumps(metadata, indent=2) + "\n")
+        env = dict(os.environ, DISPLAY=":99")
+        for argv, name in ((["Xvfb", ":99", "-screen", "0", "1280x720x24", "-nolisten", "tcp"], "xvfb.log"),
+                           (["openbox"], "openbox.log")):
+            handle = (args.output / name).open("wb")
+            output_handles.append(handle)
+            servers.append(subprocess.Popen(argv, env=env, stdout=handle, stderr=subprocess.STDOUT))
+            time.sleep(2)
+            if servers[-1].poll() is not None:
+                raise RuntimeError(name + " exited before Studio could launch")
+        (args.output / "graphics.txt").write_text(text_command(["glxinfo", "-B"], env))
+        for name in ("baseline", "rml"):
+            verdict["stage"] = name
+            verdict["stages"][name] = stage(name, args, metadata, env)
+        verdict["status"] = "passed"
+        verdict["message"] = "Unmodified Studio GUI and fresh native RML startup gates passed; CLR/mods/editing not tested."
+        return 0
+    except Exception as error:
+        verdict["message"] = str(error)
+        print("SMOKE FAILED:", error, file=sys.stderr, flush=True)
+        return 1
+    finally:
+        for server in reversed(servers):
+            server.terminate()
+            try:
+                server.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                server.kill()
+        for handle in output_handles:
+            handle.close()
+        (args.output / "verdict.json").write_text(json.dumps(verdict, indent=2) + "\n")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
