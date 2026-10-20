@@ -112,13 +112,26 @@ def extract_zip(data, destination):
         if sum(x.file_size for x in archive.infolist()) > 3 * 1024**3:
             raise ValueError("ZIP expands beyond deployment bound")
         for entry in archive.infolist():
-            if entry.filename in ("/", "\\"):
-                continue  # Roblox's WebView installer archive includes a root directory entry.
-            name = relative(entry.filename)
-            if stat.S_ISLNK(entry.external_attr >> 16):
+            mode = entry.external_attr >> 16
+            if stat.S_ISLNK(mode):
                 raise ValueError("Deployment ZIP contains a symbolic link")
+            name = entry.filename.replace("\\", "/")
+            directory = entry.is_dir() or entry.filename.endswith("\\")
+            if name.startswith("/"):
+                # Official Roblox Windows ZIPs include empty DOS directory markers
+                # such as \\Optimized_Embedded_Signature\\ and \\Qt5\\imageformats\\.
+                # Accept that metadata only; a second root, traversal or drive still
+                # fails relative(), and absolute files remain forbidden.
+                if not (entry.create_system == 0 and entry.external_attr & 0x10
+                        and stat.S_IFMT(mode) == 0 and directory
+                        and entry.file_size == 0 and entry.compress_size == 0):
+                    raise ValueError("Unsafe rooted deployment ZIP entry: " + name)
+                name = name[1:]
+            name = relative(name)
+            if directory and entry.file_size:
+                raise ValueError("Deployment ZIP directory contains file data")
             target = destination / name
-            if entry.is_dir() or entry.filename.endswith("\\"):
+            if directory:
                 target.mkdir(parents=True, exist_ok=True)
             else:
                 target.parent.mkdir(parents=True, exist_ok=True)

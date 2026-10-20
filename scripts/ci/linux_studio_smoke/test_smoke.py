@@ -69,6 +69,51 @@ class ProvisionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 provision.extract_zip(data.getvalue(), root)
 
+    def test_actual_roblox_dos_directory_markers(self):
+        # Metadata observed in all 34 pinned deployment ZIP central directories:
+        # DOS creator, directory attribute 0x10, empty stored data, backslash roots.
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "deployment"
+            data = io.BytesIO()
+            with zipfile.ZipFile(data, "w") as archive:
+                for name in ("\\", "\\Optimized_Embedded_Signature\\",
+                             "\\Qt5\\imageformats\\", "/empty-directory/"):
+                    info = zipfile.ZipInfo(name)
+                    info.create_system = 0
+                    info.external_attr = 0x10
+                    archive.writestr(info, b"")
+                archive.writestr("Qt5\\imageformats\\plugin.dll", b"actual payload")
+            provision.extract_zip(data.getvalue(), root)
+            self.assertTrue((root / "Optimized_Embedded_Signature").is_dir())
+            self.assertTrue((root / "empty-directory").is_dir())
+            self.assertEqual((root / "Qt5/imageformats/plugin.dll").read_bytes(), b"actual payload")
+
+    def test_rooted_zip_entries_cannot_masquerade_as_dos_directories(self):
+        invalid = [
+            ("/absolute", 0, 0x20, b""),
+            ("\\absolute", 0, 0x20, b""),
+            ("/absolute/", 0, 0x20, b""),
+            ("\\payload\\", 0, 0x10, b"file data"),
+            ("\\\\server\\share\\", 0, 0x10, b""),
+            ("\\..\\escape\\", 0, 0x10, b""),
+            ("/dir/../escape/", 0, 0x10, b""),
+            ("\\C:\\escape\\", 0, 0x10, b""),
+            ("/unix-directory/", 3, (stat.S_IFDIR | 0o755) << 16, b""),
+            ("/", 3, (stat.S_IFLNK | 0o777) << 16, b""),
+            ("\\link\\", 0, ((stat.S_IFLNK | 0o777) << 16) | 0x10, b""),
+        ]
+        with tempfile.TemporaryDirectory() as temp:
+            for name, creator, attributes, payload in invalid:
+                with self.subTest(name=name, creator=creator, attributes=attributes):
+                    data = io.BytesIO()
+                    with zipfile.ZipFile(data, "w") as archive:
+                        info = zipfile.ZipInfo(name)
+                        info.create_system = creator
+                        info.external_attr = attributes
+                        archive.writestr(info, payload)
+                    with self.assertRaises(ValueError):
+                        provision.extract_zip(data.getvalue(), Path(temp) / "deployment")
+
     def test_empty_manifest_fails_closed(self):
         # An empty deployment cannot be an actual baseline, even with v0.
         self.assertEqual(provision.packages(b"v0\r\n"), [])
