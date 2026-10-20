@@ -6,6 +6,7 @@ import stat
 import struct
 import tempfile
 import unittest
+from unittest import mock
 import zipfile
 
 import provision
@@ -28,6 +29,61 @@ def pe_with_mapping(mapping):
 
 
 class ProvisionTests(unittest.TestCase):
+    def test_microsoft_documented_https_delivery_counterparts(self):
+        path = "/filestreamingservice/files/fd553f7b-c89a-4da7-bd24-85a214cc91b0?P1=123&P4=token%2Bvalue"
+        for http_host, https_host in provision.WEBVIEW_HTTPS_COUNTERPARTS.items():
+            with self.subTest(host=http_host):
+                expected = "https://" + https_host + path
+                self.assertEqual(provision.webview_delivery_url("http://" + http_host + path), expected)
+                self.assertEqual(provision.webview_delivery_url(expected), expected)
+        host = "msedge.sb.tlu.dl.delivery.mp.microsoft.com"
+        for bad in ("http://" + host + path, "ftp://" + host + path,
+                    "https://msedge.b.tlu.dl.delivery.mp.microsoft.com" + path,
+                    "http://evil.dl.delivery.mp.microsoft.com" + path,
+                    "https://" + host + ".example.org" + path,
+                    "https://user@" + host + path, "https://" + host + ":8443" + path,
+                    "https://" + host + path + "#fragment", "https://" + host + "/other-file"):
+            with self.subTest(url=bad), self.assertRaises(ValueError):
+                provision.webview_delivery_url(bad)
+
+    def test_download_redirects_cannot_downgrade_or_escape_delivery_hosts(self):
+        good = "https://msedge.sb.tlu.dl.delivery.mp.microsoft.com/file"
+        handler = provision.ProvisionRedirectHandler(provision.WEBVIEW_HTTPS_HOSTS)
+        request = provision.urllib.request.Request(good)
+        self.assertEqual(handler.redirect_request(request, None, 302, "Found", {}, good).full_url, good)
+        for bad in (good.replace("https:", "http:"), "https://example.org/file",
+                    "https://user@msedge.sb.tlu.dl.delivery.mp.microsoft.com/file"):
+            with self.subTest(url=bad):
+                with self.assertRaises(ValueError):
+                    handler.redirect_request(request, None, 302, "Found", {}, bad)
+                with mock.patch.object(provision.urllib.request, "build_opener") as opener:
+                    with self.assertRaises(ValueError):
+                        provision.get(bad, 100, allowed_hosts=provision.WEBVIEW_HTTPS_HOSTS)
+                    opener.assert_not_called()
+
+    def test_https_download_keeps_sha256_and_size_verification(self):
+        url = "https://msedge.sb.tlu.dl.delivery.mp.microsoft.com/file"
+        payload = b"MZ pinned runtime bytes"
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.url = url
+        response.read.return_value = payload
+        opener = mock.Mock()
+        opener.open.return_value = response
+        with mock.patch.object(provision.urllib.request, "build_opener", return_value=opener):
+            self.assertEqual(provision.verified(url, provision.digest(payload), 100, len(payload),
+                             allowed_hosts=provision.WEBVIEW_HTTPS_HOSTS), payload)
+            with self.assertRaises(ValueError):
+                provision.verified(url, "0" * 64, 100, len(payload),
+                                   allowed_hosts=provision.WEBVIEW_HTTPS_HOSTS)
+            with self.assertRaises(ValueError):
+                provision.verified(url, provision.digest(payload), 100, len(payload) + 1,
+                                   allowed_hosts=provision.WEBVIEW_HTTPS_HOSTS)
+            response.url = "https://example.org/file"
+            with self.assertRaises(ValueError):
+                provision.verified(url, provision.digest(payload), 100, len(payload),
+                                   allowed_hosts=provision.WEBVIEW_HTTPS_HOSTS)
+
     def test_manifest_actual_grammar_and_duplicates(self):
         valid = b"v0\r\nRobloxStudio.zip\r\n" + b"a" * 32 + b"\r\n10\r\n20\r\n"
         self.assertEqual(provision.packages(valid)[0]["expanded"], 20)

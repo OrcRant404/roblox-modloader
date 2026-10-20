@@ -27,20 +27,49 @@ MIRROR = "https://setup.rbxcdn.com/channel/common/"
 APP_SETTINGS = ('<?xml version="1.0" encoding="UTF-8"?>\r\n<Settings>\r\n'
                 '        <ContentFolder>content</ContentFolder>\r\n'
                 '        <BaseUrl>http://www.roblox.com</BaseUrl>\r\n</Settings>\r\n')
+# Microsoft documents distinct HTTP (b/f) and HTTPS (sb/sf) delivery hosts:
+# https://learn.microsoft.com/en-us/deployedge/microsoft-edge-security-endpoints
+WEBVIEW_HTTPS_COUNTERPARTS = {
+    "msedge.b.tlu.dl.delivery.mp.microsoft.com": "msedge.sb.tlu.dl.delivery.mp.microsoft.com",
+    "msedge.b.dl.delivery.mp.microsoft.com": "msedge.sb.dl.delivery.mp.microsoft.com",
+    "msedge.f.tlu.dl.delivery.mp.microsoft.com": "msedge.sf.tlu.dl.delivery.mp.microsoft.com",
+    "msedge.f.dl.delivery.mp.microsoft.com": "msedge.sf.dl.delivery.mp.microsoft.com",
+}
+WEBVIEW_HTTPS_HOSTS = frozenset(WEBVIEW_HTTPS_COUNTERPARTS.values())
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def get(url, limit, *, context=None, post=False):
-    if urllib.parse.urlsplit(url).scheme != "https":
+def require_https(url, allowed_hosts=None):
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme != "https":
         raise ValueError("Only HTTPS provisioning requests are allowed")
+    if allowed_hosts is not None and (parsed.hostname not in allowed_hosts
+            or parsed.username is not None or parsed.password is not None
+            or parsed.port not in (None, 443) or "\\" in url):
+        raise ValueError("Unexpected HTTPS provisioning host")
+
+
+class ProvisionRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def __init__(self, allowed_hosts=None):
+        super().__init__()
+        self.allowed_hosts = allowed_hosts
+
+    def redirect_request(self, request, fp, code, message, headers, newurl):
+        require_https(newurl, self.allowed_hosts)
+        return super().redirect_request(request, fp, code, message, headers, newurl)
+
+
+def get(url, limit, *, context=None, post=False, allowed_hosts=None):
+    require_https(url, allowed_hosts)
     request = urllib.request.Request(url, data=b"" if post else None,
         headers={"User-Agent": "RML-Linux-Studio-Smoke/1", "Content-Type": "application/json"})
-    with urllib.request.urlopen(request, timeout=90, context=context) as response:
-        if urllib.parse.urlsplit(response.url).scheme != "https":
-            raise ValueError("Provisioning redirected away from HTTPS")
+    opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=context),
+                                         ProvisionRedirectHandler(allowed_hosts))
+    with opener.open(request, timeout=90) as response:
+        require_https(response.url, allowed_hosts)
         data = response.read(limit + 1)
     if len(data) > limit:
         raise ValueError("Provisioning response exceeds its bound")
@@ -139,11 +168,28 @@ def extract_zip(data, destination):
                     shutil.copyfileobj(source, output)
 
 
-def verified(url, sha256, limit, size=None):
-    data = get(url, limit)
+def verified(url, sha256, limit, size=None, *, allowed_hosts=None):
+    data = get(url, limit, allowed_hosts=allowed_hosts)
     if digest(data) != sha256 or (size is not None and len(data) != size):
         raise ValueError("Pinned download checksum/size mismatch: " + urllib.parse.urlsplit(url).path)
     return data
+
+
+def webview_delivery_url(url):
+    """Use only Microsoft's documented HTTPS counterpart, retaining the CDP file/token."""
+    parsed = urllib.parse.urlsplit(url)
+    if (parsed.username is not None or parsed.password is not None or parsed.port is not None
+            or parsed.fragment or "\\" in url
+            or not re.fullmatch(r"/filestreamingservice/files/[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}",
+                                parsed.path)):
+        raise ValueError("Unexpected Microsoft runtime delivery URL")
+    if parsed.scheme == "http" and parsed.hostname in WEBVIEW_HTTPS_COUNTERPARTS:
+        host = WEBVIEW_HTTPS_COUNTERPARTS[parsed.hostname]
+    elif parsed.scheme == "https" and parsed.hostname in WEBVIEW_HTTPS_HOSTS:
+        host = parsed.hostname
+    else:
+        raise ValueError("Unexpected Microsoft runtime delivery scheme/host")
+    return urllib.parse.urlunsplit(parsed._replace(scheme="https", netloc=host))
 
 
 def provision(args):
@@ -212,11 +258,9 @@ def provision(args):
     candidates = [x for x in info if x.get("FileId") == expected_name]
     if len(candidates) != 1 or base64.b64decode(candidates[0]["Hashes"]["Sha256"]).hex() != web["sha256"]:
         raise ValueError("Microsoft metadata differs from the pinned WebView runtime")
-    parsed = urllib.parse.urlsplit(candidates[0]["Url"])
-    if not parsed.hostname or not parsed.hostname.endswith(".dl.delivery.mp.microsoft.com"):
-        raise ValueError("Unexpected Microsoft runtime delivery host")
-    url = urllib.parse.urlunsplit(parsed._replace(scheme="https"))
-    (args.work / "webview2.exe").write_bytes(verified(url, web["sha256"], web["size"], web["size"]))
+    url = webview_delivery_url(candidates[0]["Url"])
+    (args.work / "webview2.exe").write_bytes(verified(url, web["sha256"], web["size"], web["size"],
+                                                   allowed_hosts=WEBVIEW_HTTPS_HOSTS))
     return {"studio": studio, "packages": records, "studio_exe_sha256": digest(exe.read_bytes()),
             "kombucha": kombucha, "wine": str(wine), "vcredist": vc,
             "webview": {k: v for k, v in web.items() if k != "microsoft_ca_sha256"},

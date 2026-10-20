@@ -76,7 +76,16 @@ python3 -m unittest discover -s scripts/ci/linux_studio_smoke -p 'test_*.py' -v
 - VC++ x64 redistributable is downloaded from the fixed official Microsoft
   delivery URL and SHA256 in the lock, not a floating aka.ms URL at runtime.
 - WebView144.0.3719.92 follows the pinned Vinegar default. The official Microsoft
-  CDP metadata must match its pinned runtime SHA256; delivery is forced to HTTPS.
+  CDP metadata must match its pinned runtime SHA256. HTTP `msedge.b/f` delivery
+  hosts map only to their documented HTTPS `msedge.sb/sf` counterparts, preserving
+  the returned file path and signed query. These are separate hosts in Microsoft's
+  [official endpoint list](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-security-endpoints);
+  changing only the scheme on an HTTP host causes a certificate-name mismatch.
+  The `msedge.sb.tlu` counterpart was verified with normal TLS to deliver all
+  185,153,080 bytes with SHA256
+  `74d0bbcd2396ac37e89e47e8ce37a598fbb3206abd8bc6fb1f7de24b3fe924cd`.
+  Downloads and redirects must stay HTTPS and within the exact documented
+  delivery-host allowlist. No HTTP fallback or TLS-verification bypass is used.
   `microsoft-root-2011.pem` is the public Microsoft Root Certificate Authority2011
   trust anchor used by [sewnie/wine's WebView helper](https://github.com/sewnie/wine/blob/436144de12bd/webview2/webview.go).
   Its SHA256 is pinned too; certificate verification is never disabled. The
