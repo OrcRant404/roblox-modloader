@@ -1,0 +1,86 @@
+name: Linux Vinegar package checks
+
+on:
+  workflow_dispatch:
+    inputs:
+      windows_run_id:
+        description: Successful ci.yml run in this repository with a live package-windows artifact
+        required: true
+        type: string
+      windows_source_sha:
+        description: Exact 40-character source commit of that Windows build
+        required: true
+        type: string
+  pull_request:
+    paths:
+      - 'scripts/linux-vinegar/**'
+      - 'tests/linux-vinegar/**'
+      - 'docs/linux-vinegar.md'
+      - '.github/workflows/linux-vinegar.yml'
+  push:
+    branches: [main, develop]
+    paths:
+      - 'scripts/linux-vinegar/**'
+      - 'tests/linux-vinegar/**'
+      - 'docs/linux-vinegar.md'
+      - '.github/workflows/linux-vinegar.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  installer:
+    name: Filesystem installer and package tests (Ubuntu)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test bounded installs, backups, rollback and PE validation
+        run: python3 -m unittest discover -s tests/linux-vinegar -v
+
+  bundle:
+    name: Validate exact Windows artifact and assemble Vinegar bundle (Ubuntu)
+    if: github.event_name == 'workflow_dispatch'
+    needs: installer
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch successful Windows artifact with source and digest verification
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ inputs.windows_run_id }}
+          SOURCE_SHA: ${{ inputs.windows_source_sha }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 scripts/linux-vinegar/fetch_artifact.py \
+            --repository "$SOURCE_REPOSITORY" --run-id "$SOURCE_RUN_ID" \
+            --source-sha "$SOURCE_SHA" --output verified-windows
+      - name: Validate PE AMD64 payload and package
+        env:
+          SOURCE_RUN_ID: ${{ inputs.windows_run_id }}
+          SOURCE_SHA: ${{ inputs.windows_source_sha }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 scripts/linux-vinegar/build_bundle.py \
+            --windows-package verified-windows/package-windows.zip \
+            --source-sha "$SOURCE_SHA" \
+            --source-run-url "https://github.com/$SOURCE_REPOSITORY/actions/runs/$SOURCE_RUN_ID" \
+            --provenance verified-windows/provenance.json \
+            --output dist/roblox-modloader-linux-vinegar.tar.gz
+      - name: Exercise installer with the real payload and a synthetic Studio executable
+        run: |
+          python3 tests/linux-vinegar/check_real_bundle.py dist/roblox-modloader-linux-vinegar.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-linux-vinegar
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 90

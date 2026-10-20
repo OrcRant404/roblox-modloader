@@ -1,0 +1,16 @@
+{
+  "spdlog-LICENSE.txt": "https://raw.githubusercontent.com/gabime/spdlog/v1.15.0/LICENSE",
+  "fmt-LICENSE.txt": "https://raw.githubusercontent.com/fmtlib/fmt/11.0.2/LICENSE",
+  "nlohmann-json-LICENSE.txt": "https://raw.githubusercontent.com/nlohmann/json/v3.12.0/LICENSE.MIT",
+  "libtomlplusplus-LICENSE.txt": "https://raw.githubusercontent.com/marzer/tomlplusplus/v3.4.0/LICENSE",
+  "minhook-LICENSE.txt": "https://raw.githubusercontent.com/TsudaKageyu/minhook/master/LICENSE.txt",
+  "polyhook-LICENSE.txt": "https://raw.githubusercontent.com/stevemk14ebr/PolyHook_2_0/49a95d4566d47342b122303cf73585cf22653b0a/LICENSE",
+  "dotnet-LICENSE.txt": "https://raw.githubusercontent.com/dotnet/runtime/v10.0.12/LICENSE.TXT",
+  "dotnet-THIRD-PARTY-NOTICES.txt": "https://raw.githubusercontent.com/dotnet/runtime/v10.0.12/THIRD-PARTY-NOTICES.TXT",
+  "zlib-LICENSE.txt": "https://raw.githubusercontent.com/madler/zlib/v1.3.1/LICENSE",
+  "asmjit-LICENSE.txt": "https://raw.githubusercontent.com/asmjit/asmjit/a3199e8857792cd10b7589ff5d58343d2c9008ea/LICENSE.md",
+  "asmtk-LICENSE.txt": "https://raw.githubusercontent.com/asmjit/asmtk/3bce8a48aa895e6d639501d1f1105ab5fe007753/LICENSE.md",
+  "zycore-LICENSE.txt": "https://raw.githubusercontent.com/zyantific/zycore-c/0b2432ced0884fd152b471d97ecf0258ff4d859f/LICENSE",
+  "zydis-LICENSE.txt": "https://raw.githubusercontent.com/zyantific/zydis/a2278f1d254e492f6a6b39f6cb5d1f5d515659dc/LICENSE",
+  "g3d-LICENSE.txt": "https://svn.code.sf.net/p/g3d/code/G3D10/license.txt"
+}

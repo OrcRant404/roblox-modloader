@@ -1,0 +1,1324 @@
+libs/third_party/g3d/include/g3d/AABSPTree.h
+/**
+  @file AABSPTree.h
+  
+  @maintainer Morgan McGuire, matrix@graphics3d.com
+ 
+  @created 2004-01-11
+  @edited  2005-02-24
+
+  Copyright 2000-2005, Morgan McGuire.
+  All rights reserved.
+  
+  */
+
+libs/third_party/g3d/include/g3d/AABox.h
+/**
+  @file AABox.h
+ 
+  Axis-aligned box class
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2004-01-10
+  @edited  2009-02-10
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Array.h
+/** 
+  @file Array.h
+ 
+  @maintainer Morgan McGuire, graphics3d.com
+  @cite Portions written by Aaron Orenstein, a@orenstein.name
+ 
+  @created 2001-03-11
+  @edited  2009-05-29
+
+  Copyright 2000-2009, Morgan McGuire, http://graphics.cs.williams.edu
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/BinaryFormat.h
+/**
+ @file BinaryFormat.h
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @author  2005-06-03
+ @edited  2005-06-03
+
+ Copyright 2000-2005, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/BinaryInput.h
+/**
+ @file BinaryInput.h
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2001-08-09
+ @edited  2010-03-19
+
+ Copyright 2000-2010, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/BinaryOutput.h
+/**
+ @file BinaryOutput.h
+ 
+ @maintainer Morgan McGuire, graphics3d.com
+ 
+ @created 2001-08-09
+ @edited  2008-01-24
+
+ Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/BoundsTrait.h
+/**
+  @file BoundsTrait.h
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2008-10-01
+  @edited  2008-10-01
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Box.h
+/**
+  @file Box.h
+ 
+  Box class
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @cite Portions based on Dave Eberly's Magic Software Library at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+  @created 2001-06-02
+  @edited  2007-06-05
+
+  Copyright 2000-2006, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/BumpMapPreprocess.h
+/**
+  \file BumpMapPreprocess.h
+
+  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+  \created 2010-01-28
+  \edited  2010-01-28
+
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Capsule.h
+/**
+ @file Capsule.h
+  
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  
+ @created 2003-02-07
+ @edited  2005-08-20
+
+ Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/CollisionDetection.h
+/**
+  @file CollisionDetection.h
+
+
+  Moving collision detection for simple primitives.
+
+  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @cite Spherical collision based on Paul Nettle's
+  ftp://ftp.3dmaileffects.com/pub/FluidStudios/CollisionDetection/Fluid_Studios_Generic_Collision_Detection_for_Games_Using_Ellipsoids.pdf
+  and comments by Max McGuire.  Ray-sphere intersection by Eric Haines.
+  Box-Box intersection written by Kevin Egan.
+  Thanks to Max McGuire of Iron Lore for various bug fixes.
+  Box-Triangle by Tomas Akenine-Moller
+
+  @created 2001-11-19
+  @edited  2008-12-19
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color1.h
+/**
+ @file Color1.h
+ 
+ Monochrome Color class
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @created 2007-01-31
+ @edited  2009-03-20
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color1uint8.h
+/** 
+  @file Color1uint8.h
+ 
+  @maintainer Morgan McGuire, graphics3d.com
+ 
+  @created 2007-01-30
+  @edited  2007-01-30
+
+  Copyright 2000-2007, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color3.h
+/**
+ @file Color3.h
+ 
+ Color class
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @cite Portions based on Dave Eberly's Magic Software Library
+      at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+ 
+ @created 2001-06-02
+ @edited  2009-04-28
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color3uint8.h
+/** 
+  @file Color3uint8.h
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2003-04-07
+  @edited  2010-03-24
+
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color4.h
+/**
+ @file Color4.h
+ 
+ Color class
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @cite Portions based on Dave Eberly's Magic Software Library
+      at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+ 
+ @created 2002-06-25
+ @edited  2009-11-15
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Color4uint8.h
+/** 
+  @file Color4uint8.h
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2003-04-07
+  @edited  2010-03-24
+
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Cone.h
+/**
+ @file Cone.h
+ 
+ Cone class
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @cite Portions based on Dave Eberly's Magic Software Library at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+  
+ @created 2001-06-02
+ @edited  2006-02-23
+
+ Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/ConvexPolyhedron.h
+/**
+  @file ConvexPolyhedron.h
+  
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+  @created 2001-11-11
+  @edited  2006-04-10
+ 
+  Copyright 2000-2006, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/CoordinateFrame.h
+/**
+ @file CoordinateFrame.h
+
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2001-03-04
+ @edited  2009-04-29
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+*/
+
+libs/third_party/g3d/include/g3d/Cylinder.h
+/**
+ @file Cylinder.h
+  
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  
+ @created 2003-02-07
+ @edited  2005-09-26
+
+ Copyright 2000-2005, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/EqualsTrait.h
+/**
+  @file EqualsTrait.h
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2008-10-01
+  @edited  2008-10-01
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/GImage.h
+/**
+  \file GImage.h
+
+  See G3D::GImage for details.
+
+  @cite JPEG compress/decompressor is the <A HREF="http://www.ijg.org/files/">IJG library</A>, used in accordance with their license.
+  @cite JPG code by John Chisholm, using the IJG Library
+  @cite TGA code by Morgan McGuire
+  @cite BMP code by John Chisholm, based on code by Edward "CGameProgrammer" Resnick <A HREF="mailto:cgp@gdnmail.net">mailto:cgp@gdnmail.net</A> at <A HREF="ftp://ftp.flipcode.com/cotd/LoadPicture.txt">ftp://ftp.flipcode.com/cotd/LoadPicture.txt</A>
+  @cite PCX format described in the ZSOFT PCX manual http://www.nist.fss.ru/hr/doc/spec/pcx.htm#2
+  @cite PNG compress/decompressor is the <A HREF="http://www.libpng.org/pub/png/libpng.html">libpng library</A>, used in accordance with their license.
+  @cite PPM code by Morgan McGuire based on http://netpbm.sourceforge.net/doc/ppm.html
+
+  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+  \created 2002-05-27
+  \edited  2010-01-04
+
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/HashTrait.h
+/**
+  @file HashTrait.h
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2008-10-01
+  @edited  2009-11-01
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/LightingParameters.h
+/**
+ @file LightingParameters.h
+
+ @maintainer Morgan McGuire, matrix@graphics3d.com
+ @created 2002-10-05
+ @edited  2005-06-01
+
+ Copyright 2000-2005, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/MemoryManager.h
+/**
+  @file MemoryManager.h
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2009-04-20
+  @edited  2009-04-20
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/ParseError.h
+/**
+ @file ParseError.h
+  
+ @maintainer Morgan McGuire
+  
+ @created 2009-11-15
+ @edited  2009-11-15
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Random.h
+/**
+ @file Random.h
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2009-01-02
+ @edited  2009-03-20
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Rect2D.h
+/**
+  @file Rect2D.h
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2003-11-13
+  @created 2009-11-16
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/SmallArray.h
+/** 
+  @file SmallArray.h
+  
+  @created 2009-04-26
+  @edited  2010-02-26
+
+  Copyright 2000-2010, Morgan McGuire, http://graphics.cs.williams.edu
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Table.h
+/**
+  @file Table.h
+
+  Templated hash table class.
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2001-04-22
+  @edited  2010-01-28
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Triangle.h
+/**
+ @file Triangle.h
+  
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2003-04-05
+ @edited  2008-10-06
+
+ @cite Random point method by  Greg Turk, Generating random points in triangles.  In A. S. Glassner, ed., Graphics Gems, pp. 24-28. Academic Press, 1990
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector2.h
+/**
+  @file Vector2.h
+ 
+  2D vector class
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  
+  @created 2001-06-02
+  @edited  2008-11-30
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+*/
+
+libs/third_party/g3d/include/g3d/Vector2int16.h
+/**
+  @file Vector2int16.h
+  
+  @maintainer Morgan McGuire, matrix@brown.edu
+
+  @created 2003-08-09
+  @edited  2004-01-03
+
+  Copyright 2000-2006, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector3.h
+/**
+  @file Vector3.h
+ 
+  3D vector class
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+  @created 2001-06-02
+  @edited  2009-11-01
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector3int16.h
+/**
+  @file Vector3int16.h
+  
+  @maintainer Morgan McGuire, matrix@brown.edu
+
+  @created 2003-04-07
+  @edited  2003-06-24
+  Copyright 2000-2004, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector3int32.h
+/**
+  @file Vector3int32.h
+  
+  @maintainer Morgan McGuire, matrix@brown.edu
+
+  @created 2008-07-01
+  @edited  2008-07-01
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector4.h
+/**
+  @file Vector4.h
+ 
+  Homogeneous vector class.
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2002-07-09
+  @edited  2008-11-01
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/Vector4int8.h
+/**
+  @file Vector4int8.h
+ 
+  Homogeneous vector class.
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2007-02-09
+  @edited  2007-02-09
+
+  Copyright 2000-2007, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/WrapMode.h
+/** 
+  @file WrapMode.h
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created 2007-04-17
+  @edited  2010-04-17
+
+  Copyright 2000-2010, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/debug.h
+/**
+ @file debug.h
+
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+ @created 2001-08-26
+ @edited  2006-02-16
+
+  Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+*/
+
+libs/third_party/g3d/include/g3d/debugPrintf.h
+/**
+ @file debugPrintf.h
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2001-08-26
+ @edited  2007-07-20
+
+ Copyright 2000-2007, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/fileutils.h
+/**
+ @file fileutils.h
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @author  2002-06-06
+ @edited  2010-03-06
+
+ Copyright 2000-2010, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/format.h
+/**
+ @file format.h
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @author  2000-09-09
+ @edited  2005-11-03
+
+ Copyright 2000-2005, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/g3derror.h
+/**
+  @file g3derror.h
+ 
+  @maintainer Morgan McGuire, matrix@graphics3d.com
+ 
+  @created 2000-08-26
+  @created 2002-08-04
+
+  Copyright 2000-2003, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/g3dfnmatch.h
+/*-
+ * Copyright (c) 1992, 1993
+ *The Regents of the University of California.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *This product includes software developed by the University of
+ *California, Berkeley and its contributors.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ *@(#)fnmatch.h8.1 (Berkeley) 6/2/93
+ *
+ * From FreeBSD fnmatch.h 1.7
+ * $Id: g3dfnmatch.h,v 1.1 2010/02/06 06:51:28 morgan3d Exp $
+ */
+
+libs/third_party/g3d/include/g3d/g3dmath.h
+/**
+ @file g3dmath.h
+ 
+ Math util class.
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @cite highestBit by Jukka Liimatta
+ 
+ @created 2001-06-02
+ @edited  2009-04-07
+
+ Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/include/g3d/vectorMath.h
+/**
+  @file vectorMath.h
+ 
+  Function aliases for popular vector methods.
+ 
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+  @created: 2001-06-02
+  @edited:  2004-02-02
+  Copyright 2000-2004, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/src/BinaryInput.cpp
+/**
+ @file BinaryInput.cpp
+ 
+ @author Morgan McGuire, graphics3d.com
+ Copyright 2001-2007, Morgan McGuire.  All rights reserved.
+ 
+ @created 2001-08-09
+ @edited  2010-03-05
+
+
+  <PRE>
+    {    
+    BinaryOutput b("c:/tmp/test.b", BinaryOutput::LITTLE_ENDIAN);
+
+    float f = 3.1415926;
+    int i = 1027221;
+    std::string s = "Hello World!";
+
+    b.writeFloat32(f);
+    b.writeInt32(i);
+    b.writeString(s);
+    b.commit();
+    
+
+    BinaryInput in("c:/tmp/test.b", BinaryInput::LITTLE_ENDIAN);
+
+    debugAssert(f == in.readFloat32());
+    int ii = in.readInt32();
+    debugAssert(i == ii);
+    debugAssert(s == in.readString());
+    }
+  </PRE>
+ */
+
+libs/third_party/g3d/src/BinaryOutput.cpp
+/**
+ @file BinaryOutput.cpp
+ 
+ @author Morgan McGuire, http://graphics.cs.williams.edu
+ Copyright 2002-2010, Morgan McGuire, All rights reserved.
+ 
+ @created 2002-02-20
+ @edited  2010-03-17
+ */
+
+libs/third_party/g3d/src/Capsule.cpp
+/**
+ @file Capsule.cpp
+  
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+ @created 2003-02-07
+ @edited  2005-08-18
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/src/CoordinateFrame.cpp
+/**
+ @file CoordinateFrame.cpp
+
+ Coordinate frame class
+
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+ @created 2001-06-02
+ @edited  2010-03-13
+
+ Copyright 2000-2010, Morgan McGuire.
+ All rights reserved.
+*/
+
+libs/third_party/g3d/src/Cylinder.cpp
+/**
+ @file Cylinder.cpp
+  
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+
+ @created 2003-02-07
+ @edited  2006-02-18
+
+ Copyright 2000-2006, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/src/GImage.cpp
+/**
+  \file GImage.cpp
+  \author Morgan McGuire, http://graphics.cs.williams.edu
+  Copyright 2002-2010, Morgan McGuire
+
+  \created 2002-05-27
+  \edited  2010-01-04
+ */
+
+libs/third_party/g3d/src/Matrix3.cpp
+/**
+ @file Matrix3.cpp
+
+ 3x3 matrix class
+
+ @author Morgan McGuire, graphics3d.com
+
+ @created 2001-06-02
+ @edited  2009-11-15
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+*/
+
+libs/third_party/g3d/src/MemoryManager.cpp
+/**
+  @file MemoryManager.cpp
+
+  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @created 2009-04-20
+  @edited  2009-05-29
+
+  Copyright 2000-2009, Morgan McGuire.
+  All rights reserved.
+ */
+
+libs/third_party/g3d/src/Random.cpp
+/**
+ @file Random.cpp
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2009-01-02
+ @edited  2009-03-29
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/src/Triangle.cpp
+/**
+ @file Triangle.cpp
+ 
+ @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ 
+ @created 2001-04-06
+ @edited  2008-12-28
+
+ Copyright 2000-2009, Morgan McGuire.
+ All rights reserved.
+ */
+
+libs/third_party/g3d/src/g3dfnmatch.cpp
+/*
+ * Copyright (c) 1989, 1993, 1994
+ *	The Regents of the University of California.  All rights reserved.
+ *
+ * This code is derived from software contributed to Berkeley by
+ * Guido van Rossum.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by the University of
+ *	California, Berkeley and its contributors.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+libs/third_party/bullet/include/LinearMath/btAabbUtil2.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btAlignedAllocator.cpp
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btAlignedAllocator.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btAlignedObjectArray.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btConvexHull.cpp
+/*
+Stan Melax Convex Hull Computation
+Copyright (c) 2003-2006 Stan Melax http://www.melax.com/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btConvexHull.h
+/*
+Stan Melax Convex Hull Computation
+Copyright (c) 2008 Stan Melax http://www.melax.com/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btConvexHullComputer.cpp
+/*
+Copyright (c) 2011 Ole Kniemeyer, MAXON, www.maxon.net
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btConvexHullComputer.h
+/*
+Copyright (c) 2011 Ole Kniemeyer, MAXON, www.maxon.net
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btGeometryUtil.cpp
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btGeometryUtil.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btGrahamScan2dConvexHull.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2011 Advanced Micro Devices, Inc.  http://bulletphysics.org
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btHashMap.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btIDebugDraw.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btList.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btMatrix3x3.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btMatrixX.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2013 Erwin Coumans  http://bulletphysics.org
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btMinMax.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btMotionState.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btPoolAllocator.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btQuadWord.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btQuaternion.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btRandom.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btScalar.h
+/*
+Copyright (c) 2003-2009 Erwin Coumans  http://bullet.googlecode.com
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btSerializer.h
+/*
+Bullet Continuous Collision Detection and Physics Library
+Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btStackAlloc.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btTransform.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btTransformUtil.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
+
+libs/third_party/bullet/include/LinearMath/btVector3.cpp
+/*
+ Copyright (c) 2011 Apple Inc.
+ http://continuousphysics.com/Bullet/
+ 
+ This software is provided 'as-is', without any express or implied warranty.
+ In no event will the authors be held liable for any damages arising from the use of this software.
+ Permission is granted to anyone to use this software for any purpose, 
+ including commercial applications, and to alter it and redistribute it freely, 
+ subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+ 
+ This source version has been altered.
+ */
+
+libs/third_party/bullet/include/LinearMath/btVector3.h
+/*
+Copyright (c) 2003-2006 Gino van den Bergen / Erwin Coumans  http://continuousphysics.com/Bullet/
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/

@@ -10,11 +10,16 @@
 
 <div align="center">
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/revolutionxk/roblox-modloader/build.yml?style=for-the-badge&branch=develop&logo=github&label=develop%20build)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/revolutionxk/roblox-modloader/build.yml?style=for-the-badge&branch=main&logo=github&label=main%20build)
-[![GitHub License](https://img.shields.io/github/license/revolutionxk/roblox-modloader?style=for-the-badge)](LICENSE)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/OrcRant404/roblox-modloader/ci.yml?style=for-the-badge&branch=develop&logo=github&label=fork%20build)
+[![GitHub License](https://img.shields.io/github/license/OrcRant404/roblox-modloader?style=for-the-badge)](LICENSE)
 
 </div>
+
+This is **OrcRant404's fork** of [Revolutionxk's Roblox ModLoader](https://github.com/revolutionxk/roblox-modloader).
+It retains upstream Windows support and adds macOS ARM64 compatibility and managed-mod lifecycle fixes.
+[Fork downloads](https://github.com/OrcRant404/roblox-modloader/releases) ·
+[Custom Templates mod](https://github.com/OrcRant404/rml-custom-templates) ·
+[Linux/Vinegar installation and test limits](docs/linux-vinegar.md)
 
 <div align="center">
 
@@ -37,9 +42,15 @@
 
 ## Cross-Platform Support
 
-- [x] Windows
-- [x] Linux Vinegar
-- [ ] macOS (planned)
+| Platform | Status in this fork |
+| --- | --- |
+| Windows x64 | Native build and managed tests run in GitHub Actions. |
+| Linux x86-64 via Vinegar/Wine | Uses the Windows x64 payload. The separate installer bundle is experimental; see [installation and test limits](docs/linux-vinegar.md). |
+| macOS ARM64 | Native builds and live RML Studio workflows tested with Studio 0.741.19.7411056. |
+
+Individual mods have their own platform requirements. **Custom Templates 0.3.1 is macOS ARM64 only**;
+its native helper has not been ported to Windows/Wine. A Linux catalog-test result does not establish
+that its Studio UI works there.
 
 ## Quick Start
 
@@ -58,7 +69,7 @@ The launcher handles placement and keeps the loader up to date.
 
 ### Manual installation
 
-1. Download the latest [RML release](https://github.com/revolutionxk/roblox-modloader/releases).
+1. Download a compatible [fork release](https://github.com/OrcRant404/roblox-modloader/releases).
 2. Open your Studio directory — the folder that contains `RobloxStudioBeta.exe`, usually
    `%LOCALAPPDATA%\Roblox\Versions\<version>\`.
 3. Extract the archive into that folder.
@@ -111,7 +122,7 @@ Native mods can also publish functions through the [built-in `modloader` global]
 ### Steps
 
 ```powershell
-git clone https://github.com/revolutionxk/roblox-modloader.git
+git clone https://github.com/OrcRant404/roblox-modloader.git
 cd roblox-modloader
 
 cmake -B build -S . -G "Visual Studio 17 2022"
@@ -135,7 +146,7 @@ Current focus areas:
 
 - Finish the [dumper](docs/dumper.md)
 - Re-enable Luau/internal scripting support
-- Add macOS support (long-term goal)
+- Broaden macOS Studio build coverage and validate Linux/Vinegar startup
 - Finish .NET modding support (Better API, async support, etc.)
 - Add a mod browser and installer
 
