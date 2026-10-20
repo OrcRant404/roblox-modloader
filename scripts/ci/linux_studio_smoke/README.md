@@ -73,8 +73,15 @@ python3 -m unittest discover -s scripts/ci/linux_studio_smoke -p 'test_*.py' -v
   downloaded package's SHA256 is also recorded. Studio content remains local.
 - [Kombucha stable+20261018103513](https://github.com/vinegarhq/kombucha/releases/tag/stable%2B20261018103513)
   uses GitHub's SHA256 digest pinned in `lock.json`.
-- VC++ x64 redistributable is downloaded from the fixed official Microsoft
-  delivery URL and SHA256 in the lock, not a floating aka.ms URL at runtime.
+- The complete official Studio `redist.zip` supplies its native AMD64 C++ runtime
+  DLLs. Pinned Kombucha supplies `msvcp140_atomic_wait.dll`, also required by RML.
+  Provisioning verifies these files are AMD64 PE32+ DLLs and records their hashes.
+  This follows [Vinegar's setup flow](https://github.com/vinegarhq/vinegar/blob/b76ae5af1e5e8bde2052ea8bce17961c622dd4fb/cmd/vinegar/bootstrapper_setup.go),
+  which does not run a separate VC++ installer. `VC_redist.x64.exe` has a 32-bit
+  bootstrap and cannot run in this x64-only Kombucha package; no WoW64 runtime
+  or installer workaround is added. The pinned WebView installer is verified
+  as an AMD64 PE32+ executable before it runs. Actual loader initialization is
+  still required; this runtime preflight alone is not a smoke pass.
 - WebView144.0.3719.92 follows the pinned Vinegar default. The official Microsoft
   CDP metadata must match its pinned runtime SHA256. HTTP `msedge.b/f` delivery
   hosts map only to their documented HTTPS `msedge.sb/sf` counterparts, preserving

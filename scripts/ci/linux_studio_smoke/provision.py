@@ -42,6 +42,44 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def require_amd64_pe(data, name, *, dll=False):
+    """A Windows x64 filename does not guarantee an x64 executable bootstrap."""
+    try:
+        if len(data) < 64 or data[:2] != b"MZ":
+            raise ValueError("missing DOS header")
+        pe = struct.unpack_from("<I", data, 60)[0]
+        if pe < 64 or data[pe:pe + 4] != b"PE\0\0":
+            raise ValueError("missing PE signature")
+        machine, sections = struct.unpack_from("<HH", data, pe + 4)
+        optional_size, characteristics = struct.unpack_from("<HH", data, pe + 20)
+        if (machine != 0x8664 or not sections or optional_size < 240
+                or pe + 24 + optional_size + sections * 40 > len(data)
+                or struct.unpack_from("<H", data, pe + 24)[0] != 0x20B
+                or bool(characteristics & 0x2000) != dll):
+            raise ValueError("expected an AMD64 PE32+ " + ("DLL" if dll else "executable"))
+    except (ValueError, struct.error) as exc:
+        raise ValueError("Unsupported runtime image %s: %s" % (name, exc)) from exc
+
+
+def runtime_inventory(studio, wine):
+    # Vinegar installs Studio's complete redist.zip rather than launching a VC++
+    # bootstrap. Kombucha is x64-only; VC_redist.x64.exe itself is a 32-bit PE.
+    # https://github.com/vinegarhq/vinegar/blob/b76ae5af1e5e8bde2052ea8bce17961c622dd4fb/cmd/vinegar/bootstrapper_setup.go
+    groups = {
+        "studio_redist": (studio, ("msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll", "ucrtbase.dll")),
+        "wine_builtin": (wine.parent.parent / "lib/wine/x86_64-windows", ("msvcp140_atomic_wait.dll",)),
+    }
+    result = {}
+    for group, (root, names) in groups.items():
+        files = {}
+        for name in names:
+            data = (root / name).read_bytes()
+            require_amd64_pe(data, name, dll=True)
+            files[name] = digest(data)
+        result[group] = files
+    return result
+
+
 def require_https(url, allowed_hosts=None):
     parsed = urllib.parse.urlsplit(url)
     if parsed.scheme != "https":
@@ -243,8 +281,7 @@ def provision(args):
         raise ValueError("Kombucha archive did not contain one bin/wine")
     wine = binaries[0]
 
-    vc = lock["vcredist"]
-    (args.work / "vc_redist.x64.exe").write_bytes(verified(vc["url"], vc["sha256"], vc["size"], vc["size"]))
+    runtimes = runtime_inventory(root, wine)
     web = lock["webview"]
     ca = (HERE / "microsoft-root-2011.pem").read_bytes()
     if digest(ca) != web["microsoft_ca_sha256"]:
@@ -259,10 +296,11 @@ def provision(args):
     if len(candidates) != 1 or base64.b64decode(candidates[0]["Hashes"]["Sha256"]).hex() != web["sha256"]:
         raise ValueError("Microsoft metadata differs from the pinned WebView runtime")
     url = webview_delivery_url(candidates[0]["Url"])
-    (args.work / "webview2.exe").write_bytes(verified(url, web["sha256"], web["size"], web["size"],
-                                                   allowed_hosts=WEBVIEW_HTTPS_HOSTS))
+    webview = verified(url, web["sha256"], web["size"], web["size"], allowed_hosts=WEBVIEW_HTTPS_HOSTS)
+    require_amd64_pe(webview, "webview2.exe")
+    (args.work / "webview2.exe").write_bytes(webview)
     return {"studio": studio, "packages": records, "studio_exe_sha256": digest(exe.read_bytes()),
-            "kombucha": kombucha, "wine": str(wine), "vcredist": vc,
+            "kombucha": kombucha, "wine": str(wine), "runtime_inventory": runtimes,
             "webview": {k: v for k, v in web.items() if k != "microsoft_ca_sha256"},
             "sources": lock["sources"]}
 

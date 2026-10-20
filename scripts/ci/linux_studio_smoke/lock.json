@@ -10,11 +10,6 @@
     "url": "https://github.com/vinegarhq/kombucha/releases/download/stable%2B20261018103513/kombucha-stable%2B20261018103513.tar.xz",
     "sha256": "1a5aa35e74907cba8f366edffab2c45444c255cb3dba3cd25dad0a824d7f6e4d"
   },
-  "vcredist": {
-    "url": "https://download.visualstudio.microsoft.com/download/pr/990c720a-46ce-4dc7-87b9-c2eb615d34b9/CC0FF0EB1DC3F5188AE6300FAEF32BF5BEEBA4BDD6E8E445A9184072096B713B/VC_redist.x64.exe",
-    "sha256": "cc0ff0eb1dc3f5188ae6300faef32bf5beeba4bdd6e8e445a9184072096b713b",
-    "size": 25635768
-  },
   "webview": {
     "version": "144.0.3719.92",
     "sha256": "74d0bbcd2396ac37e89e47e8ce37a598fbb3206abd8bc6fb1f7de24b3fe924cd",

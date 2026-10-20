@@ -28,7 +28,47 @@ def pe_with_mapping(mapping):
     return bytes(data)
 
 
+def runtime_pe(*, machine=0x8664, dll=False):
+    data = bytearray(512)
+    data[:2] = b"MZ"
+    struct.pack_into("<I", data, 60, 64)
+    data[64:68] = b"PE\0\0"
+    struct.pack_into("<HH", data, 68, machine, 1)
+    struct.pack_into("<HH", data, 84, 240, 0x2000 if dll else 0)
+    struct.pack_into("<H", data, 88, 0x20B if machine == 0x8664 else 0x10B)
+    return bytes(data)
+
+
 class ProvisionTests(unittest.TestCase):
+    def test_runtime_preflight_rejects_32bit_bootstrap_and_wrong_dll_type(self):
+        provision.require_amd64_pe(runtime_pe(), "actual-x64.exe")
+        provision.require_amd64_pe(runtime_pe(dll=True), "actual-x64.dll", dll=True)
+        for data, dll in ((runtime_pe(machine=0x14C), False), (runtime_pe(), True),
+                          (runtime_pe(dll=True), False), (runtime_pe()[:200], False), (b"MZ", False)):
+            with self.subTest(dll=dll, size=len(data)), self.assertRaises(ValueError):
+                provision.require_amd64_pe(data, "misleading-x64-name.exe", dll=dll)
+
+    def test_bundled_runtime_inventory_requires_native_crt_and_wine_atomic_wait(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            studio = root / "studio"
+            studio.mkdir()
+            for name in ("msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll", "ucrtbase.dll"):
+                (studio / name).write_bytes(runtime_pe(dll=True))
+            wine = root / "kombucha/bin/wine"
+            modules = root / "kombucha/lib/wine/x86_64-windows"
+            modules.mkdir(parents=True)
+            atomic = modules / "msvcp140_atomic_wait.dll"
+            with self.assertRaises(FileNotFoundError):
+                provision.runtime_inventory(studio, wine)
+            atomic.write_bytes(runtime_pe(dll=True))
+            inventory = provision.runtime_inventory(studio, wine)
+            self.assertEqual(inventory["wine_builtin"][atomic.name], provision.digest(atomic.read_bytes()))
+            self.assertEqual(len(inventory["studio_redist"]), 4)
+            atomic.write_bytes(runtime_pe(machine=0x14C, dll=True))
+            with self.assertRaises(ValueError):
+                provision.runtime_inventory(studio, wine)
+
     def test_microsoft_documented_https_delivery_counterparts(self):
         path = "/filestreamingservice/files/fd553f7b-c89a-4da7-bd24-85a214cc91b0?P1=123&P4=token%2Bvalue"
         for http_host, https_host in provision.WEBVIEW_HTTPS_COUNTERPARTS.items():
@@ -176,6 +216,31 @@ class ProvisionTests(unittest.TestCase):
 
 
 class GateTests(unittest.TestCase):
+    def test_prefix_setup_runs_x64_webview_without_vc_bootstrap(self):
+        with tempfile.TemporaryDirectory() as temp:
+            work = Path(temp)
+            installer = work / "webview2.exe"
+            installer.write_bytes(runtime_pe())
+            prefix = work / "prefix"
+            metadata = {"webview": {"version": "144.0.3719.92"}}
+            installed = prefix / "drive_c/Program Files (x86)/Microsoft/EdgeWebView/Application/144.0.3719.92"
+            with mock.patch.object(smoke, "command") as command:
+                with self.assertRaisesRegex(RuntimeError, "installation is missing"):
+                    smoke.setup_prefix(work / "wine", work, prefix, metadata, {}, work / "setup.log")
+                command.reset_mock()
+                installed.mkdir(parents=True)
+                smoke.setup_prefix(work / "wine", work, prefix, metadata, {}, work / "setup.log")
+                commands = [call.args[0] for call in command.call_args_list]
+                self.assertEqual(commands[0][1], "wineboot")
+                self.assertEqual(commands[-1][1], installer)
+                self.assertIn("--msedgewebview", commands[-1])
+                self.assertFalse(any("vc_redist" in str(arg).lower() for cmd in commands for arg in cmd))
+                command.reset_mock()
+                installer.write_bytes(runtime_pe(machine=0x14C))
+                with self.assertRaises(ValueError):
+                    smoke.setup_prefix(work / "wine", work, prefix, metadata, {}, work / "setup.log")
+                command.assert_not_called()
+
     def test_both_native_markers_required(self):
         status = smoke.loader_status("Hooking enabled.")
         self.assertFalse(all(status["markers"].values()))

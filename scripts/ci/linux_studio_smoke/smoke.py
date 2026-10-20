@@ -152,6 +152,24 @@ def collect_logs(prefix, studio, result):
             count += 1
 
 
+def setup_prefix(wine, work, prefix, metadata, environment, log):
+    # Pinned Kombucha has no i386 modules. Studio's verified native redist and
+    # Wine's builtin CRT support are preflighted during provisioning; no 32-bit
+    # VC_redist bootstrap is needed. Vinegar likewise installs only WebView here.
+    webview = work / "webview2.exe"
+    provision.require_amd64_pe(webview.read_bytes(), webview.name)
+    command([wine, "wineboot", "-u"], environment, log, timeout=90)
+    command([wine, "reg", "add", r"HKCU\Software\Wine", "/v", "Version", "/d", "win10", "/f"],
+            environment, log)
+    command([wine, "reg", "add", r"HKCU\Software\Wine\AppDefaults\msedgewebview2.exe",
+             "/v", "Version", "/d", "win7", "/f"], environment, log)
+    command([wine, webview, "--msedgewebview", "--do-not-launch-msedge", "--system-level"],
+            environment, log, timeout=150)
+    version = metadata["webview"]["version"]
+    if not (prefix / "drive_c/Program Files (x86)/Microsoft/EdgeWebView/Application" / version).is_dir():
+        raise RuntimeError("Pinned WebView runtime installation is missing")
+
+
 def stage(name, args, metadata, env):
     stage_result = args.output / name
     stage_result.mkdir()
@@ -172,19 +190,7 @@ def stage(name, args, metadata, env):
     process = None
     output = None
     try:
-        command([wine, "wineboot", "-u"], environment, setup_log, timeout=90)
-        command([wine, "reg", "add", r"HKCU\Software\Wine", "/v", "Version", "/d", "win10", "/f"],
-                environment, setup_log)
-        # Same app-specific WebView compatibility override used by sewnie/wine.
-        command([wine, "reg", "add", r"HKCU\Software\Wine\AppDefaults\msedgewebview2.exe",
-                 "/v", "Version", "/d", "win7", "/f"], environment, setup_log)
-        command([wine, args.work / "vc_redist.x64.exe", "/install", "/quiet", "/norestart"],
-                environment, setup_log, timeout=120, codes=(0, 194))
-        command([wine, args.work / "webview2.exe", "--msedgewebview", "--do-not-launch-msedge", "--system-level"],
-                environment, setup_log, timeout=150)
-        version = metadata["webview"]["version"]
-        if not (prefix / "drive_c/Program Files (x86)/Microsoft/EdgeWebView/Application" / version).is_dir():
-            raise RuntimeError("Pinned WebView runtime installation is missing")
+        setup_prefix(wine, args.work, prefix, metadata, environment, setup_log)
         command([wineserver, "-k"], environment, setup_log)
         command([wineserver, "-w"], environment, setup_log, timeout=30)
         exe = studio / "RobloxStudioBeta.exe"
