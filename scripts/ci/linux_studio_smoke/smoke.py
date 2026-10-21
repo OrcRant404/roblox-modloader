@@ -32,6 +32,17 @@ NATIVE_ERRORS = re.compile(r"\[error\]|\[critical\]|fatal error during bootstrap
 WINDOW = re.compile(r'^\s*(0x[0-9a-f]+)\s+"([^"]*)".*?(\d+)x(\d+)', re.I)
 
 
+def x11_environment(environment):
+    # This harness owns an Xvfb/Openbox session. Pinned Kombucha patch17 calls
+    # strcmp(getenv("XDG_SESSION_TYPE"), "wayland") without a NULL guard.
+    # https://github.com/vinegarhq/kombucha/blob/593f74998013e4bba75a05ba17e0d343e96c2e5f/patches/stable/0017-winex11-Don-t-hide-cursor-under-X11-sessions.patch
+    return dict(environment, DISPLAY=":99", XDG_SESSION_TYPE="x11")
+
+
+def display_environment(environment):
+    return {key: environment.get(key) for key in ("DISPLAY", "XDG_SESSION_TYPE")}
+
+
 def loader_status(text):
     clean = ANSI.sub("", text)
     return {"markers": {value: value in clean for value in REQUIRED},
@@ -109,7 +120,8 @@ def collect_wine_dependencies(wine, destination, environment):
     required = {"wine", "ntdll", "win32u", "winex11"}
     env = dict(environment, LD_LIBRARY_PATH=str(unix) +
                (os.pathsep + environment["LD_LIBRARY_PATH"] if environment.get("LD_LIBRARY_PATH") else ""))
-    record = {"modules": {}, "optional_x11_dlopen": {}, "required_failures": []}
+    record = {"modules": {}, "optional_x11_dlopen": {}, "required_failures": [],
+              "display_environment": display_environment(environment)}
     with (destination / "wine-dependencies.log").open("w") as output:
         for name, path in paths.items():
             if path.is_file():
@@ -166,7 +178,8 @@ def wine_gui_probe(wine, prefix, environment, destination):
     """A bounded builtin GUI preflight; never load RML into Notepad."""
     env = dict(environment, WINEDLLOVERRIDES="dwmapi=b;winemenubuilder.exe=;mscoree=;mshtml=")
     record = {"status": "running", "timeout_seconds": 30, "rml_disabled": True,
-              "log": "wine-gui-probe.log", "window_history": "wine-gui-probe-windows.jsonl"}
+              "log": "wine-gui-probe.log", "window_history": "wine-gui-probe-windows.jsonl",
+              "display_environment": display_environment(env)}
     process = None
     started = time.monotonic()
     ready_at = None
@@ -309,6 +322,7 @@ def stage(name, args, metadata, env):
         WINEDLLOVERRIDES=("dwmapi=n,b;" if native else "") + "winemenubuilder.exe=;mscoree=;mshtml=",
         WINEDEBUG=WINE_DIAGNOSTICS, LIBGL_ALWAYS_SOFTWARE="1", WINE_D3D_CONFIG="renderer=gl",
         WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS="--in-process-gpu --use-angle=gl")
+    record["display_environment"] = display_environment(environment)
     wine = Path(metadata["wine"])
     wineserver = wine.parent / "wineserver"
     setup_log = stage_result / "setup.log"
@@ -431,7 +445,8 @@ def main():
         print("Provisioning exact official Studio/Wine/runtime dependencies", flush=True)
         metadata = provision.provision(args)
         (args.output / "provisioning.json").write_text(json.dumps(metadata, indent=2) + "\n")
-        env = dict(os.environ, DISPLAY=":99")
+        env = x11_environment(os.environ)
+        verdict["display_environment"] = display_environment(env)
         verdict["wine_dependencies"] = {"json": "wine-dependencies.json", "log": "wine-dependencies.log"}
         collect_wine_dependencies(Path(metadata["wine"]), args.output, env)
         for argv, name in ((["Xvfb", ":99", "-screen", "0", "1280x720x24", "-nolisten", "tcp"], "xvfb.log"),

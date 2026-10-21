@@ -216,6 +216,16 @@ class ProvisionTests(unittest.TestCase):
 
 
 class GateTests(unittest.TestCase):
+    def test_harness_declares_its_xvfb_x11_session_even_without_desktop_environment(self):
+        for original in ({}, {"DISPLAY": ":0", "XDG_SESSION_TYPE": "wayland", "KEEP": "value"}):
+            with self.subTest(original=original):
+                saved = dict(original)
+                environment = smoke.x11_environment(original)
+                self.assertEqual(smoke.display_environment(environment), {"DISPLAY": ":99", "XDG_SESSION_TYPE": "x11"})
+                self.assertEqual(original, saved)
+                if "KEEP" in saved:
+                    self.assertEqual(environment["KEEP"], saved["KEEP"])
+
     def test_wine_dependency_diagnostics_separate_required_x11_and_optional_wayland(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

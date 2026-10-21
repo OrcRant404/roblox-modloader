@@ -36,6 +36,11 @@ The pinned package contains both X11 and Wayland drivers. ELF `ldd` diagnostics
 resolve Wine's internal modules from its own module directory; required X11
 dependency failures stop the run, while optional Wayland/dlopen findings are
 recorded for diagnosis. No packages are guessed from a window-creation error.
+The harness declares `DISPLAY=:99` and `XDG_SESSION_TYPE=x11` for its own Xvfb/
+Openbox session. The pinned Kombucha release's [X11 cursor patch](https://github.com/vinegarhq/kombucha/blob/593f74998013e4bba75a05ba17e0d343e96c2e5f/patches/stable/0017-winex11-Don-t-hide-cursor-under-X11-sessions.patch)
+reads `XDG_SESSION_TYPE` without a NULL check; a headless runner may omit it.
+The selected display/session values are recorded in the dependency, probe and
+stage verdicts. This setup fix still requires the actual GUI gates to pass.
 
 `verdict.json`, stage verdicts, deployment/package hashes, graphics inventory,
 window inventory, curated logs and window screenshots are uploaded. Downloaded
