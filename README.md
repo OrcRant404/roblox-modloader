@@ -44,9 +44,9 @@ It retains upstream Windows support and adds macOS ARM64 compatibility and manag
 
 | Platform | Status in this fork |
 | --- | --- |
-| Windows x64 | Native build and managed tests run in GitHub Actions. |
-| Linux x86-64 via Vinegar/Wine | Uses the Windows x64 payload. The separate installer bundle is experimental; see [installation and test limits](docs/linux-vinegar.md). |
-| macOS ARM64 | Native builds and live RML Studio workflows tested with Studio 0.741.19.7411056. |
+| Windows x64 | Native build and managed tests run in GitHub Actions. Native Windows startup is unverified; the same payload failed signature matching on Studio 0.743 under Wine. |
+| Linux x86-64 via Vinegar/Wine | Installer preview. Unmodified Studio 0.743 opened in Ubuntu CI; RML then failed native signature matching. See [recorded result and setup](docs/linux-vinegar.md). |
+| macOS ARM64 | Prebuilt loader requires macOS 26.0+. Native builds and live RML Studio workflows tested with Studio 0.741.19.7411056. |
 
 Individual mods have their own platform requirements. **Custom Templates 0.3.1 is macOS ARM64 only**;
 its native helper has not been ported to Windows/Wine. A Linux catalog-test result does not establish
@@ -104,8 +104,14 @@ Use the separate `linux-vinegar.tar.gz` bundle and its
 loader and requires the `dwmapi=n,b` Wine override. A Windows .NET 10 runtime
 in Vinegar's Studio prefix is required for managed mods. Keep this experimental
 bundle's package/installer tests separate from live Studio startup results.
+The recorded Studio 0.743 test passed without RML, then failed RML's required
+Windows signature checks. This preview does not provide working RML on that build.
 
 #### macOS ARM64
+
+The prebuilt loader's Mach-O deployment target is **macOS 26.0**. Earlier macOS
+versions require a separately built compatible loader; this release does not
+validate those builds.
 
 Use a compatible Studio copy; this fork's live workflows were checked with
 **Studio 0.741.19.7411056**. Close Studio before installation and keep a backup
@@ -113,6 +119,9 @@ of the app. Extract the macOS release into a separate directory, then copy its
 `RobloxModLoader/runtime` into the app's `Contents/MacOS/RobloxModLoader/runtime`
 without removing existing mods/config. Install a macOS ARM64 .NET 10 runtime
 or make one available in `RobloxModLoader/runtime/dotnet`.
+Create `Contents/MacOS/RobloxModLoader/mods` if it is absent; mod installers use
+that directory. Open the same app after installation. A separate launcher or
+local `rml-studio` shell command is not required for this manual setup.
 
 From the extracted release directory, install the loader with the included
 helper (replace the example app path):

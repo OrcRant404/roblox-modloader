@@ -11,6 +11,26 @@ build, a mod, Wine, or a particular Studio version starts or works together.
 Treat this as an experimental manual installation. Native mods must be built
 for Windows x64; macOS `.dylib`/`.so` builds do not work in Windows Studio.
 
+## Recorded live result: Studio 0.743 is unsupported
+
+The [real Ubuntu Wine run on 2026-10-20](https://github.com/OrcRant404/roblox-modloader/actions/runs/39519306475)
+launched official **Studio 0.743.0.7431133** with pinned Kombucha
+`stable+20261018103513`, Xvfb/Openbox and software OpenGL. The unmodified Studio
+login window passed process, visible-window, screenshot/OCR and 32-second
+survival checks. No account sign-in was needed.
+
+The exact Windows RML payload from source
+`5d3090ad93ca8b212ca859fea5b1dca3e2e0fe1b` then failed native initialization:
+`Failed to initialize subsystem Pointers: Failed to find some patterns for roblox`.
+Five signatures were missing: `LUAH_NEW`, `GET_STRING_ATOM`,
+`DESCRIPTOR_LOOKUP`, `SIGNAL_DISCONNECT` and `LUAE_NEWTHREAD`.
+
+**This Linux download is an installer preview. RML does not initialize with the
+tested Studio 0.743 build.** Updating the Windows Studio bindings and testing
+them again is required before claiming working Linux support. Managed mods,
+editing, saves and Custom Templates were not exercised. The Windows archive
+contains the same loader payload; native Windows startup remains unverified.
+
 ## Before installing
 
 - Install Vinegar and launch Studio successfully once without RML. Close both
@@ -50,9 +70,17 @@ directory; recheck the target and compatibility before installing again.
 
 ## Review, then install
 
-Extract the release archive into a separate folder and enter
-`roblox-modloader-linux-vinegar`. Verify the downloaded archive against its
-`.sha256` file before extraction (`sha256sum -c <archive>.sha256`).
+Before extracting the downloaded archive, verify its entry in the
+release's `SHA256SUMS-roblox-modloader.txt` file:
+
+```sh
+sha256sum --ignore-missing -c SHA256SUMS-roblox-modloader.txt
+```
+
+A locally built bundle instead has an adjacent `.sha256` file, checked with
+`sha256sum -c <archive>.sha256`.
+
+Extract the archive into a separate folder and enter `roblox-modloader-linux-vinegar`.
 
 ```sh
 python3 install.py --studio-dir "/absolute/path/to/active-Studio-version" --dry-run
@@ -168,9 +196,9 @@ RML assemblies/runtimeconfigs, then installs and rolls back those real files
 in a temporary directory with a synthetic Studio PE fixture. Unit tests also
 cover dry runs, backups, failed-copy recovery, changed-file protection, symlinks,
 wrong targets/payloads, missing files, ZIP traversal and preserving user data.
-Neither the fixture nor this test launches Wine, Studio, or any DLL. Existing
-managed/native CI results remain separate evidence. No live Linux Studio test
-is claimed.
+Neither the fixture nor this package test launches Wine, Studio, or any DLL.
+Existing managed/native CI results remain separate evidence. The separate live
+Studio attempt and its RML initialization failure are recorded above.
 
 The archive retains the upstream RML MIT license and third-party notices.
 Wine, Vinegar, Windows .NET/CoreCLR, Roblox Studio and user mods are not bundled.
