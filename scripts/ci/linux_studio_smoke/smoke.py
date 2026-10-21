@@ -6,6 +6,8 @@ an unmodified GUI baseline, a fresh native RML initialization log, the real Stud
 process/window, a nonblank window capture, and thirty further seconds alive.
 """
 import argparse
+import ctypes
+import datetime
 import importlib.util
 import json
 import os
@@ -23,6 +25,7 @@ import provision
 HERE = Path(__file__).resolve().parent
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 REQUIRED = ("Hooking enabled.", "Qt action hook installed.")
+WINE_DIAGNOSTICS = "-all,err+all,warn+module,warn+winediag,warn+x11drv,warn+waylanddrv,warn+seh,trace+loaddll"
 NATIVE_ERRORS = re.compile(r"\[error\]|\[critical\]|fatal error during bootstrap|"
     r"failed to (?:initialize subsystem|create the bootstrap thread|get vtable|enable .*hook|create .*hook)|"
     r"unhandled (?:exception|page fault)|stack overflow|segmentation fault", re.I)
@@ -71,8 +74,8 @@ def text_command(argv, env):
     return subprocess.run(argv, env=env, capture_output=True, text=True, timeout=10).stdout
 
 
-def studio_processes(prefix):
-    """Require an actual Studio process, not explorer/wine with an exe argument."""
+def wine_processes(prefix, expected_exe):
+    """Require the actual PE process in this prefix, not explorer's exe argument."""
     result = []
     for item in Path("/proc").iterdir():
         if not item.name.isdecimal():
@@ -80,7 +83,7 @@ def studio_processes(prefix):
         try:
             args = (item / "cmdline").read_bytes().split(b"\0")
             exe = args[0].decode(errors="replace").replace("\\", "/").split("/")[-1]
-            if exe.casefold() != "robloxstudiobeta.exe":
+            if exe.casefold() != expected_exe.casefold():
                 continue
             environ = (item / "environ").read_bytes().split(b"\0")
             if ("WINEPREFIX=" + str(prefix)).encode() not in environ:
@@ -92,6 +95,127 @@ def studio_processes(prefix):
         except (OSError, ValueError):
             pass
     return sorted(result)
+
+
+def studio_processes(prefix):
+    return wine_processes(prefix, "RobloxStudioBeta.exe")
+
+
+def collect_wine_dependencies(wine, destination, environment):
+    """Diagnose the exact verified backend modules; optional Wayland is not an X11 gate."""
+    unix = wine.parent.parent / "lib/wine/x86_64-unix"
+    paths = {"wine": wine, **{name: unix / (name + ".so")
+             for name in ("ntdll", "win32u", "winex11", "winewayland", "opengl32")}}
+    required = {"wine", "ntdll", "win32u", "winex11"}
+    env = dict(environment, LD_LIBRARY_PATH=str(unix) +
+               (os.pathsep + environment["LD_LIBRARY_PATH"] if environment.get("LD_LIBRARY_PATH") else ""))
+    record = {"modules": {}, "optional_x11_dlopen": {}, "required_failures": []}
+    with (destination / "wine-dependencies.log").open("w") as output:
+        for name, path in paths.items():
+            if path.is_file():
+                result = subprocess.run(["ldd", str(path)], env=env, capture_output=True, text=True, timeout=10)
+                text = result.stdout + result.stderr
+                failed = result.returncode != 0 or "not found" in text
+                record["modules"][name] = {"path": str(path), "returncode": result.returncode,
+                                           "unresolved": failed, "ldd": text}
+                output.write("%s\n%s\n" % (path, text))
+            else:
+                failed = True
+                record["modules"][name] = {"path": str(path), "missing": True}
+            if failed and name in required:
+                record["required_failures"].append(name)
+    # These names come from the pinned winex11.so, which loads them dynamically.
+    for soname in ("libGL.so.1", "libXcomposite.so.1", "libXcursor.so.1", "libXfixes.so.3",
+                   "libXi.so.6", "libXinerama.so.1", "libXrandr.so.2", "libXrender.so.1",
+                   "libXxf86vm.so.1", "libvulkan.so.1", "libxkbregistry.so.0"):
+        try:
+            ctypes.CDLL(soname)
+            record["optional_x11_dlopen"][soname] = {"available": True}
+        except OSError as error:
+            record["optional_x11_dlopen"][soname] = {"available": False, "message": str(error)}
+    (destination / "wine-dependencies.json").write_text(json.dumps(record, indent=2) + "\n")
+    if record["required_failures"]:
+        raise RuntimeError("Wine X11 ELF dependencies are unresolved; see wine-dependencies.json: " +
+                           ", ".join(record["required_failures"]))
+    return record
+
+
+def probe_windows(tree):
+    result = []
+    for line in tree.splitlines():
+        match = WINDOW.match(line)
+        if not match:
+            continue
+        handle, title, width, height = match.groups()
+        # explorer/desktop.c adds the resource title " - Wine Desktop".
+        kind = "desktop" if title.casefold() in ("rmlprobe", "rmlprobe - wine desktop") else \
+               "notepad" if re.search(r"\bNotepad\b", title, re.I) else None
+        if kind and int(width) >= 320 and int(height) >= 180:
+            result.append({"handle": handle, "title": title, "kind": kind})
+    return result
+
+
+def window_history(path, started, tree, pids, visible):
+    with path.open("a") as output:
+        output.write(json.dumps({"utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "elapsed_seconds": round(time.monotonic() - started, 3), "pids": pids,
+            "visible_windows": visible, "tree": tree}) + "\n")
+
+
+def wine_gui_probe(wine, prefix, environment, destination):
+    """A bounded builtin GUI preflight; never load RML into Notepad."""
+    env = dict(environment, WINEDLLOVERRIDES="dwmapi=b;winemenubuilder.exe=;mscoree=;mshtml=")
+    record = {"status": "running", "timeout_seconds": 30, "rml_disabled": True,
+              "log": "wine-gui-probe.log", "window_history": "wine-gui-probe-windows.jsonl"}
+    process = None
+    started = time.monotonic()
+    ready_at = None
+    with (destination / record["log"]).open("wb") as output:
+        try:
+            process = subprocess.Popen([str(wine), "explorer", "/desktop=RMLProbe,640x480",
+                r"C:\windows\system32\notepad.exe"], cwd=prefix, env=env,
+                stdout=output, stderr=subprocess.STDOUT, start_new_session=True)
+            while time.monotonic() - started < 30:
+                tree = text_command(["xwininfo", "-root", "-tree"], env)
+                visible = [w for w in probe_windows(tree) if "Map State: IsViewable" in
+                           text_command(["xwininfo", "-id", w["handle"]], env)]
+                pids = wine_processes(prefix, "notepad.exe")
+                window_history(destination / record["window_history"], started, tree, pids, visible)
+                if pids and {w["kind"] for w in visible} == {"desktop", "notepad"}:
+                    if ready_at is None:
+                        ready_at = time.monotonic()
+                    if time.monotonic() - ready_at >= 2:
+                        notepad = next(w for w in visible if w["kind"] == "notepad")
+                        command(["import", "-window", notepad["handle"], destination / "wine-gui-probe.png"],
+                                env, destination / "capture.log", timeout=10)
+                        record.update(status="passed", windows=visible, notepad_pids=pids)
+                        return record
+                else:
+                    ready_at = None
+                time.sleep(1)
+            raise RuntimeError("Wine backend GUI probe failed: mapped Notepad/virtual desktop missing; "
+                               "see wine-gui-probe.log and wine-gui-probe-windows.jsonl")
+        except Exception as error:
+            record.update(status="failed", message=str(error))
+            try:
+                command(["import", "-window", "root", destination / "wine-gui-probe-failure.png"],
+                        env, destination / "capture.log", timeout=10)
+            except (RuntimeError, subprocess.TimeoutExpired):
+                pass
+            raise
+        finally:
+            for option in ("-k", "-w"):
+                try:
+                    command([wine.parent / "wineserver", option], env, destination / record["log"], timeout=15)
+                except (RuntimeError, subprocess.TimeoutExpired):
+                    pass
+            if process is not None and process.poll() is None:
+                process.terminate()
+                try:
+                    process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+            (destination / "wine-gui-probe.json").write_text(json.dumps(record, indent=2) + "\n")
 
 
 def rml_logs(studio):
@@ -177,12 +301,13 @@ def stage(name, args, metadata, env):
     studio = args.work / (name + "-studio")
     shutil.copytree(args.work / "studio", studio)
     native = name == "rml"
-    record = {"status": "running", "native_rml": native, "hold_seconds": 30}
+    record = {"status": "running", "native_rml": native, "hold_seconds": 30,
+              "wine_gui_probe": "wine-gui-probe.json", "wine_log": "wine-console.log"}
     if native:
         record["rml_provenance"] = install_rml(args.windows_package, args.provenance, studio)
     environment = dict(env, WINEPREFIX=str(prefix), WINEARCH="win64",
         WINEDLLOVERRIDES=("dwmapi=n,b;" if native else "") + "winemenubuilder.exe=;mscoree=;mshtml=",
-        WINEDEBUG="-all,warn+seh", LIBGL_ALWAYS_SOFTWARE="1", WINE_D3D_CONFIG="renderer=gl",
+        WINEDEBUG=WINE_DIAGNOSTICS, LIBGL_ALWAYS_SOFTWARE="1", WINE_D3D_CONFIG="renderer=gl",
         WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS="--in-process-gpu --use-angle=gl")
     wine = Path(metadata["wine"])
     wineserver = wine.parent / "wineserver"
@@ -191,8 +316,7 @@ def stage(name, args, metadata, env):
     output = None
     try:
         setup_prefix(wine, args.work, prefix, metadata, environment, setup_log)
-        command([wineserver, "-k"], environment, setup_log)
-        command([wineserver, "-w"], environment, setup_log, timeout=30)
+        record["wine_gui_probe_result"] = wine_gui_probe(wine, prefix, environment, stage_result)
         exe = studio / "RobloxStudioBeta.exe"
         record["studio_exe_sha256"] = provision.digest(exe.read_bytes())
         if record["studio_exe_sha256"] != metadata["studio_exe_sha256"]:
@@ -214,6 +338,7 @@ def stage(name, args, metadata, env):
                 if "Map State: IsViewable" in details:
                     visible.append(window)
             pids = studio_processes(prefix)
+            window_history(stage_result / "windows-history.jsonl", started, tree, pids, visible)
             logs = rml_logs(studio)
             native_text = read_logs(logs)
             console = (stage_result / "wine-console.log").read_bytes()[-4 * 1024**2:].decode(errors="replace")
@@ -307,6 +432,8 @@ def main():
         metadata = provision.provision(args)
         (args.output / "provisioning.json").write_text(json.dumps(metadata, indent=2) + "\n")
         env = dict(os.environ, DISPLAY=":99")
+        verdict["wine_dependencies"] = {"json": "wine-dependencies.json", "log": "wine-dependencies.log"}
+        collect_wine_dependencies(Path(metadata["wine"]), args.output, env)
         for argv, name in ((["Xvfb", ":99", "-screen", "0", "1280x720x24", "-nolisten", "tcp"], "xvfb.log"),
                            (["openbox"], "openbox.log")):
             handle = (args.output / name).open("wb")

@@ -27,6 +27,16 @@ can distinguish loader/build incompatibility from baseline setup failure.
 The current Windows Studio pin may differ from the Mac-supported version; it
 is an explicit Windows compatibility attempt, not an assumed ABI match.
 
+Before Studio, each fresh prefix must map Wine's virtual desktop and its builtin
+Notepad window for two seconds. This bounded30second probe uses the same display
+and prefix, forces builtin `dwmapi`, and runs outside the Studio directory. It
+stops that prefix's Wine server before Studio starts. A failed probe stops the
+stage as a Wine GUI backend failure and cannot count as a Studio or RML pass.
+The pinned package contains both X11 and Wayland drivers. ELF `ldd` diagnostics
+resolve Wine's internal modules from its own module directory; required X11
+dependency failures stop the run, while optional Wayland/dlopen findings are
+recorded for diagnosis. No packages are guessed from a window-creation error.
+
 `verdict.json`, stage verdicts, deployment/package hashes, graphics inventory,
 window inventory, curated logs and window screenshots are uploaded. Downloaded
 Studio/Wine/runtime binaries, Wine prefixes, registry/cookies and crash dumps
@@ -34,6 +44,11 @@ are **not** uploaded. Every job failure has a verdict; timeout/cancellation can
 only be `not_completed`, not a pass. There are no logins or interactions beyond
 passive process/window/capture observation. No external UI input is sent. No
 static parser test is a live pass.
+
+`wine-dependencies.json`/`.log` record ELF and optional X11 library availability.
+Each stage includes `wine-gui-probe.json`, Wine module/error logs, probe captures,
+and timestamped probe/Studio window histories. Wine `err` diagnostics remain
+enabled so driver failures are not hidden behind Studio's later Qt errors.
 
 For local Linux x64 reproduction after installing the workflow dependencies:
 

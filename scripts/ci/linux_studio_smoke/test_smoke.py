@@ -216,6 +216,77 @@ class ProvisionTests(unittest.TestCase):
 
 
 class GateTests(unittest.TestCase):
+    def test_wine_dependency_diagnostics_separate_required_x11_and_optional_wayland(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            wine = root / "kombucha/bin/wine"
+            wine.parent.mkdir(parents=True)
+            wine.write_bytes(b"verified Wine image")
+            unix = root / "kombucha/lib/wine/x86_64-unix"
+            unix.mkdir(parents=True)
+            for name in ("ntdll", "win32u", "winex11", "winewayland", "opengl32"):
+                (unix / (name + ".so")).write_bytes(b"verified Wine module")
+            missing = {"winewayland.so"}
+            def ldd(argv, **kwargs):
+                self.assertEqual(argv[0], "ldd")
+                self.assertTrue(kwargs["env"]["LD_LIBRARY_PATH"].startswith(str(unix)))
+                return mock.Mock(returncode=0, stdout="liboptional.so => not found\n"
+                                 if Path(argv[1]).name in missing else "libc.so => /lib/libc.so\n", stderr="")
+            with mock.patch.object(smoke.subprocess, "run", side_effect=ldd), \
+                 mock.patch.object(smoke.ctypes, "CDLL", side_effect=OSError("optional library absent")):
+                result = smoke.collect_wine_dependencies(wine, root, {})
+                self.assertEqual(result["required_failures"], [])
+                self.assertTrue(result["modules"]["winewayland"]["unresolved"])
+                self.assertFalse(result["optional_x11_dlopen"]["libxkbregistry.so.0"]["available"])
+                missing.add("winex11.so")
+                with self.assertRaisesRegex(RuntimeError, "winex11"):
+                    smoke.collect_wine_dependencies(wine, root, {})
+                written = json.loads((root / "wine-dependencies.json").read_text())
+                self.assertEqual(written["required_failures"], ["winex11"])
+
+    def test_gui_probe_requires_notepad_and_disables_rml_in_same_prefix(self):
+        self.assertEqual(smoke.probe_windows(' 0x1 "RMLProbe - Wine desktop": () 640x480+0+0')[0]["kind"], "desktop")
+        trees = [
+            ' 0x1 "RMLProbe - Wine Desktop": ("explorer.exe" "Wine") 640x480+0+0\n',
+            ' 0x1 "RMLProbe - Wine Desktop": ("explorer.exe" "Wine") 640x480+0+0\n'
+            ' 0x2 "Untitled - Notepad": ("notepad.exe" "Wine") 600x400+0+0\n',
+        ]
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            prefix = root / "prefix"
+            prefix.mkdir()
+            for index, tree in enumerate(trees):
+                with self.subTest(notepad=index == 1):
+                    destination = root / str(index)
+                    destination.mkdir()
+                    clock = [0]
+                    env = {"WINEPREFIX": str(prefix), "DISPLAY": ":99", "WINEDLLOVERRIDES": "dwmapi=n,b"}
+                    process = mock.Mock()
+                    process.poll.return_value = None
+                    def text(argv, environment):
+                        return tree if "-root" in argv else "Map State: IsViewable"
+                    with mock.patch.object(smoke.subprocess, "Popen", return_value=process) as launch, \
+                         mock.patch.object(smoke, "text_command", side_effect=text), \
+                         mock.patch.object(smoke, "wine_processes", return_value=[42]), \
+                         mock.patch.object(smoke, "command") as command, \
+                         mock.patch.object(smoke.time, "monotonic", side_effect=lambda: clock[0]), \
+                         mock.patch.object(smoke.time, "sleep", side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)):
+                        if index:
+                            self.assertEqual(smoke.wine_gui_probe(root / "bin/wine", prefix, env, destination)["status"], "passed")
+                        else:
+                            with self.assertRaisesRegex(RuntimeError, "Wine backend GUI probe failed"):
+                                smoke.wine_gui_probe(root / "bin/wine", prefix, env, destination)
+                        self.assertEqual(launch.call_args.kwargs["cwd"], prefix)
+                        probe_env = launch.call_args.kwargs["env"]
+                        self.assertEqual(probe_env["WINEPREFIX"], str(prefix))
+                        self.assertIn("dwmapi=b;", probe_env["WINEDLLOVERRIDES"])
+                        self.assertNotIn("dwmapi=n", probe_env["WINEDLLOVERRIDES"])
+                        cleanup = [call.args for call in command.call_args_list if "wineserver" in str(call.args[0][0])]
+                        self.assertEqual({call[0][1] for call in cleanup}, {"-k", "-w"})
+                    record = json.loads((destination / "wine-gui-probe.json").read_text())
+                    self.assertEqual(record["status"], "passed" if index else "failed")
+                    self.assertTrue((destination / record["window_history"]).is_file())
+
     def test_prefix_setup_runs_x64_webview_without_vc_bootstrap(self):
         with tempfile.TemporaryDirectory() as temp:
             work = Path(temp)
